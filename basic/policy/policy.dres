@@ -103,10 +103,8 @@ $audio_mode += { device: bta2dp          , default: bta2dp        }
 $audio_mode += { device: ihfandbthsp     , default: ihfandbtmono  }
 $audio_mode += { device: tvoutandbthsp   , default: btmono        }
 $audio_mode += { device: tvoutandbta2dp  , default: bta2dp        }
-$audio_mode += { device: ihfandheadset   , default: ihfandheadset ,   \
-                                           eci:     ihfandeci     }
-$audio_mode += { device: ihfandheadphone , default: ihfandlineout,    \
-                                           eci:     ihfandeci     }
+$audio_mode += { device: ihfandheadset   , default: ihfandheadset }
+$audio_mode += { device: ihfandheadphone , default: ihfandlineout }
 
 
 # audio output configuration
