@@ -60,6 +60,7 @@ $audio_device_accessible += { name: bta2dp       , driver: 0, connected: 0 }
 $audio_device_accessible += { name: incompatible , driver: 0, connected: 0 }
 
 $audio_device_selectable  = { name: null            , selectable: 1 }
+$audio_device_selectable += { name: ihfforcall      , selectable: 0 }
 $audio_device_selectable += { name: ihf             , selectable: 1 }
 $audio_device_selectable += { name: microphone      , selectable: 1 }
 $audio_device_selectable += { name: earpiece        , selectable: 1 }
@@ -69,7 +70,9 @@ $audio_device_selectable += { name: hacandtvout     , selectable: 0 }
 $audio_device_selectable += { name: tvout           , selectable: 0 }
 $audio_device_selectable += { name: ihfandtvout     , selectable: 0 }
 $audio_device_selectable += { name: headmike        , selectable: 0 }
+$audio_device_selectable += { name: headphoneforcall, selectable: 0 }
 $audio_device_selectable += { name: headphone       , selectable: 0 }
+$audio_device_selectable += { name: headsetforcall  , selectable: 0 }
 $audio_device_selectable += { name: headset         , selectable: 0 }
 $audio_device_selectable += { name: bthsp           , selectable: 0 }
 $audio_device_selectable += { name: bta2dp          , selectable: 0 }
@@ -83,6 +86,7 @@ $audio_device_selectable += { name: incompatible    , selectable: 0 }
 
 # audio modes for ECI detection
 $audio_mode  = { device: null            , default: null          }
+$audio_mode += { device: ihfforcall      , default: ihf           }
 $audio_mode += { device: ihf             , default: ihf           }
 $audio_mode += { device: earpiece        , default: hp            }
 $audio_mode += { device: hac             , default: hp            }
@@ -90,10 +94,10 @@ $audio_mode += { device: earpieceandtvout, default: hp            }
 $audio_mode += { device: hacandtvout     , default: hp            }
 $audio_mode += { device: tvout           , default: lineout       }
 $audio_mode += { device: ihfandtvout     , default:'ihfandtv-out' }
-$audio_mode += { device: headphone       , default: lineout       ,   \
-                                           eci:     eci           }
-$audio_mode += { device: headset         , default: hs            ,   \
-                                           eci:     eci           }
+$audio_mode += { device: headphoneforcall, default: lineout       }
+$audio_mode += { device: headphone       , default: lineout       }
+$audio_mode += { device: headsetforcall  , default: hs            }
+$audio_mode += { device: headset         , default: hs            }
 $audio_mode += { device: bthsp           , default: btmono        }
 $audio_mode += { device: bta2dp          , default: bta2dp        }
 $audio_mode += { device: ihfandbthsp     , default: ihfandbtmono  }
@@ -107,6 +111,8 @@ $audio_mode += { device: ihfandheadphone , default: ihfandlineout,    \
 
 # audio output configuration
 $audio_output_configuration  = { device: null           , mode: null         ,\
+			         hwid:na}
+$audio_output_configuration += { device: ihfforcall     , mode: ihf          ,\
 			         hwid:na}
 $audio_output_configuration += { device: ihf            , mode: ihf          ,\
 			         hwid:na}
@@ -122,7 +128,11 @@ $audio_output_configuration += { device: tvout          , mode: lineout      ,\
 			         hwid:na}
 $audio_output_configuration += { device: ihfandtvout    , mode:'ihfandtv-out',\
 			         hwid:na}
+$audio_output_configuration += { device: headphoneforcall,mode: lineout      ,\
+			         hwid:na}
 $audio_output_configuration += { device: headphone      , mode: lineout      ,\
+			         hwid:na}
+$audio_output_configuration += { device: headsetforcall , mode: hs           ,\
 			         hwid:na}
 $audio_output_configuration += { device: headset        , mode: hs           ,\
 			         hwid:na}
@@ -193,6 +203,7 @@ $audio_cork += { group: alwayson   , cork: uncorked }
 # muting
 $audio_mute    = { device: microphone    , mute: unmuted }
 $audio_mute   += { device: headmike      , mute: unmuted }
+$audio_mute   += { device: headsetforcall, mute: unmuted }
 $audio_mute   += { device: headset       , mute: unmuted }
 $audio_mute   += { device: bthsp         , mute: unmuted }
 $audio_mute   += { device: tvoutandbthsp , mute: unmuted }

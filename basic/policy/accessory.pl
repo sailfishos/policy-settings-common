@@ -134,6 +134,10 @@ selectable_audio_entry_list_elem(Accessory, Selectable, Elem) :-
     (twin_audio_device(Accessory, Twin, TwinDevice),
      accessible_audio(Twin),
      Elem = [selectable_audio, [name, TwinDevice], [selectable, Selectable]]
+    )
+    ;
+    (call_audio_device(Accessory, CallDevice),
+     Elem = [selectable_audio, [name, CallDevice], [selectable, Selectable]]
     ).
 
 %
@@ -231,7 +235,7 @@ affected_accessories_(Accessory, [H|T], ListAcc, List) :-
 %   1) B is A
 %   2) B is .*andA, or
 %   3) B is Aand*.
-%
+%   4) B is Aforcall
 
 is_affected_accessory(Accessory, Accessory).
 is_affected_accessory(Accessory, TwinAccessory) :-
@@ -242,6 +246,10 @@ is_affected_accessory(Accessory, TwinAccessory) :-
     Offs > 3,
     AndOffs is Offs - 3,
     sub_atom(TwinAccessory, AndOffs, 3, _, and).
+is_affected_accessory(Accessory, CallAccessory) :-
+    atom_length(Accessory, Len),
+    sub_atom(CallAccessory, 0, Len, 7, Accessory),
+    sub_atom(CallAccessory, Len, 7, 0, forcall).
 
 
 /*

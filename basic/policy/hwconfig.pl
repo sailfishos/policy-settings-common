@@ -13,7 +13,9 @@ audio_device(ihfandheadset).
 audio_device(ihfandheadphone).
 audio_device(bta2dp).
 audio_device(bthsp).
+audio_device(headsetforcall).
 audio_device(headset).
+audio_device(headphoneforcall).
 audio_device(headphone).
 audio_device(headmike).
 audio_device(ihfandtvout).
@@ -23,6 +25,7 @@ audio_device(earpieceandtvout).
 audio_device(hac).
 audio_device(earpiece).
 audio_device(microphone).
+audio_device(ihfforcall).
 audio_device(ihf).
 audio_device(null).
 
@@ -35,7 +38,9 @@ audio_device_type(sink  , ihfandheadset).
 audio_device_type(sink  , ihfandheadphone).
 audio_device_type(sink  , bta2dp).
 audio_device_type(sink  , bthsp).
+audio_device_type(sink  , headsetforcall).
 audio_device_type(sink  , headset).
+audio_device_type(sink  , headphoneforcall).
 audio_device_type(sink  , headphone).
 audio_device_type(sink  , ihfandtvout).
 audio_device_type(sink  , tvout).
@@ -43,6 +48,7 @@ audio_device_type(sink  , hacandtvout).
 audio_device_type(sink  , earpieceandtvout).
 audio_device_type(sink  , hac).
 audio_device_type(sink  , earpiece).
+audio_device_type(sink  , ihfforcall).
 audio_device_type(sink  , ihf).
 audio_device_type(sink  , null).
 audio_device_type(source, tvoutandbthsp).
@@ -59,7 +65,9 @@ audio_device_privacy(private, ihfandheadset).
 audio_device_privacy(private, ihfandheadphone).
 audio_device_privacy(private, bta2dp).
 audio_device_privacy(private, bthsp).
+audio_device_privacy(private, headsetforcall).
 audio_device_privacy(private, headset).
+audio_device_privacy(private, headphoneforcall).
 audio_device_privacy(private, headphone).
 audio_device_privacy(private, hacandtvout). 
 audio_device_privacy(private, earpieceandtvout). 
@@ -67,6 +75,7 @@ audio_device_privacy(private, hac).
 audio_device_privacy(private, earpiece).
 audio_device_privacy(public , ihfandtvout).
 audio_device_privacy(public , tvout).
+audio_device_privacy(public , ihfforcall).
 audio_device_privacy(public , ihf).
 audio_device_privacy(private, microphone).
 audio_device_privacy(public , microphone).
@@ -75,7 +84,9 @@ audio_device_privacy(private, headmike).
 accessory(incompatible).
 accessory(bta2dp).
 accessory(bthsp).
+accessory(headsetforcall).
 accessory(headset).
+accessory(headphoneforcall).
 accessory(headphone).
 accessory(tvout).
 accessory(headmike).
@@ -86,11 +97,17 @@ video_accessory(tvout).
 audio_accessory(incompatible).
 audio_accessory(bta2dp).
 audio_accessory(bthsp).
+audio_accessory(headsetforcall).
 audio_accessory(headset).
+audio_accessory(headphoneforcall).
 audio_accessory(headphone).
 audio_accessory(tvout).
 audio_accessory(headmike).
 audio_accessory(hac).
+
+call_audio_device(ihf,          ihfforcall).
+call_audio_device(headset,      headsetforcall).
+call_audio_device(headphone,    headphoneforcall).
 
 
 twin_video_device(builtinandtvout).

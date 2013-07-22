@@ -37,6 +37,16 @@ invalid_audio_device_choice(call, sink, Device) :-
     ((audio_route:privacy_override(public) ; implicated_privacy(public)) *-> Privacy=private ; Privacy=public),
     audio_device_privacy(Privacy, Device).
 
+% do not route *forcall if call is not active
+%
+invalid_audio_device_choice(Class, sink, ihfforcall) :-
+    not(Class = call).
+
+invalid_audio_device_choice(Class, sink, headsetforcall) :-
+    not(Class = call).
+
+invalid_audio_device_choice(Class, sink, headphoneforcall) :-
+    not(Class = call).
 
 %
 % if a call were active during navigation the call should determine the route
