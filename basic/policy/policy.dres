@@ -60,7 +60,7 @@ $audio_device_accessible += { name: bta2dp       , driver: 0, connected: 0 }
 $audio_device_accessible += { name: incompatible , driver: 0, connected: 0 }
 
 $audio_device_selectable  = { name: null            , selectable: 1 }
-$audio_device_selectable += { name: ihfforcall      , selectable: 0 }
+$audio_device_selectable += { name: ihfforcall      , selectable: 1 }
 $audio_device_selectable += { name: ihf             , selectable: 1 }
 $audio_device_selectable += { name: microphone      , selectable: 1 }
 $audio_device_selectable += { name: earpiece        , selectable: 1 }
