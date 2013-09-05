@@ -54,6 +54,7 @@ audio_device_type(sink  , null).
 audio_device_type(source, tvoutandbthsp).
 audio_device_type(source, bthsp).
 audio_device_type(source, headset).
+audio_device_type(source, headsetforcall).
 audio_device_type(source, headmike).
 audio_device_type(source, microphone).
 
