@@ -16,7 +16,7 @@ accessory_exclude( bta2dp,          headset              ).
 accessory_exclude( bta2dp,          headphone            ).
 accessory_exclude( bta2dp,          headsetforcall       ).
 accessory_exclude( bta2dp,          headphoneforcall     ).
-accessory_exclude( bta2dp,          hac                  ).
+accessory_exclude( bta2dp,          ihfforcall           ).
 
 %
 % *** bthsp ***
@@ -31,8 +31,8 @@ accessory_exclude( bthsp,           headset             ).
 accessory_exclude( bthsp,           headphone           ).
 accessory_exclude( bthsp,           headsetforcall      ).
 accessory_exclude( bthsp,           headphoneforcall    ).
+accessory_exclude( bthsp,           ihfforcall          ).
 accessory_exclude( bthsp,           headmike            ).
-accessory_exclude( bthsp,           hac                 ).
 
 %
 % *** headset ***
@@ -47,7 +47,6 @@ accessory_exclude( headset, bthsp     ).
 accessory_exclude( headset, headphone ).
 accessory_exclude( headset, tvout     ).
 accessory_exclude( headset, headmike  ).
-accessory_exclude( headset, hac       ).
 
 %
 % *** headphone ***
@@ -62,7 +61,6 @@ accessory_exclude( headphone, bthsp    ).
 accessory_exclude( headphone, headset  ).
 accessory_exclude( headphone, tvout    ).
 accessory_exclude( headphone, headmike ).
-accessory_exclude( headphone, hac      ).
 
 %
 % *** tvout ***
@@ -70,7 +68,6 @@ accessory_exclude( headphone, hac      ).
 % accessories that can coexists:
 %   - bta2dp
 %   - bthsp
-%   - hac
 %
 % accessories that can coexists:
 %   
@@ -84,25 +81,10 @@ accessory_exclude( tvout, headmike  ).
 % accessories that can coexists:
 %   - bta2dp
 %   - bthsp
-%   - hac
 %
 % accessories that can coexists:
 %   
 accessory_exclude( headmike, headset   ).
 accessory_exclude( headmike, headphone ).
 accessory_exclude( headmike, tvout     ).
-
-%
-% *** hac ***
-%
-% accessories that can coexists:
-%   - tvout
-%   - headmike
-%
-% accessories that can coexists:
-%   
-accessory_exclude( hac, bta2dp    ).
-accessory_exclude( hac, bthsp     ).
-accessory_exclude( hac, headset   ).
-accessory_exclude( hac, headphone ).
 

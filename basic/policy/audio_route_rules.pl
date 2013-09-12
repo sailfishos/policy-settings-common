@@ -56,18 +56,12 @@ invalid_audio_device_choice(navigator, sink, Device) :-
     invalid_audio_device_choice(call, sink, Device).
 
 %
-% do not route video call to earpiece or hac
+% do not route video call to earpiece
 %
 invalid_audio_device_choice(call, sink, earpiece) :-
     resource:resource_owner(video_playback, call).
 
 invalid_audio_device_choice(call, sink, earpieceandtvout) :-
-    resource:resource_owner(video_playback, call).
-
-invalid_audio_device_choice(call, sink, hac) :-
-    resource:resource_owner(video_playback, call).
-
-invalid_audio_device_choice(call, sink, hacandtvout) :-
     resource:resource_owner(video_playback, call).
 
 
@@ -81,18 +75,12 @@ invalid_audio_device_choice(ringtone, sink, Device) :-
 
 
 %
-% do not route anything to earpiece or hac if we had no active call 
+% do not route anything to earpiece if we had no active call 
 %
 invalid_audio_device_choice(_, sink, earpiece) :-
     not(resource:granted_resource(call, audio_playback)).
 
 invalid_audio_device_choice(_, sink, earpieceandtvout) :-
-    not(resource:granted_resource(call, audio_playback)).
-
-invalid_audio_device_choice(_, sink, hac) :-
-    not(resource:granted_resource(call, audio_playback)).
-
-invalid_audio_device_choice(_, sink, hacandtvout) :-
     not(resource:granted_resource(call, audio_playback)).
 
 

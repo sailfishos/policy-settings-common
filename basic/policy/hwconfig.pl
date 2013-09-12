@@ -20,9 +20,7 @@ audio_device(headphone).
 audio_device(headmike).
 audio_device(ihfandtvout).
 audio_device(tvout).
-audio_device(hacandtvout).
 audio_device(earpieceandtvout).
-audio_device(hac).
 audio_device(earpiece).
 audio_device(microphone).
 audio_device(ihfforcall).
@@ -44,9 +42,7 @@ audio_device_type(sink  , headphoneforcall).
 audio_device_type(sink  , headphone).
 audio_device_type(sink  , ihfandtvout).
 audio_device_type(sink  , tvout).
-audio_device_type(sink  , hacandtvout).
 audio_device_type(sink  , earpieceandtvout).
-audio_device_type(sink  , hac).
 audio_device_type(sink  , earpiece).
 audio_device_type(sink  , ihfforcall).
 audio_device_type(sink  , ihf).
@@ -70,9 +66,7 @@ audio_device_privacy(private, headsetforcall).
 audio_device_privacy(private, headset).
 audio_device_privacy(private, headphoneforcall).
 audio_device_privacy(private, headphone).
-audio_device_privacy(private, hacandtvout). 
 audio_device_privacy(private, earpieceandtvout). 
-audio_device_privacy(private, hac).
 audio_device_privacy(private, earpiece).
 audio_device_privacy(public , ihfandtvout).
 audio_device_privacy(public , tvout).
@@ -91,7 +85,6 @@ accessory(headphoneforcall).
 accessory(headphone).
 accessory(tvout).
 accessory(headmike).
-accessory(hac).
 
 video_accessory(tvout).
 
@@ -104,7 +97,6 @@ audio_accessory(headphoneforcall).
 audio_accessory(headphone).
 audio_accessory(tvout).
 audio_accessory(headmike).
-audio_accessory(hac).
 
 call_audio_device(ihf,          ihfforcall).
 call_audio_device(headset,      headsetforcall).
@@ -116,18 +108,18 @@ twin_video_device(builtinandtvout).
 twin_video_device(tvout, builtinandtvout).
 
 %
-% NOTE: the tvoutandbta2dp, tvoutandbthsp, hacandtvout and earpieceandtvout is
-%       not really an audio twin device, since audio goes to bta2dp, bthsp, hac
+% NOTE: the tvoutandbta2dp, tvoutandbthsp, and earpieceandtvout is
+%       not really an audio twin device, since audio goes to bta2dp, bthsp,
 %       or earpiece while the video goes to tvout. It is needed since
 %       'Jack function' in ALSA should be set to TVOUT in order to get
 %       video connected internally to jack.
 %
-%       The uggly hack is that tvoutbta2dp, tvoutbthsp, hacandtvout and
+%       The uggly hack is that tvoutbta2dp, tvoutbthsp, and
 %       earpieceandtvout are not among the twin_audio_devices/1, that is used
 %       in audio_route_rules.pl to rule out the invalid device choices.
 %       However, they are among the twin_audio_devices/3, that is used to set
 %       the selectable accessories (i.e. when tvout is connected the
-%       hacandtvout and earpieceandtvout become also selectable).
+%       earpieceandtvout become also selectable).
 % 
 
 twin_audio_device(ihfandheadset).
@@ -143,7 +135,6 @@ twin_audio_device(headset   , ihf     , ihfandheadset).
 twin_audio_device(headphone , ihf     , ihfandheadphone).
 twin_audio_device(bthsp     , ihf     , ihfandbthsp).
 twin_audio_device(tvout     , ihf     , ihfandtvout).
-twin_audio_device(tvout     , hac     , hacandtvout).      % not really a twin
 twin_audio_device(tvout     , earpiece, earpieceandtvout). % not really a twin
 
 

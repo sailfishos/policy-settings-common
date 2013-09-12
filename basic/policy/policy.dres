@@ -50,7 +50,6 @@ $audio_device_accessible  = { name: null         , driver: 1, connected: 1 }
 $audio_device_accessible += { name: ihf          , driver: 1, connected: 1 }
 $audio_device_accessible += { name: microphone   , driver: 1, connected: 1 }
 $audio_device_accessible += { name: earpiece     , driver: 1, connected: 1 }
-$audio_device_accessible += { name: hac          , driver: 1, connected: 0 }
 $audio_device_accessible += { name: tvout        , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headmike     , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headphone    , driver: 1, connected: 0 }
@@ -64,9 +63,7 @@ $audio_device_selectable += { name: ihfforcall      , selectable: 1 }
 $audio_device_selectable += { name: ihf             , selectable: 1 }
 $audio_device_selectable += { name: microphone      , selectable: 1 }
 $audio_device_selectable += { name: earpiece        , selectable: 1 }
-$audio_device_selectable += { name: hac             , selectable: 0 }
 $audio_device_selectable += { name: earpieceandtvout, selectable: 0 }
-$audio_device_selectable += { name: hacandtvout     , selectable: 0 }
 $audio_device_selectable += { name: tvout           , selectable: 0 }
 $audio_device_selectable += { name: ihfandtvout     , selectable: 0 }
 $audio_device_selectable += { name: headmike        , selectable: 0 }
@@ -89,9 +86,7 @@ $audio_mode  = { device: null            , default: null          }
 $audio_mode += { device: ihfforcall      , default: ihf           }
 $audio_mode += { device: ihf             , default: ihf           }
 $audio_mode += { device: earpiece        , default: hp            }
-$audio_mode += { device: hac             , default: hp            }
 $audio_mode += { device: earpieceandtvout, default: hp            }
-$audio_mode += { device: hacandtvout     , default: hp            }
 $audio_mode += { device: tvout           , default: lineout       }
 $audio_mode += { device: ihfandtvout     , default:'ihfandtv-out' }
 $audio_mode += { device: headphoneforcall, default: lineout       }
@@ -116,11 +111,7 @@ $audio_output_configuration += { device: ihf            , mode: ihf          ,\
 			         hwid:na}
 $audio_output_configuration += { device: earpiece       , mode: hp           ,\
 			         hwid:na} 
-$audio_output_configuration += { device: hac            , mode: hp           ,\
-			         hwid:na}
 $audio_output_configuration += { device: earpieceandtvout,mode: hp           ,\
-			         hwid:na}
-$audio_output_configuration += { device: hacandtvout    , mode: hp           ,\
 			         hwid:na}
 $audio_output_configuration += { device: tvout          , mode: lineout      ,\
 			         hwid:na}
