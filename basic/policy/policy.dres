@@ -71,6 +71,8 @@ $audio_device_selectable += { name: headphoneforcall, selectable: 0 }
 $audio_device_selectable += { name: headphone       , selectable: 0 }
 $audio_device_selectable += { name: headsetforcall  , selectable: 0 }
 $audio_device_selectable += { name: headset         , selectable: 0 }
+$audio_device_selectable += { name: bthspforcall    , selectable: 0 }
+#$audio_device_selectable += { name: bthspforcall    , selectable: 1 }
 $audio_device_selectable += { name: bthsp           , selectable: 0 }
 $audio_device_selectable += { name: bta2dp          , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadset   , selectable: 0 }
@@ -93,6 +95,7 @@ $audio_mode += { device: headphoneforcall, default: lineout       }
 $audio_mode += { device: headphone       , default: lineout       }
 $audio_mode += { device: headsetforcall  , default: hs            }
 $audio_mode += { device: headset         , default: hs            }
+$audio_mode += { device: bthspforcall    , default: btmono        }
 $audio_mode += { device: bthsp           , default: btmono        }
 $audio_mode += { device: bta2dp          , default: bta2dp        }
 $audio_mode += { device: ihfandbthsp     , default: ihfandbtmono  }
@@ -125,6 +128,8 @@ $audio_output_configuration += { device: headsetforcall , mode: hs           ,\
 			         hwid:na}
 $audio_output_configuration += { device: headset        , mode: hs           ,\
 			         hwid:na}
+$audio_output_configuration += { device: bthspforcall   , mode: btmono       ,\
+			         hwid:na }
 $audio_output_configuration += { device: bthsp          , mode: btmono       ,\
 			         hwid:na }
 $audio_output_configuration += { device: bta2dp         , mode: bta2dp       ,\
@@ -194,6 +199,7 @@ $audio_mute    = { device: microphone    , mute: unmuted }
 $audio_mute   += { device: headmike      , mute: unmuted }
 $audio_mute   += { device: headsetforcall, mute: unmuted }
 $audio_mute   += { device: headset       , mute: unmuted }
+$audio_mute   += { device: bthspforcall  , mute: unmuted }
 $audio_mute   += { device: bthsp         , mute: unmuted }
 $audio_mute   += { device: tvoutandbthsp , mute: unmuted }
 
@@ -361,6 +367,7 @@ active_ui_change_request:
 
 bthsp_start_audio:
 	$audio_output_configuration[device:bthsp]:hwid = &hwid
+	$audio_output_configuration[device:bthspforcall]:hwid = &hwid
 	$audio_output_configuration[device:ihfandbthsp]:hwid = &hwid
 	$audio_output_configuration[device:tvoutandbthsp]:hwid = &hwid
 
@@ -373,6 +380,7 @@ bthsp_stop_audio:
 bthsp_disconnect:
 	# unset the HSP/HFP flag
 	$audio_output_configuration[device:bthsp]:hwid = na
+	$audio_output_configuration[device:bthspforcall]:hwid = na
 	$audio_output_configuration[device:ihfandbthsp]:hwid = na
 	$audio_output_configuration[device:tvoutandbthsp]:hwid = na
 

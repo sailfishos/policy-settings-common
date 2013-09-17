@@ -16,7 +16,7 @@ accessory_exclude( bta2dp,          headset              ).
 accessory_exclude( bta2dp,          headphone            ).
 accessory_exclude( bta2dp,          headsetforcall       ).
 accessory_exclude( bta2dp,          headphoneforcall     ).
-accessory_exclude( bta2dp,          ihfforcall           ).
+%accessory_exclude( bta2dp,          ihfforcall           ).
 
 %
 % *** bthsp ***
@@ -31,7 +31,7 @@ accessory_exclude( bthsp,           headset             ).
 accessory_exclude( bthsp,           headphone           ).
 accessory_exclude( bthsp,           headsetforcall      ).
 accessory_exclude( bthsp,           headphoneforcall    ).
-accessory_exclude( bthsp,           ihfforcall          ).
+%accessory_exclude( bthsp,           ihfforcall          ).
 accessory_exclude( bthsp,           headmike            ).
 
 %

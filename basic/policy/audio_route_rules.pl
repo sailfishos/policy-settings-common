@@ -48,6 +48,12 @@ invalid_audio_device_choice(Class, sink, headsetforcall) :-
 invalid_audio_device_choice(Class, sink, headphoneforcall) :-
     not(Class = call).
 
+invalid_audio_device_choice(Class, sink, bthspforcall) :-
+    not(Class = call).
+
+invalid_audio_device_choice(Class, source, bthspforcall) :-
+    not(Class = call).
+
 %
 % if a call were active during navigation the call should determine the route
 %
