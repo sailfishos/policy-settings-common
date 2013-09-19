@@ -22,9 +22,11 @@ call_state(active) :-
  	telephony:has_active_video_call,!;
 	telephony:has_held_call,!.
 
-call_state(ringing) :-
- 	telephony:has_alerting_call,!;		% # incoming created call
- 	telephony:has_outgoing_call,!.		% # outgoing created call
+call_state(incoming) :-
+	telephony:has_alerting_call,!.      % # incoming created call
+
+call_state(outgoing) :-
+	telephony:has_outgoing_call,!.      % # outgoing created call
 
 call_state(inactive) :- 
 % #	\+call_state(active),	% # Commented out unnecessary checks. active and 

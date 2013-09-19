@@ -54,6 +54,12 @@ invalid_audio_device_choice(Class, sink, bthspforcall) :-
 invalid_audio_device_choice(Class, source, bthspforcall) :-
     not(Class = call).
 
+% do not route bta2dp when call is incoming or outgoing
+%invalid_audio_device_choice(call, sink, bta2dp) :-
+%    telephony:has_alerting_call,!;      % # incoming created call
+%    telephony:has_outgoing_call,!.      % # outgoing created call
+
+
 %
 % if a call were active during navigation the call should determine the route
 %
