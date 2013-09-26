@@ -226,6 +226,9 @@ $mute  = { default_value: 0, value: 0 }
 # override route privacy value to enable public routes during call
 $privacy_override = { default_value: default, value: default }
 
+# override audio route from bluetooth to other devices
+$bluetooth_override = { default_value: default, value: default }
+
 #
 # we always need at least one enforcement point
 # (workaround for a resolver factstore tracking buglet/feature...)
@@ -257,7 +260,7 @@ video_route: $video_device_selectable $gconf
 	$video_route = prolog(set_video_routes)
 
 audio_route: $audio_device_selectable $audio_output_configuration \
-             $resource_owner $privacy_override
+             $resource_owner $privacy_override $bluetooth_override
 	$privacy[stage]    |= prolog(set_audio_privacy, previous)
 	$audio_route[type] |= prolog(set_audio_routes)
 	$privacy[stage]    |= prolog(set_audio_privacy, current)
@@ -291,6 +294,17 @@ privacy_override_request:
 
 privacy_override_reset:
 	$privacy_override:value = $privacy_override:default_value
+
+bluetooth_override_request:
+	if &bluetooth_override_state == 'disconnected' || &bluetooth_override_state == 'default' then
+		$bluetooth_override:value = $bluetooth_override:default_value
+	else
+		$bluetooth_override:value = &bluetooth_override_state
+	end
+	resolve(all)
+
+reset_bluetooth_override:
+	$bluetooth_override:value = $bluetooth_override:default_value
 
 actions: audio_actions video_actions vibra_actions backlight_actions
 
@@ -389,7 +403,7 @@ bthsp_connect:
 
 
 # first call hook
-telephony_first_call_hook: audio_mute_reset privacy_override_reset
+telephony_first_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
 	#$mode[foo] = prolog(update_mode, telephony)
 
 # last call hook
@@ -404,7 +418,7 @@ telephony_call_start_hook:
 telephony_local_hungup_hook:
 
 # call end hook
-telephony_call_end_hook: audio_mute_reset privacy_override_reset
+telephony_call_end_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
 
 # call connect hook (call locally accepted)
 telephony_call_connect_hook:

@@ -1,4 +1,4 @@
-:- module(audio_route, [set_audio_routes/1, set_audio_privacy/2, get_route/2, privacy_override/1]).
+:- module(audio_route, [set_audio_routes/1, set_audio_privacy/2, get_route/2, privacy_override/1, bluetooth_override/1]).
 
 rules([set_audio_routes/1, set_audio_privacy/2]).
 
@@ -85,4 +85,8 @@ current_route(DeviceType, Where) :-
 
 privacy_override(A) :-
     fact_exists('com.nokia.policy.privacy_override', [value], [A]),
+    not(A = default).
+
+bluetooth_override(A) :-
+    fact_exists('com.nokia.policy.bluetooth_override', [value], [A]),
     not(A = default).

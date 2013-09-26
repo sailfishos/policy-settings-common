@@ -54,6 +54,13 @@ invalid_audio_device_choice(Class, sink, bthspforcall) :-
 invalid_audio_device_choice(Class, source, bthspforcall) :-
     not(Class = call).
 
+%
+% Do not route to bthspforcall if bluetooth_override is active, that is, anything but default.
+%
+invalid_audio_device_choice(call, _, bthspforcall) :-
+    audio_route:bluetooth_override(A),
+    not(A = default).
+
 % do not route bta2dp when call is incoming or outgoing
 %invalid_audio_device_choice(call, sink, bta2dp) :-
 %    telephony:has_alerting_call,!;      % # incoming created call
@@ -108,6 +115,11 @@ invalid_audio_device_choice(Class, sink, TwinDevice) :-
 %
 invalid_audio_device_choice(call, _, bta2dp).
 invalid_audio_device_choice(call, _, tvoutandbta2dp).
+%
+% do not route calls to regular bthsp
+%
+invalid_audio_device_choice(call, _, bthsp).
+invalid_audio_device_choice(call, _, tvoutandbthsp).
 
 %
 % never route anyting to headmike
