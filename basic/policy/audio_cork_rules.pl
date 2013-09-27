@@ -29,9 +29,9 @@ cork( call       , videoeditor, uncorked).
 cork( call       , camera     , uncorked).
 cork( call       , ringtone   , uncorked).
 cork( call       , alarm      , uncorked).
-cork( call       , game       , uncorked).
-cork( call       , player     , uncorked).
-cork( call       , flash      , uncorked).
+cork( call       , game       , corked  ).
+cork( call       , player     , corked  ).
+cork( call       , flash      , corked  ).
 cork( call       , event      , uncorked).
 cork( call       , systemsound, uncorked).
 cork( call       , feedbacksound, uncorked).
@@ -89,7 +89,7 @@ cork( ringtone   , videoeditor, uncorked).
 cork( ringtone   , camera     , uncorked).
 cork( ringtone   , ringtone   , uncorked).
 cork( ringtone   , alarm      , uncorked).
-cork( ringtone   , game       , uncorked).
+cork( ringtone   , game       , corked  ).
 cork( ringtone   , player     , corked  ).
 cork( ringtone   , flash      , uncorked).
 cork( ringtone   , event      , uncorked).

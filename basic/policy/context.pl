@@ -9,8 +9,8 @@ rules([update_contexts/1]).
 % #
 
 update_contexts(ContextList) :-
-    findall(X,context_variable(call,X),ContextList).	
-	
+	findall(X, context_variable(_,X), ContextList).
+
 % #############################################################################
 % # com.nokia.policy.context (   variable = "call",                           #
 % #                              value = [active|ringing|inactive] )          #   
@@ -33,10 +33,30 @@ call_state(inactive) :-
 % # \+call_state(ringing),	% # ringing have already been checked as false.
 	!.
 
+call_state_all(any) :-
+	call_state(active) ;
+	call_state(incoming) ;
+	call_state(outgoing),!.
+
+bt_override(any) :-
+	audio_route:bluetooth_override(A),
+	not(A = default).
+
+bluetooth_override_state(Value) :-
+	(call_state_all(any) *->
+		(bt_override(any) *-> Value=active ; Value=inactive) ;
+		Value=disabled).
+
 % # call context predicate
 context_variable(call, Entry) :-
 	call_state(State),
 	set_context_variable_and_value(call, State, Entry).
+
+% bluetooth_override context value
+context_variable(bluetooth_override, Entry) :-
+	bluetooth_override_state(State),
+	set_context_variable_and_value(bluetooth_override, State, Entry).
+
 
 
 % #############################################################################

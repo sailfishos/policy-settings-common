@@ -213,7 +213,8 @@ $vibra_mute += { group: event, mute: unmuted }
 $backlight   = { state: off }
 
 # contexts
-$context   = { variable: call           ,  value: inactive }
+$context   = { variable: call                   ,  value: inactive }
+$context   = { variable: bluetooth_override     ,  value: disabled }  # disabled - active - inactive
 #$context   = { variable: call_audio_type,  value: none     }
 #$context   = { variable: camera         ,  value: inactive }
 
@@ -439,8 +440,10 @@ telephony_sending_dialstring:
 telephony_stopped_dialstring:
 
 
-# context variable:call depends on com.nokia.policy.call ($call) changes
-context: $call
+# context variables:
+# call                  - com.nokia.policy.call ($call) changes
+# bluetooth_override    - com.nokia.policy.bluetooth_override ($bluetooth_override) changes
+context: $call $bluetooth_override
 	$context[variable] |= prolog(update_contexts)
 
 # block resolving if any policy plugin is not ready
