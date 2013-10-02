@@ -30,7 +30,7 @@ cork( call       , camera     , uncorked).
 cork( call       , ringtone   , uncorked).
 cork( call       , alarm      , uncorked).
 cork( call       , game       , corked  ).
-cork( call       , player     , corked  ).
+cork( call       , player     , uncorked).
 cork( call       , flash      , corked  ).
 cork( call       , event      , uncorked).
 cork( call       , systemsound, uncorked).
@@ -90,7 +90,7 @@ cork( ringtone   , camera     , uncorked).
 cork( ringtone   , ringtone   , uncorked).
 cork( ringtone   , alarm      , uncorked).
 cork( ringtone   , game       , corked  ).
-cork( ringtone   , player     , corked  ).
+cork( ringtone   , player     , uncorked).
 cork( ringtone   , flash      , uncorked).
 cork( ringtone   , event      , uncorked).
 cork( ringtone   , systemsound, uncorked).
