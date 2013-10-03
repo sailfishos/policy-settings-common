@@ -87,6 +87,13 @@ volume_limit( ringtone  ,  navigator  , 100  ).
 volume_limit( ringtone  ,  call       , 100  ).
 volume_limit( ringtone  ,  videoeditor, 100  ).
 volume_limit( ringtone  ,  camera     , 100  ).
+
+% Protection against excessive sound pressure from headset during ringtone.
+% Limit volume to 77(-6.81 dB) if ringtone has been set to high volume.
+volume_limit( ringtone  ,  ringtone   , 77) :-
+	audio_route:get_route(sink, ihfandheadphone),!;
+	audio_route:get_route(sink, ihfandheadset),!.
+
 volume_limit( ringtone  ,  ringtone   , 100  ).
 volume_limit( ringtone  ,  alarm      , 0    ).
 volume_limit( ringtone  ,  game       , 0    ).
