@@ -46,22 +46,24 @@ $video_device_selectable += { name: builtin        , selectable: 1 }
 $video_route = { device: builtin, tvstandard: pal, aspectratio: normal }
 
 # audio devices
-$audio_device_accessible  = { name: null         , driver: 1, connected: 1 }
-$audio_device_accessible += { name: ihf          , driver: 1, connected: 1 }
-$audio_device_accessible += { name: microphone   , driver: 1, connected: 1 }
-$audio_device_accessible += { name: earpiece     , driver: 1, connected: 1 }
-$audio_device_accessible += { name: tvout        , driver: 1, connected: 0 }
-$audio_device_accessible += { name: headmike     , driver: 1, connected: 0 }
-$audio_device_accessible += { name: headphone    , driver: 1, connected: 0 }
-$audio_device_accessible += { name: headset      , driver: 1, connected: 0 }
-$audio_device_accessible += { name: bthsp        , driver: 0, connected: 0 }
-$audio_device_accessible += { name: bta2dp       , driver: 0, connected: 0 }
-$audio_device_accessible += { name: incompatible , driver: 0, connected: 0 }
+$audio_device_accessible  = { name: null          , driver: 1, connected: 1 }
+$audio_device_accessible += { name: ihf           , driver: 1, connected: 1 }
+$audio_device_accessible += { name: microphone    , driver: 1, connected: 1 }
+$audio_device_accessible += { name: backmicrophone, driver: 1, connected: 1 }
+$audio_device_accessible += { name: earpiece      , driver: 1, connected: 1 }
+$audio_device_accessible += { name: tvout         , driver: 1, connected: 0 }
+$audio_device_accessible += { name: headmike      , driver: 1, connected: 0 }
+$audio_device_accessible += { name: headphone     , driver: 1, connected: 0 }
+$audio_device_accessible += { name: headset       , driver: 1, connected: 0 }
+$audio_device_accessible += { name: bthsp         , driver: 0, connected: 0 }
+$audio_device_accessible += { name: bta2dp        , driver: 0, connected: 0 }
+$audio_device_accessible += { name: incompatible  , driver: 0, connected: 0 }
 
 $audio_device_selectable  = { name: null            , selectable: 1 }
 $audio_device_selectable += { name: ihfforcall      , selectable: 1 }
 $audio_device_selectable += { name: ihf             , selectable: 1 }
 $audio_device_selectable += { name: microphone      , selectable: 1 }
+$audio_device_selectable += { name: backmicrophone  , selectable: 1 }
 $audio_device_selectable += { name: earpiece        , selectable: 1 }
 $audio_device_selectable += { name: earpieceandtvout, selectable: 0 }
 $audio_device_selectable += { name: tvout           , selectable: 0 }
@@ -196,6 +198,7 @@ $audio_cork += { group: alwayson   , cork: uncorked }
 
 # muting
 $audio_mute    = { device: microphone    , mute: unmuted }
+$audio_mute   += { device: backmicrophone, mute: unmuted }
 $audio_mute   += { device: headmike      , mute: unmuted }
 $audio_mute   += { device: headsetforcall, mute: unmuted }
 $audio_mute   += { device: headset       , mute: unmuted }

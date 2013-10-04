@@ -138,4 +138,11 @@ invalid_audio_device_choice(_, source, tvoutandbthsp) :-
 invalid_audio_device_choice(_, source, headset) :-
     not(audio_route:get_route(sink, headset)).
 
+%
+% do not route microphone to camera if video and audio recording are on.
+% backmicrophone will be used instead.
+invalid_audio_device_choice(camera, source, microphone) :-
+    resource:granted_resource(camera, audio_recording),
+    resource:granted_resource(camera, video_recording).
+
 invalid_audio_device_choice(_, _, incompatible).

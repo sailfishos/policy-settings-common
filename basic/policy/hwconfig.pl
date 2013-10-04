@@ -24,6 +24,7 @@ audio_device(tvout).
 audio_device(earpieceandtvout).
 audio_device(earpiece).
 audio_device(microphone).
+audio_device(backmicrophone).
 audio_device(ihfforcall).
 audio_device(ihf).
 audio_device(null).
@@ -56,6 +57,7 @@ audio_device_type(source, headset).
 audio_device_type(source, headsetforcall).
 audio_device_type(source, headmike).
 audio_device_type(source, microphone).
+audio_device_type(source, backmicrophone).
 
 audio_device_privavy(private, incompatible).
 audio_device_privacy(private, tvoutandbta2dp).
@@ -78,6 +80,8 @@ audio_device_privacy(public , ihfforcall).
 audio_device_privacy(public , ihf).
 audio_device_privacy(private, microphone).
 audio_device_privacy(public , microphone).
+audio_device_privacy(private, backmicrophone).
+audio_device_privacy(public , backmicrophone).
 audio_device_privacy(private, headmike).
 
 accessory(incompatible).
