@@ -13,6 +13,7 @@ resource_class_privacy(player     , public).
 resource_class_privacy(implicit   , public).
 resource_class_privacy(event      , public).
 resource_class_privacy(background , public).
+resource_class_privacy(alien      , public).
 resource_class_privacy(nobody     , public).
 
 /*

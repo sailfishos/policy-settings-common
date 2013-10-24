@@ -21,6 +21,8 @@ audio_type( sink  ,     implicit   ).
 audio_type( source,     implicit   ).
 audio_type( sink  ,     event      ).
 audio_type( sink  ,     background ).
+audio_type( sink  ,     alien      ).
+audio_type( source,     alien      ).
 audio_type( sink  ,     nobody     ).
 audio_type( source,     nobody     ).
 
@@ -47,6 +49,7 @@ audio_group(systemsound). % Desktop sounds etc
 audio_group(feedbacksound).  % UI sounds, pulldown sounds
 audio_group(inputsound).  % Key presses, touchscreen sounds
 audio_group(background).  % UI and sound-less rendering
+audio_group(alien).       % alien applications
 audio_group(idle).        % If nothing runs this is active
 
 
@@ -79,6 +82,7 @@ audio_group_type( event   ,   systemsound).
 audio_group_type( event   ,   feedbacksound).
 audio_group_type( event   ,   inputsound ).
 audio_group_type( resource,   background ).
+audio_group_type( resource,   alien      ).
 audio_group_type( internal,   idle       ).
 
 /******************************************************
@@ -101,6 +105,7 @@ audio_group_resource_class(   player     ,   flash      ).
 audio_group_resource_class(   player     ,   othermedia ).
 audio_group_resource_class(   event      ,   event      ).
 audio_group_resource_class(   background ,   background ).
+audio_group_resource_class(   alien      ,   alien      ).
 audio_group_resource_class(   nobody     ,   idle       ).
 
 

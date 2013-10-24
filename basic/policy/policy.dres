@@ -172,6 +172,7 @@ $volume_limit += { group: videoeditor, limit: 100 }
 $volume_limit += { group: call       , limit: 100 }
 $volume_limit += { group: navigator  , limit: 100 }
 $volume_limit += { group: cstone     , limit: 100 }
+$volume_limit += { group: alien      , limit: 100 }
 $volume_limit += { group: nonsilent  , limit: 100 }
 $volume_limit += { group: alwayson   , limit: 100 }
 
@@ -193,6 +194,7 @@ $audio_cork += { group: videoeditor, cork: uncorked }
 $audio_cork += { group: call       , cork: uncorked }
 $audio_cork += { group: navigator  , cork: uncorked }
 $audio_cork += { group: cstone     , cork: uncorked }
+$audio_cork += { group: alien      , cork: uncorked }
 $audio_cork += { group: nonsilent  , cork: uncorked }
 $audio_cork += { group: alwayson   , cork: uncorked }
 

@@ -51,6 +51,7 @@ resource_class(player).      % Madia players, browser embedded flash, fmradio
 resource_class(implicit).    % Everything else (i.e. default class)
 resource_class(event).       % Messages (SMS, Chat etc), network events etc
 resource_class(background).  % UI and sound-less rendering
+resource_class(alien).       % alien applications
 resource_class(nobody).      % Lowest priority class
 
 
@@ -71,7 +72,8 @@ resource_class_priority( player     ,  8 ).
 resource_class_priority( implicit   ,  9 ).
 resource_class_priority( event      , 10 ).
 resource_class_priority( background , 11 ).
-resource_class_priority( nobody     , 12 ).
+resource_class_priority( alien      , 12 ).
+resource_class_priority( nobody     , 13 ).
 
 /****************************************************************************
  *
@@ -93,6 +95,7 @@ resource_class_sharing( player      ,          0   ).   % none
 resource_class_sharing( implicit    ,          0   ).   % none
 resource_class_sharing( event       ,          1   ).   % AudioPlayback
 resource_class_sharing( background  ,          0   ).   % none
+resource_class_sharing( alien       ,          0   ).   % none
 resource_class_sharing( nobody      ,          0   ).   % none
 
 
@@ -115,6 +118,7 @@ valid_resource_class( audio_playback ,    player      ).
 valid_resource_class( audio_playback ,    implicit    ).
 valid_resource_class( audio_playback ,    event       ).
 valid_resource_class( audio_playback ,    background  ).
+valid_resource_class( audio_playback ,    alien       ).
 
 valid_resource_class( video_playback ,    navigator   ).
 valid_resource_class( video_playback ,    call        ).
@@ -124,6 +128,7 @@ valid_resource_class( video_playback ,    game        ).
 valid_resource_class( video_playback ,    player      ).
 valid_resource_class( video_playback ,    implicit    ).
 valid_resource_class( video_playback ,    background  ).
+valid_resource_class( video_playback ,    alien       ).
 
 valid_resource_class( audio_recording,    call        ).
 valid_resource_class( audio_recording,    videoeditor ).
@@ -131,11 +136,13 @@ valid_resource_class( audio_recording,    camera      ).
 valid_resource_class( audio_recording,    player      ).
 valid_resource_class( audio_recording,    implicit    ).
 valid_resource_class( audio_recording,    background  ).
+valid_resource_class( audio_recording,    alien       ).
 
 valid_resource_class( video_recording,    videoeditor ).
 valid_resource_class( video_recording,    camera      ).
 valid_resource_class( video_recording,    implicit    ).
 valid_resource_class( video_recording,    background  ).
+valid_resource_class( video_recording,    alien       ).
 
 valid_resource_class( vibra          ,    proclaimer  ).
 valid_resource_class( vibra          ,    navigator   ).
@@ -148,6 +155,7 @@ valid_resource_class( vibra          ,    player      ).
 valid_resource_class( vibra          ,    implicit    ).
 valid_resource_class( vibra          ,    event       ).
 valid_resource_class( vibra          ,    background  ).
+valid_resource_class( vibra          ,    alien       ).
 valid_resource_class( vibra          ,    nobody      ).
 
 valid_resource_class( leds           ,    proclaimer  ).
@@ -161,6 +169,7 @@ valid_resource_class( leds           ,    player      ).
 valid_resource_class( leds           ,    implicit    ).
 valid_resource_class( leds           ,    event       ).
 valid_resource_class( leds           ,    background  ).
+valid_resource_class( leds           ,    alien       ).
 valid_resource_class( leds           ,    nobody      ).
 
 valid_resource_class( backlight      ,    proclaimer  ).
@@ -174,6 +183,7 @@ valid_resource_class( backlight      ,    player      ).
 valid_resource_class( backlight      ,    implicit    ).
 valid_resource_class( backlight      ,    event       ).
 valid_resource_class( backlight      ,    background  ).
+valid_resource_class( backlight      ,    alien       ).
 valid_resource_class( backlight      ,    nobody      ).
 
 valid_resource_class( system_button  ,    navigator   ).
@@ -186,6 +196,7 @@ valid_resource_class( system_button  ,    player      ).
 valid_resource_class( system_button  ,    implicit    ).
 valid_resource_class( system_button  ,    event       ).
 valid_resource_class( system_button  ,    background  ).
+valid_resource_class( system_button  ,    alien       ).
 valid_resource_class( system_button  ,    nobody      ).
 
 valid_resource_class( lock_button    ,    navigator   ).
@@ -198,6 +209,7 @@ valid_resource_class( lock_button    ,    player      ).
 valid_resource_class( lock_button    ,    implicit    ).
 valid_resource_class( lock_button    ,    event       ).
 valid_resource_class( lock_button    ,    background  ).
+valid_resource_class( lock_button    ,    alien       ).
 valid_resource_class( lock_button    ,    nobody      ).
 
 valid_resource_class( scale_button   ,    navigator   ).
@@ -210,6 +222,7 @@ valid_resource_class( scale_button   ,    player      ).
 valid_resource_class( scale_button   ,    implicit    ).
 valid_resource_class( scale_button   ,    event       ).
 valid_resource_class( scale_button   ,    background  ).
+valid_resource_class( scale_button   ,    alien       ).
 valid_resource_class( scale_button   ,    nobody      ).
 
 valid_resource_class( lens_cover     ,    navigator   ).
@@ -222,6 +235,7 @@ valid_resource_class( lens_cover     ,    player      ).
 valid_resource_class( lens_cover     ,    implicit    ).
 valid_resource_class( lens_cover     ,    event       ).
 valid_resource_class( lens_cover     ,    background  ).
+valid_resource_class( lens_cover     ,    alien       ).
 valid_resource_class( lens_cover     ,    nobody      ).
 
 valid_resource_class( headset_buttons ,   navigator   ).
@@ -234,6 +248,7 @@ valid_resource_class( headset_buttons ,   player      ).
 valid_resource_class( headset_buttons ,   implicit    ).
 valid_resource_class( headset_buttons ,   event       ).
 valid_resource_class( headset_buttons ,   background  ).
+valid_resource_class( headset_buttons ,   alien       ).
 valid_resource_class( headset_buttons ,   nobody      ).
 
 valid_resource_class( snap_button     ,    navigator   ).
@@ -246,4 +261,5 @@ valid_resource_class( snap_button     ,    player      ).
 valid_resource_class( snap_button     ,    implicit    ).
 valid_resource_class( snap_button     ,    event       ).
 valid_resource_class( snap_button     ,    background  ).
+valid_resource_class( snap_button     ,    alien       ).
 valid_resource_class( snap_button     ,    nobody      ).

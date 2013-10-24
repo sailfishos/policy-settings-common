@@ -18,6 +18,7 @@ cork( navigator  , feedbacksound, uncorked).
 cork( navigator  , inputsound , uncorked).
 cork( navigator  , othermedia , corked  ).
 cork( navigator  , background , uncorked).
+cork( navigator  , alien      , uncorked).
 cork( navigator  , idle       , uncorked).
 
 cork( call       , alwayson   , uncorked).
@@ -38,6 +39,7 @@ cork( call       , feedbacksound, uncorked).
 cork( call       , inputsound , uncorked).
 cork( call       , othermedia , corked  ).
 cork( call       , background , uncorked).
+cork( call       , alien      , uncorked).
 cork( call       , idle       , uncorked).
 
 cork( videoeditor, alwayson   , uncorked).
@@ -58,6 +60,7 @@ cork( videoeditor, feedbacksound, uncorked).
 cork( videoeditor, inputsound , uncorked).
 cork( videoeditor, othermedia , corked  ).
 cork( videoeditor, background , uncorked).
+cork( videoeditor, alien      , uncorked).
 cork( videoeditor, idle       , uncorked).
 
 cork( camera     , alwayson   , uncorked).
@@ -78,6 +81,7 @@ cork( camera     , feedbacksound, uncorked).
 cork( camera     , inputsound , uncorked).
 cork( camera     , othermedia , corked  ).
 cork( camera     , background , uncorked).
+cork( camera     , alien      , uncorked).
 cork( camera     , idle       , uncorked).
 
 cork( ringtone   , alwayson   , uncorked).
@@ -98,6 +102,7 @@ cork( ringtone   , feedbacksound, uncorked).
 cork( ringtone   , inputsound , uncorked).
 cork( ringtone   , othermedia , corked  ).
 cork( ringtone   , background , uncorked).
+cork( ringtone   , alien      , uncorked).
 cork( ringtone   , idle       , uncorked).
 
 cork( alarm      , alwayson   , uncorked).
@@ -118,6 +123,7 @@ cork( alarm      , feedbacksound, uncorked).
 cork( alarm      , inputsound , uncorked).
 cork( alarm      , othermedia , corked  ).
 cork( alarm      , background , uncorked).
+cork( alarm      , alien      , uncorked).
 cork( alarm      , idle       , uncorked).
 
 cork( game       , alwayson   , uncorked).
@@ -138,6 +144,7 @@ cork( game       , feedbacksound, uncorked).
 cork( game       , inputsound , uncorked).
 cork( game       , othermedia , corked  ).
 cork( game       , background , uncorked).
+cork( game       , alien      , uncorked).
 cork( game       , idle       , uncorked).
 
 cork( player     , alwayson   , uncorked).
@@ -158,6 +165,7 @@ cork( player     , feedbacksound, uncorked).
 cork( player     , inputsound , uncorked).
 cork( player     , othermedia , corked  ).
 cork( player     , background , uncorked).
+cork( player     , alien      , uncorked).
 cork( player     , idle       , uncorked).
 
 cork( flash      , alwayson   , uncorked).
@@ -178,6 +186,7 @@ cork( flash      , feedbacksound, uncorked).
 cork( flash      , inputsound , uncorked).
 cork( flash      , othermedia , corked  ).
 cork( flash      , background , uncorked).
+cork( flash      , alien      , uncorked).
 cork( flash      , idle       , uncorked).
 
 cork( othermedia , alwayson   , uncorked).
@@ -198,6 +207,7 @@ cork( othermedia , feedbacksound, uncorked).
 cork( othermedia , inputsound , uncorked).
 cork( othermedia , othermedia , corked  ).
 cork( othermedia , background , uncorked).
+cork( othermedia , alien      , uncorked).
 cork( othermedia , idle       , uncorked).
 
 cork( event      , alwayson   , uncorked).
@@ -218,6 +228,7 @@ cork( event      , feedbacksound, uncorked).
 cork( event      , inputsound , uncorked).
 cork( event      , othermedia , corked  ).
 cork( event      , background , uncorked).
+cork( event      , alien      , uncorked).
 cork( event      , idle       , uncorked).
 
 cork( background , alwayson   , uncorked).
@@ -238,6 +249,7 @@ cork( background , feedbacksound, uncorked).
 cork( background , inputsound , uncorked).
 cork( background , othermedia , corked  ).
 cork( background , background , uncorked).
+cork( background , alien      , uncorked).
 cork( background , idle       , uncorked).
 
 cork( idle       , alwayson   , uncorked).
@@ -258,4 +270,5 @@ cork( idle       , feedbacksound, uncorked).
 cork( idle       , inputsound , uncorked).
 cork( idle       , othermedia , corked  ).
 cork( idle       , background , uncorked).
+cork( idle       , alien      , uncorked).
 cork( idle       , idle       , uncorked).
