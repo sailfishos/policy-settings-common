@@ -7,7 +7,7 @@ volume_limit( navigator ,  navigator  , 100  ).
 volume_limit( navigator ,  call       , 100  ).
 volume_limit( navigator ,  videoeditor, 100  ).
 volume_limit( navigator ,  camera     , 100  ).
-volume_limit( navigator ,  ringtone   , 100  ).
+volume_limit( navigator ,  ringtone   , Value) :- ringtone_limit(Value).
 volume_limit( navigator ,  alarm      , 100  ).
 volume_limit( navigator ,  game       , 0    ).
 volume_limit( navigator ,  player     , 0    ).
@@ -91,14 +91,7 @@ volume_limit( ringtone  ,  navigator  , 100  ).
 volume_limit( ringtone  ,  call       , 100  ).
 volume_limit( ringtone  ,  videoeditor, 100  ).
 volume_limit( ringtone  ,  camera     , 100  ).
-
-% Protection against excessive sound pressure from headset during ringtone.
-% Limit volume to 77(-6.81 dB) if ringtone has been set to high volume.
-volume_limit( ringtone  ,  ringtone   , 77) :-
-	audio_route:get_route(sink, ihfandheadphone),!;
-	audio_route:get_route(sink, ihfandheadset),!.
-
-volume_limit( ringtone  ,  ringtone   , 100  ).
+volume_limit( ringtone  ,  ringtone   , Value) :- ringtone_limit(Value).
 volume_limit( ringtone  ,  alarm      , 0    ).
 volume_limit( ringtone  ,  game       , 0    ).
 volume_limit( ringtone  ,  player     , 0    ).
@@ -140,7 +133,7 @@ volume_limit( game      ,  navigator  , 100  ).
 volume_limit( game      ,  call       , 100  ).
 volume_limit( game      ,  videoeditor, 100  ).
 volume_limit( game      ,  camera     , 100  ).
-volume_limit( game      ,  ringtone   , 100  ).
+volume_limit( game      ,  ringtone   , Value) :- ringtone_limit(Value).
 volume_limit( game      ,  alarm      , 100  ).
 volume_limit( game      ,  game       , 100  ).
 volume_limit( game      ,  player     , 100  ).
@@ -161,7 +154,7 @@ volume_limit( player    ,  navigator  , 100  ).
 volume_limit( player    ,  call       , 100  ).
 volume_limit( player    ,  videoeditor, 100  ).
 volume_limit( player    ,  camera     , 100  ).
-volume_limit( player    ,  ringtone   , 100  ).
+volume_limit( player    ,  ringtone   , Value) :- ringtone_limit(Value).
 volume_limit( player    ,  alarm      , 100  ).
 volume_limit( player    ,  game       , 100  ).
 volume_limit( player    ,  player     , 100  ).
@@ -182,7 +175,7 @@ volume_limit( flash     ,  navigator  , 100  ).
 volume_limit( flash     ,  call       , 100  ).
 volume_limit( flash     ,  videoeditor, 100  ).
 volume_limit( flash     ,  camera     , 100  ).
-volume_limit( flash     ,  ringtone   , 100  ).
+volume_limit( flash     ,  ringtone   , Value) :- ringtone_limit(Value).
 volume_limit( flash     ,  alarm      , 100  ).
 volume_limit( flash     ,  game       , 100  ).
 volume_limit( flash     ,  player     , 100  ).
@@ -203,7 +196,7 @@ volume_limit( othermedia,  navigator  , 100  ).
 volume_limit( othermedia,  call       , 100  ).
 volume_limit( othermedia,  videoeditor, 100  ).
 volume_limit( othermedia,  camera     , 100  ).
-volume_limit( othermedia,  ringtone   , 100  ).
+volume_limit( othermedia,  ringtone   , Value) :- ringtone_limit(Value).
 volume_limit( othermedia,  alarm      , 100  ).
 volume_limit( othermedia,  game       , 100  ).
 volume_limit( othermedia,  player     , 100  ).
@@ -245,7 +238,7 @@ volume_limit( background,  navigator  , 100  ).
 volume_limit( background,  call       , 100  ).
 volume_limit( background,  videoeditor, 100  ).
 volume_limit( background,  camera     , 100  ).
-volume_limit( background,  ringtone   , 100  ).
+volume_limit( background,  ringtone   , Value) :- ringtone_limit(Value).
 volume_limit( background,  alarm      , 100  ).
 volume_limit( background,  game       , 100  ).
 volume_limit( background,  player     , 100  ).
@@ -287,7 +280,7 @@ volume_limit( idle      ,  navigator  , 100  ).
 volume_limit( idle      ,  call       , 100  ).
 volume_limit( idle      ,  videoeditor, 100  ).
 volume_limit( idle      ,  camera     , 100  ).
-volume_limit( idle      ,  ringtone   , 100  ).
+volume_limit( idle      ,  ringtone   , Value) :- ringtone_limit(Value).
 volume_limit( idle      ,  alarm      , 100  ).
 volume_limit( idle      ,  game       , 100  ).
 volume_limit( idle      ,  player     , 100  ).
@@ -301,3 +294,16 @@ volume_limit( idle      ,  background , 100  ).
 volume_limit( idle      ,  alien      , 100  ).
 volume_limit( idle      ,  idle       , 100  ).
 
+ringtone_limit(Value) :-
+    % # Ringtone volume is 0 if in silent mode and not routed to accessory
+    (is_silent_profile,
+     audio_route:get_route(sink, Device),
+     not(audio_accessory(Device))) *-> Value=0;
+    % # Protection against excessive sound pressure from headset during ringtone.
+    % # Limit volume to 77(-6.81 dB) if ringtone has been set to high volume.
+    (audio_route:get_route(sink, ihfandheadphone);
+     audio_route:get_route(sink, ihfandheadset);
+     audio_route:get_route(sink, headphone);
+     audio_route:get_route(sink, headset)) *-> Value=77; 
+    % # Default volume
+    Value=100.

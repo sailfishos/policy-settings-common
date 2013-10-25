@@ -266,7 +266,8 @@ video_route: $video_device_selectable $gconf
 	$video_route = prolog(set_video_routes)
 
 audio_route: $audio_device_selectable $audio_output_configuration \
-             $resource_owner $privacy_override $bluetooth_override
+             $resource_owner $privacy_override $bluetooth_override \
+             $current_profile
 	$privacy[stage]    |= prolog(set_audio_privacy, previous)
 	$audio_route[type] |= prolog(set_audio_routes)
 	$privacy[stage]    |= prolog(set_audio_privacy, current)
@@ -278,7 +279,8 @@ audio_route: $audio_device_selectable $audio_output_configuration \
 	                               	        player, player)
 	end
 
-audio_volume: $resource_owner $resource_set $volume_limit
+audio_volume: $resource_owner $resource_set $volume_limit \
+              $current_profile  $audio_route
 	$volume_limit[group] |= prolog(set_volume_limits)
 
 audio_cork: $resource_owner $audio_cork

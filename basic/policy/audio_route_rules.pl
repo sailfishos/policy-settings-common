@@ -86,9 +86,11 @@ invalid_audio_device_choice(call, sink, earpieceandtvout) :-
 
 
 %
-% Do not route ringtones to private accessories
+% Do not route ringtones to private accessories except in silent mode to 
+% headphone or headset
 %
 invalid_audio_device_choice(ringtone, sink, Device) :-
+    is_silent_profile *->(not(Device = headphone), not(Device = headset));
     audio_accessory(Device),
     audio_device_privacy(private, Device),
     audio_device_type(sink, Device).
@@ -110,6 +112,11 @@ invalid_audio_device_choice(_, sink, earpieceandtvout) :-
 invalid_audio_device_choice(Class, sink, TwinDevice) :-
     twin_audio_device(TwinDevice),
     not(notification_class(Class)).
+
+% do not route ringtone to twindevice in silent mode
+invalid_audio_device_choice(ringtone, sink, Device) :- 
+    is_silent_profile,
+    twin_audio_device(Device).
 
 %
 % do not route cscall or ipcall to bta2dp
@@ -147,3 +154,10 @@ invalid_audio_device_choice(camera, source, microphone) :-
     resource:granted_resource(camera, video_recording).
 
 invalid_audio_device_choice(_, _, incompatible).
+
+
+/*
+ * Supporting predicates
+ */
+is_silent_profile :-
+    fact_exists('com.nokia.policy.current_profile', [value], [silent]).
