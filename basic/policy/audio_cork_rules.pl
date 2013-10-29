@@ -252,6 +252,27 @@ cork( background , background , uncorked).
 cork( background , alien      , uncorked).
 cork( background , idle       , uncorked).
 
+cork( alien      , alwayson   , uncorked).
+cork( alien      , nonsilent  , uncorked).
+cork( alien      , cstone     , uncorked).
+cork( alien      , navigator  , uncorked).
+cork( alien      , call       , uncorked).
+cork( alien      , videoeditor, uncorked).
+cork( alien      , camera     , uncorked).
+cork( alien      , ringtone   , uncorked).
+cork( alien      , alarm      , uncorked).
+cork( alien      , game       , uncorked).
+cork( alien      , player     , uncorked).
+cork( alien      , flash      , uncorked).
+cork( alien      , event      , uncorked).
+cork( alien      , systemsound, uncorked).
+cork( alien      , feedbacksound, uncorked).
+cork( alien      , inputsound , uncorked).
+cork( alien      , othermedia , corked  ).
+cork( alien      , background , uncorked).
+cork( alien      , alien      , uncorked).
+cork( alien      , idle       , uncorked).
+
 cork( idle       , alwayson   , uncorked).
 cork( idle       , nonsilent  , uncorked).
 cork( idle       , cstone     , uncorked).
