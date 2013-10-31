@@ -50,6 +50,7 @@ audio_group(feedbacksound).  % UI sounds, pulldown sounds
 audio_group(inputsound).  % Key presses, touchscreen sounds
 audio_group(background).  % UI and sound-less rendering
 audio_group(alien).       % alien applications
+audio_group(btnotify).    % notifications to bta2dp
 audio_group(idle).        % If nothing runs this is active
 
 
@@ -83,6 +84,7 @@ audio_group_type( event   ,   feedbacksound).
 audio_group_type( event   ,   inputsound ).
 audio_group_type( resource,   background ).
 audio_group_type( resource,   alien      ).
+audio_group_type( event   ,   btnotify   ).
 audio_group_type( internal,   idle       ).
 
 /******************************************************

@@ -19,6 +19,7 @@ volume_limit( navigator ,  inputsound , 0    ).
 volume_limit( navigator ,  othermedia , 0    ).
 volume_limit( navigator ,  background , 50   ).
 volume_limit( navigator ,  alien      , 0    ).
+volume_limit( navigator ,  btnotify   , 0    ).
 volume_limit( navigator ,  idle       , 100  ).
 
 volume_limit( call      ,  alwayson   , 100  ).
@@ -40,6 +41,7 @@ volume_limit( call      ,  inputsound , 0    ).
 volume_limit( call      ,  othermedia , 0    ).
 volume_limit( call      ,  background , 10   ).
 volume_limit( call      ,  alien      , 0    ).
+volume_limit( call      ,  btnotify   , 0    ).
 volume_limit( call      ,  idle       , 100  ).
 
 volume_limit( videoeditor,  alwayson   , 100  ).
@@ -61,6 +63,7 @@ volume_limit( videoeditor,  inputsound , 0    ).
 volume_limit( videoeditor,  othermedia , 0    ).
 volume_limit( videoeditor,  background , 10   ).
 volume_limit( videoeditor,  alien      , 0    ).
+volume_limit( videoeditor,  btnotify   , 0    ).
 volume_limit( videoeditor,  idle       , 100  ).
 
 volume_limit( camera    ,  alwayson   , 0    ).
@@ -82,6 +85,7 @@ volume_limit( camera    ,  inputsound , 0    ).
 volume_limit( camera    ,  othermedia , 0    ).
 volume_limit( camera    ,  background , 0    ).
 volume_limit( camera    ,  alien      , 0    ).
+volume_limit( camera    ,  btnotify   , 0    ).
 volume_limit( camera    ,  idle       , 0    ).
 
 volume_limit( ringtone  ,  alwayson   , 100  ).
@@ -103,6 +107,7 @@ volume_limit( ringtone  ,  inputsound , 0    ).
 volume_limit( ringtone  ,  othermedia , 0    ).
 volume_limit( ringtone  ,  background , 0    ).
 volume_limit( ringtone  ,  alien      , 0    ).
+volume_limit( ringtone  ,  btnotify   , 0    ).
 volume_limit( ringtone  ,  idle       , 0    ).
 
 volume_limit( alarm     ,  alwayson   , 100  ).
@@ -124,6 +129,7 @@ volume_limit( alarm     ,  inputsound , 0    ).
 volume_limit( alarm     ,  othermedia , 0    ).
 volume_limit( alarm     ,  background , 0    ).
 volume_limit( alarm     ,  alien      , 0    ).
+volume_limit( alarm     ,  btnotify   , 0    ).
 volume_limit( alarm     ,  idle       , 0    ).
 
 volume_limit( game      ,  alwayson   , 100  ).
@@ -145,6 +151,7 @@ volume_limit( game      ,  inputsound , 0    ).
 volume_limit( game      ,  othermedia , 0    ).
 volume_limit( game      ,  background , 100  ).
 volume_limit( game      ,  alien      , 100  ).
+volume_limit( game      ,  btnotify   , 100  ).
 volume_limit( game      ,  idle       , 100  ).
 
 volume_limit( player    ,  alwayson   , 100  ).
@@ -166,6 +173,7 @@ volume_limit( player    ,  inputsound , 0    ).
 volume_limit( player    ,  othermedia , 0    ).
 volume_limit( player    ,  background , 100  ).
 volume_limit( player    ,  alien      , 100  ).
+volume_limit( player    ,  btnotify   , 100  ).
 volume_limit( player    ,  idle       , 100  ).
 
 volume_limit( flash     ,  alwayson   , 100  ).
@@ -187,6 +195,7 @@ volume_limit( flash     ,  inputsound , 0    ).
 volume_limit( flash     ,  othermedia , 0    ).
 volume_limit( flash     ,  background , 100  ).
 volume_limit( flash     ,  alien      , 100  ).
+volume_limit( flash     ,  btnotify   , 100  ).
 volume_limit( flash     ,  idle       , 100  ).
 
 volume_limit( othermedia,  alwayson   , 100  ).
@@ -208,6 +217,7 @@ volume_limit( othermedia,  inputsound , 100  ).
 volume_limit( othermedia,  othermedia , 0  ).
 volume_limit( othermedia,  background , 100  ).
 volume_limit( othermedia,  alien      , 100  ).
+volume_limit( othermedia,  btnotify   , 100  ).
 volume_limit( othermedia,  idle       , 100  ).
 
 volume_limit( event     ,  alwayson   , 100  ).
@@ -229,6 +239,7 @@ volume_limit( event     ,  inputsound , 0    ).
 volume_limit( event     ,  othermedia , 0    ).
 volume_limit( event     ,  background , 10   ).
 volume_limit( event     ,  alien      , 0    ).
+volume_limit( event     ,  btnotify   , 0    ).
 volume_limit( event     ,  idle       , 100  ).
 
 volume_limit( background,  alwayson   , 100  ).
@@ -250,6 +261,7 @@ volume_limit( background,  inputsound , 100  ).
 volume_limit( background,  othermedia , 0  ).
 volume_limit( background,  background , 100  ).
 volume_limit( background,  alien      , 100  ).
+volume_limit( background,  btnotify   , 100  ).
 volume_limit( background,  idle       , 100  ).
 
 volume_limit( alien    ,  alwayson   , 100  ).
@@ -271,7 +283,30 @@ volume_limit( alien    ,  inputsound , 0    ).
 volume_limit( alien    ,  othermedia , 0    ).
 volume_limit( alien    ,  background , 100  ).
 volume_limit( alien    ,  alien      , 100  ).
+volume_limit( alien    ,  btnotify   , 100  ).
 volume_limit( alien    ,  idle       , 100  ).
+
+volume_limit( btnotify ,  alwayson   , 100  ).
+volume_limit( btnotify ,  nonsilent  , 100  ).
+volume_limit( btnotify ,  cstone     , Value) :- cstone_limit(Value).
+volume_limit( btnotify ,  navigator  , 100  ).
+volume_limit( btnotify ,  call       , 100  ).
+volume_limit( btnotify ,  videoeditor, 100  ).
+volume_limit( btnotify ,  camera     , 100  ).
+volume_limit( btnotify ,  ringtone   , Value) :- ringtone_limit(Value).
+volume_limit( btnotify ,  alarm      , 100  ).
+volume_limit( btnotify ,  game       , 100  ).
+volume_limit( btnotify ,  player     , 100  ).
+volume_limit( btnotify ,  flash      , 0    ).
+volume_limit( btnotify ,  event      , 100  ).
+volume_limit( btnotify ,  systemsound, 100  ).
+volume_limit( btnotify ,  feedbacksound, 100  ).
+volume_limit( btnotify ,  inputsound , 0    ).
+volume_limit( btnotify ,  othermedia , 0    ).
+volume_limit( btnotify ,  background , 100  ).
+volume_limit( btnotify ,  alien      , 100  ).
+volume_limit( btnotify ,  btnotify   , 100  ).
+volume_limit( btnotify ,  idle       , 100  ).
 
 volume_limit( idle      ,  alwayson   , 100  ).
 volume_limit( idle      ,  nonsilent  , 100  ).
@@ -292,6 +327,7 @@ volume_limit( idle      ,  inputsound , 100  ).
 volume_limit( idle      ,  othermedia , 0  ).
 volume_limit( idle      ,  background , 100  ).
 volume_limit( idle      ,  alien      , 100  ).
+volume_limit( idle      ,  btnotify   , 100  ).
 volume_limit( idle      ,  idle       , 100  ).
 
 ringtone_limit(Value) :-
