@@ -99,11 +99,8 @@ video_accessory(tvout).
 
 audio_accessory(incompatible).
 audio_accessory(bta2dp).
-audio_accessory(bthspforcall).
 audio_accessory(bthsp).
-audio_accessory(headsetforcall).
 audio_accessory(headset).
-audio_accessory(headphoneforcall).
 audio_accessory(headphone).
 audio_accessory(tvout).
 audio_accessory(headmike).
