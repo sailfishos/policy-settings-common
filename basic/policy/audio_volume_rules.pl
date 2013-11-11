@@ -2,7 +2,7 @@
 %           ----------------------------------
 volume_limit( navigator ,  alwayson   , 100  ).
 volume_limit( navigator ,  nonsilent  , 100  ).
-volume_limit( navigator ,  cstone     , 100  ).
+volume_limit( navigator ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( navigator ,  navigator  , 100  ).
 volume_limit( navigator ,  call       , 100  ).
 volume_limit( navigator ,  videoeditor, 100  ).
@@ -86,7 +86,7 @@ volume_limit( camera    ,  idle       , 0    ).
 
 volume_limit( ringtone  ,  alwayson   , 100  ).
 volume_limit( ringtone  ,  nonsilent  , 100  ).
-volume_limit( ringtone  ,  cstone     , 100  ).
+volume_limit( ringtone  ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( ringtone  ,  navigator  , 100  ).
 volume_limit( ringtone  ,  call       , 100  ).
 volume_limit( ringtone  ,  videoeditor, 100  ).
@@ -107,7 +107,7 @@ volume_limit( ringtone  ,  idle       , 0    ).
 
 volume_limit( alarm     ,  alwayson   , 100  ).
 volume_limit( alarm     ,  nonsilent  , 100  ).
-volume_limit( alarm     ,  cstone     , 0    ).
+volume_limit( alarm     ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( alarm     ,  navigator  , 100  ).
 volume_limit( alarm     ,  call       , 0    ).
 volume_limit( alarm     ,  videoeditor, 0    ).
@@ -128,7 +128,7 @@ volume_limit( alarm     ,  idle       , 0    ).
 
 volume_limit( game      ,  alwayson   , 100  ).
 volume_limit( game      ,  nonsilent  , 100  ).
-volume_limit( game      ,  cstone     , 100  ).
+volume_limit( game      ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( game      ,  navigator  , 100  ).
 volume_limit( game      ,  call       , 100  ).
 volume_limit( game      ,  videoeditor, 100  ).
@@ -149,7 +149,7 @@ volume_limit( game      ,  idle       , 100  ).
 
 volume_limit( player    ,  alwayson   , 100  ).
 volume_limit( player    ,  nonsilent  , 100  ).
-volume_limit( player    ,  cstone     , 100  ).
+volume_limit( player    ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( player    ,  navigator  , 100  ).
 volume_limit( player    ,  call       , 100  ).
 volume_limit( player    ,  videoeditor, 100  ).
@@ -170,7 +170,7 @@ volume_limit( player    ,  idle       , 100  ).
 
 volume_limit( flash     ,  alwayson   , 100  ).
 volume_limit( flash     ,  nonsilent  , 100  ).
-volume_limit( flash     ,  cstone     , 100  ).
+volume_limit( flash     ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( flash     ,  navigator  , 100  ).
 volume_limit( flash     ,  call       , 100  ).
 volume_limit( flash     ,  videoeditor, 100  ).
@@ -191,7 +191,7 @@ volume_limit( flash     ,  idle       , 100  ).
 
 volume_limit( othermedia,  alwayson   , 100  ).
 volume_limit( othermedia,  nonsilent  , 100  ).
-volume_limit( othermedia,  cstone     , 100  ).
+volume_limit( othermedia,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( othermedia,  navigator  , 100  ).
 volume_limit( othermedia,  call       , 100  ).
 volume_limit( othermedia,  videoeditor, 100  ).
@@ -212,7 +212,7 @@ volume_limit( othermedia,  idle       , 100  ).
 
 volume_limit( event     ,  alwayson   , 100  ).
 volume_limit( event     ,  nonsilent  , 100  ).
-volume_limit( event     ,  cstone     , 0    ).
+volume_limit( event     ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( event     ,  navigator  , 100  ).
 volume_limit( event     ,  call       , 0    ).
 volume_limit( event     ,  videoeditor, 0    ).
@@ -233,7 +233,7 @@ volume_limit( event     ,  idle       , 100  ).
 
 volume_limit( background,  alwayson   , 100  ).
 volume_limit( background,  nonsilent  , 100  ).
-volume_limit( background,  cstone     , 100  ).
+volume_limit( background,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( background,  navigator  , 100  ).
 volume_limit( background,  call       , 100  ).
 volume_limit( background,  videoeditor, 100  ).
@@ -254,7 +254,7 @@ volume_limit( background,  idle       , 100  ).
 
 volume_limit( alien    ,  alwayson   , 100  ).
 volume_limit( alien    ,  nonsilent  , 100  ).
-volume_limit( alien    ,  cstone     , 100  ).
+volume_limit( alien    ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( alien    ,  navigator  , 100  ).
 volume_limit( alien    ,  call       , 100  ).
 volume_limit( alien    ,  videoeditor, 100  ).
@@ -275,7 +275,7 @@ volume_limit( alien    ,  idle       , 100  ).
 
 volume_limit( idle      ,  alwayson   , 100  ).
 volume_limit( idle      ,  nonsilent  , 100  ).
-volume_limit( idle      ,  cstone     , 100  ).
+volume_limit( idle      ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( idle      ,  navigator  , 100  ).
 volume_limit( idle      ,  call       , 100  ).
 volume_limit( idle      ,  videoeditor, 100  ).
@@ -306,4 +306,12 @@ ringtone_limit(Value) :-
      audio_route:get_route(sink, headphone);
      audio_route:get_route(sink, headset)) *-> Value=77; 
     % # Default volume
+    Value=100.
+
+cstone_limit(Value) :-
+    % cstone volume is 0 if in silent mode and not routed to private accessory
+    (is_silent_profile,
+     audio_route:get_route(sink, Device),
+     not(audio_accessory(Device))) *-> Value=0;
+    % Default volume
     Value=100.
