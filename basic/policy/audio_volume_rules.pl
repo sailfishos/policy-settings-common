@@ -295,18 +295,18 @@ volume_limit( idle      ,  alien      , 100  ).
 volume_limit( idle      ,  idle       , 100  ).
 
 ringtone_limit(Value) :-
-    % # Ringtone volume is 0 if in silent mode and not routed to accessory
+    % # Ringtone volume is 0 if in silent mode and not routed to wired accessory
     (is_silent_profile,
      audio_route:get_route(sink, Device),
-     not(audio_accessory(Device))) *-> Value=0;
+     not(wired_audio_accessory(Device))) *-> Value=0,!;
     % # Protection against excessive sound pressure from headset during ringtone.
     % # Limit volume to 77(-6.81 dB) if ringtone has been set to high volume.
     (audio_route:get_route(sink, ihfandheadphone);
      audio_route:get_route(sink, ihfandheadset);
      audio_route:get_route(sink, headphone);
-     audio_route:get_route(sink, headset)) *-> Value=77; 
+     audio_route:get_route(sink, headset)) *-> Value=77,!; 
     % # Default volume
-    Value=100.
+    Value=100,!.
 
 cstone_limit(Value) :-
     % cstone volume is 0 if in silent mode and not routed to private accessory

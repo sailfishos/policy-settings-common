@@ -105,6 +105,9 @@ audio_accessory(headphone).
 audio_accessory(tvout).
 audio_accessory(headmike).
 
+wired_audio_accessory(headset).
+wired_audio_accessory(headphone).
+
 call_audio_device(ihf,          ihfforcall).
 call_audio_device(headset,      headsetforcall).
 call_audio_device(headphone,    headphoneforcall).
