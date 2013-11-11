@@ -320,9 +320,9 @@ audio_actions: $audio_mute $audio_cork $volume_limit $context $audio_route \
                $enforcement_point
 	#echo('*** audio_actions ***')
 	signal_changed(audio_actions, &completion_callback, &transaction_id, \
-	               'com.nokia.policy.audio_route', \
-                       'com.nokia.policy.context', \
+	               'com.nokia.policy.context', \
                        'com.nokia.policy.volume_limit', \
+                       'com.nokia.policy.audio_route', \
                        'com.nokia.policy.audio_cork', \
 		       'com.nokia.policy.audio_mute')
 	$completion_handler_called:value = yes
