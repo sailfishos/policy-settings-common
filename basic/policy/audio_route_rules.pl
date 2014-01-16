@@ -43,7 +43,7 @@ invalid_audio_device_choice(call, sink, Device) :-
 invalid_audio_device_choice(Class, sink, ihfforcall) :-
     not(Class = call).
 
-invalid_audio_device_choice(Class, sink, headsetforcall) :-
+invalid_audio_device_choice(Class, _, headsetforcall) :-
     not(Class = call).
 
 invalid_audio_device_choice(Class, sink, headphoneforcall) :-
