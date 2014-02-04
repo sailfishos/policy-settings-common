@@ -1,4 +1,4 @@
-:- module(context, [update_contexts/1]).
+:- module(context, [update_contexts/1, call_state/1]).
 
 
 % # Our predicates for the rule engine.

@@ -159,5 +159,10 @@ invalid_audio_device_choice(_, _, incompatible).
 /*
  * Supporting predicates
  */
+% true when active profile is 'silent'
 is_silent_profile :-
     fact_exists('com.nokia.policy.current_profile', [value], [silent]).
+
+% true when touchscreen.sound.level is 0
+is_silent_feedback :-
+    fact_exists('com.nokia.policy.current_profile', ['touchscreen.sound.level'], ['0']).

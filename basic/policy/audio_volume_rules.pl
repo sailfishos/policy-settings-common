@@ -309,9 +309,8 @@ ringtone_limit(Value) :-
     Value=100,!.
 
 cstone_limit(Value) :-
-    % cstone volume is 0 if in silent mode and not routed to private accessory
-    (is_silent_profile,
-     audio_route:get_route(sink, Device),
-     not(audio_accessory(Device))) *-> Value=0;
+    % cstone volume is 0 if feedback tones are disabled and call is not active
+    (is_silent_feedback,
+     not(context:call_state(active))) *-> Value=0;
     % Default volume
     Value=100.
