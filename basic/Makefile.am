@@ -1,1 +1,1 @@
-SUBDIRS = policy etc
+SUBDIRS = policy

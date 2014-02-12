@@ -64,8 +64,5 @@ AC_SUBST(DRESC)
 AC_OUTPUT([Makefile
            basic/Makefile
            basic/policy/Makefile
-           basic/etc/Makefile
-           basic/etc/pulse/Makefile
-           basic/etc/ohm/Makefile
 ])
 
