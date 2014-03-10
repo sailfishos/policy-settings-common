@@ -417,7 +417,7 @@ telephony_first_call_hook: audio_mute_reset privacy_override_reset reset_bluetoo
 	#$mode[foo] = prolog(update_mode, telephony)
 
 # last call hook
-telephony_last_call_hook: 
+telephony_last_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
 	#$mode[foo] = prolog(update_mode)
 	# resolve(all, '', 0)
 
@@ -428,7 +428,7 @@ telephony_call_start_hook:
 telephony_local_hungup_hook:
 
 # call end hook
-telephony_call_end_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
+telephony_call_end_hook:
 
 # call connect hook (call locally accepted)
 telephony_call_connect_hook:
