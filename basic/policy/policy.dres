@@ -29,6 +29,8 @@ $resource_owner += {resource: video_playback , owner: nobody, mode: shared, \
 $resource_owner += {resource: audio_playback , owner: nobody, mode: shared, \
                     group   : nobody }
 
+$audio_resource_owner = { previous: nobody, current: nobody }
+
 $resource_set = {manager_id:0,  client_name:dres, client_id:0, class:fake,    \
                  mode:0, mandatory:0, optional:0, shared:0, mask:0, granted:0,\
                  advice:0, request:release, block:0, reqno:0, audiogr:fake}
@@ -273,8 +275,10 @@ audio_route: $audio_device_selectable $audio_output_configuration \
 	$privacy[stage]    |= prolog(set_audio_privacy, previous)
 	$audio_route[type] |= prolog(set_audio_routes)
 	$privacy[stage]    |= prolog(set_audio_privacy, current)
-	if $privacy[stage:previous]:value == 'private' && \
-	   $privacy[stage:current]:value  == 'public'     \
+	if ($privacy[stage:previous]:value == 'private' ||      \
+	        ($audio_resource_owner:previous == 'call' &&    \
+	         $audio_resource_owner:current != 'call')) &&   \
+	   $privacy[stage:current]:value  == 'public'           \
 	then
 	    #echo('*** stop players ***')
 	    $resource_set[manager_id] |= prolog(force_resource_release, \
@@ -346,8 +350,10 @@ backlight_actions: $backlight
 
 resource_request:
 	echo('*** resource_request: ', &request, ' ', &manager_id)
+	$audio_resource_owner:previous = $resource_owner[resource:audio_playback]:owner
 	$resource_set[manager_id] |= prolog(update_resource_entries)
 	$resource_owner[resource] |= prolog(update_resource_owner_entries)
+	$audio_resource_owner:current = $resource_owner[resource:audio_playback]:owner
 	resolve(all)
 
 
