@@ -30,6 +30,7 @@ $resource_owner += {resource: audio_playback , owner: nobody, mode: shared, \
                     group   : nobody }
 
 $audio_resource_owner = { previous: nobody, current: nobody }
+$call_start_privacy = { value: none }
 
 $resource_set = {manager_id:0,  client_name:dres, client_id:0, class:fake,    \
                  mode:0, mandatory:0, optional:0, shared:0, mask:0, granted:0,\
@@ -275,10 +276,19 @@ audio_route: $audio_device_selectable $audio_output_configuration \
 	$privacy[stage]    |= prolog(set_audio_privacy, previous)
 	$audio_route[type] |= prolog(set_audio_routes)
 	$privacy[stage]    |= prolog(set_audio_privacy, current)
-	if ($privacy[stage:previous]:value == 'private' ||      \
+	# If call is ending and we are going to public route, force release resources
+	# Or, if call is ending, and when call was starting route was public, but
+	# after call ends route is private, force release resources (use case:
+	# listen to music speaker, answer call, plug headset in for the duration of
+	# the call, end call with headset connected -> audio stays paused)
+	if (($privacy[stage:previous]:value == 'private' ||     \
 	        ($audio_resource_owner:previous == 'call' &&    \
 	         $audio_resource_owner:current != 'call')) &&   \
-	   $privacy[stage:current]:value  == 'public'           \
+	   $privacy[stage:current]:value  == 'public') ||       \
+	   ($call_start_privacy:value == 'public' &&            \
+	        $audio_resource_owner:previous == 'call' &&     \
+	         $audio_resource_owner:current != 'call' &&     \
+	   $privacy[stage:current]:value  == 'private')         \
 	then
 	    #echo('*** stop players ***')
 	    $resource_set[manager_id] |= prolog(force_resource_release, \
@@ -421,11 +431,16 @@ bthsp_connect:
 # first call hook
 telephony_first_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
 	#$mode[foo] = prolog(update_mode, telephony)
+	if $call_start_privacy:value == 'none' \
+	then
+	    $call_start_privacy:value = $privacy[stage:current]:value
+	end
 
 # last call hook
 telephony_last_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
 	#$mode[foo] = prolog(update_mode)
 	# resolve(all, '', 0)
+	$call_start_privacy:value = none
 
 # call start hook: workaround for tonegen bad audio quality at call start
 telephony_call_start_hook:
