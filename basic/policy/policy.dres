@@ -64,6 +64,8 @@ $audio_device_accessible += { name: incompatible  , driver: 0, connected: 0 }
 
 $audio_device_selectable  = { name: null            , selectable: 1 }
 $audio_device_selectable += { name: ihfforcall      , selectable: 1 }
+$audio_device_selectable += { name: ihfforalien     , selectable: 1 }
+$audio_device_selectable += { name: earpieceforalien, selectable: 1 }
 $audio_device_selectable += { name: ihf             , selectable: 1 }
 $audio_device_selectable += { name: microphone      , selectable: 1 }
 $audio_device_selectable += { name: backmicrophone  , selectable: 1 }
@@ -73,13 +75,17 @@ $audio_device_selectable += { name: tvout           , selectable: 0 }
 $audio_device_selectable += { name: ihfandtvout     , selectable: 0 }
 $audio_device_selectable += { name: headmike        , selectable: 0 }
 $audio_device_selectable += { name: headphoneforcall, selectable: 0 }
+$audio_device_selectable += { name: headphoneforalien,selectable: 0 }
 $audio_device_selectable += { name: headphone       , selectable: 0 }
 $audio_device_selectable += { name: headsetforcall  , selectable: 0 }
+$audio_device_selectable += { name: headsetforalien , selectable: 0 }
 $audio_device_selectable += { name: headset         , selectable: 0 }
 $audio_device_selectable += { name: bthspforcall    , selectable: 0 }
+$audio_device_selectable += { name: bthspforalien   , selectable: 0 }
 #$audio_device_selectable += { name: bthspforcall    , selectable: 1 }
 $audio_device_selectable += { name: bthsp           , selectable: 0 }
 $audio_device_selectable += { name: bta2dp          , selectable: 0 }
+$audio_device_selectable += { name: bta2dpforalien  , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadset   , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadphone , selectable: 0 }
 $audio_device_selectable += { name: ihfandbthsp     , selectable: 0 }
@@ -91,18 +97,24 @@ $audio_device_selectable += { name: incompatible    , selectable: 0 }
 # audio modes for ECI detection
 $audio_mode  = { device: null            , default: null          }
 $audio_mode += { device: ihfforcall      , default: ihf           }
+$audio_mode += { device: ihfforalien     , default: ihf           }
+$audio_mode += { device: earpieceforalien, default: hp            }
 $audio_mode += { device: ihf             , default: ihf           }
 $audio_mode += { device: earpiece        , default: hp            }
 $audio_mode += { device: earpieceandtvout, default: hp            }
 $audio_mode += { device: tvout           , default: lineout       }
 $audio_mode += { device: ihfandtvout     , default:'ihfandtv-out' }
 $audio_mode += { device: headphoneforcall, default: lineout       }
+$audio_mode += { device: headphoneforalien,default: lineout       }
 $audio_mode += { device: headphone       , default: lineout       }
 $audio_mode += { device: headsetforcall  , default: hs            }
+$audio_mode += { device: headsetforalien , default: hs            }
 $audio_mode += { device: headset         , default: hs            }
 $audio_mode += { device: bthspforcall    , default: btmono        }
+$audio_mode += { device: bthspforalien   , default: btmono        }
 $audio_mode += { device: bthsp           , default: btmono        }
 $audio_mode += { device: bta2dp          , default: bta2dp        }
+$audio_mode += { device: bta2dpforalien  , default: bta2dp        }
 $audio_mode += { device: ihfandbthsp     , default: ihfandbtmono  }
 $audio_mode += { device: tvoutandbthsp   , default: btmono        }
 $audio_mode += { device: tvoutandbta2dp  , default: bta2dp        }
@@ -115,7 +127,11 @@ $audio_output_configuration  = { device: null           , mode: null         ,\
 			         hwid:na}
 $audio_output_configuration += { device: ihfforcall     , mode: ihf          ,\
 			         hwid:na}
+$audio_output_configuration += { device: ihfforalien    , mode: ihf          ,\
+			         hwid:na}
 $audio_output_configuration += { device: ihf            , mode: ihf          ,\
+			         hwid:na}
+$audio_output_configuration += { device: earpieceforalien, mode: hp          ,\
 			         hwid:na}
 $audio_output_configuration += { device: earpiece       , mode: hp           ,\
 			         hwid:na} 
@@ -127,16 +143,24 @@ $audio_output_configuration += { device: ihfandtvout    , mode:'ihfandtv-out',\
 			         hwid:na}
 $audio_output_configuration += { device: headphoneforcall,mode: lineout      ,\
 			         hwid:na}
+$audio_output_configuration += { device: headphoneforalien,mode: lineout     ,\
+			         hwid:na}
 $audio_output_configuration += { device: headphone      , mode: lineout      ,\
 			         hwid:na}
 $audio_output_configuration += { device: headsetforcall , mode: hs           ,\
+			         hwid:na}
+$audio_output_configuration += { device: headsetforalien, mode: hs           ,\
 			         hwid:na}
 $audio_output_configuration += { device: headset        , mode: hs           ,\
 			         hwid:na}
 $audio_output_configuration += { device: bthspforcall   , mode: btmono       ,\
 			         hwid:na }
+$audio_output_configuration += { device: bthspforalien  , mode: btmono       ,\
+			         hwid:na }
 $audio_output_configuration += { device: bthsp          , mode: btmono       ,\
 			         hwid:na }
+$audio_output_configuration += { device: bta2dpforalien , mode: bta2dp       ,\
+			         hwid:na}
 $audio_output_configuration += { device: bta2dp         , mode: bta2dp       ,\
 			         hwid:na}
 $audio_output_configuration += { device: ihfandheadset  , mode:ihfandheadset,\
@@ -173,6 +197,7 @@ $volume_limit += { group: ringtone   , limit: 100 }
 $volume_limit += { group: camera     , limit: 100 }
 $volume_limit += { group: videoeditor, limit: 100 }
 $volume_limit += { group: call       , limit: 100 }
+$volume_limit += { group: aliencall  , limit: 100 }
 $volume_limit += { group: navigator  , limit: 100 }
 $volume_limit += { group: cstone     , limit: 100 }
 $volume_limit += { group: alien      , limit: 100 }
@@ -196,6 +221,7 @@ $audio_cork += { group: ringtone   , cork: uncorked }
 $audio_cork += { group: camera     , cork: uncorked }
 $audio_cork += { group: videoeditor, cork: uncorked }
 $audio_cork += { group: call       , cork: uncorked }
+$audio_cork += { group: aliencall  , cork: uncorked }
 $audio_cork += { group: navigator  , cork: uncorked }
 $audio_cork += { group: cstone     , cork: uncorked }
 $audio_cork += { group: alien      , cork: uncorked }
@@ -208,8 +234,10 @@ $audio_mute    = { device: microphone    , mute: unmuted }
 $audio_mute   += { device: backmicrophone, mute: unmuted }
 $audio_mute   += { device: headmike      , mute: unmuted }
 $audio_mute   += { device: headsetforcall, mute: unmuted }
+$audio_mute   += { device: headsetforalien,mute: unmuted }
 $audio_mute   += { device: headset       , mute: unmuted }
 $audio_mute   += { device: bthspforcall  , mute: unmuted }
+$audio_mute   += { device: bthspforalien , mute: unmuted }
 $audio_mute   += { device: bthsp         , mute: unmuted }
 $audio_mute   += { device: tvoutandbthsp , mute: unmuted }
 

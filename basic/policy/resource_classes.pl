@@ -52,6 +52,7 @@ resource_class(implicit).    % Everything else (i.e. default class)
 resource_class(event).       % Messages (SMS, Chat etc), network events etc
 resource_class(background).  % UI and sound-less rendering
 resource_class(alien).       % alien applications
+resource_class(aliencall).   % Alien voice call applications
 resource_class(nobody).      % Lowest priority class
 
 
@@ -66,14 +67,15 @@ resource_class_priority( call       ,  2 ).
 resource_class_priority( videoeditor,  3 ).
 resource_class_priority( camera     ,  4 ).
 resource_class_priority( ringtone   ,  5 ).
-resource_class_priority( alarm      ,  6 ).
-resource_class_priority( game       ,  7 ).
-resource_class_priority( player     ,  8 ).
-resource_class_priority( implicit   ,  9 ).
-resource_class_priority( event      , 10 ).
-resource_class_priority( background , 11 ).
-resource_class_priority( alien      , 12 ).
-resource_class_priority( nobody     , 13 ).
+resource_class_priority( aliencall  ,  6 ).
+resource_class_priority( alarm      ,  7 ).
+resource_class_priority( game       ,  8 ).
+resource_class_priority( player     ,  9 ).
+resource_class_priority( implicit   , 10 ).
+resource_class_priority( event      , 11 ).
+resource_class_priority( background , 12 ).
+resource_class_priority( alien      , 13 ).
+resource_class_priority( nobody     , 14 ).
 
 /****************************************************************************
  *
@@ -89,6 +91,7 @@ resource_class_sharing( call        ,          0   ).   % none
 resource_class_sharing( videoeditor ,          0   ).   % none
 resource_class_sharing( camera      ,          0   ).   % none
 resource_class_sharing( ringtone    ,          0   ).   % none
+resource_class_sharing( aliencall   ,          0   ).   % none
 resource_class_sharing( alarm       ,          0   ).   % none
 resource_class_sharing( game        ,          0   ).   % none
 resource_class_sharing( player      ,          0   ).   % none
@@ -112,6 +115,7 @@ valid_resource_class( audio_playback ,    call        ).
 valid_resource_class( audio_playback ,    videoeditor ).
 valid_resource_class( audio_playback ,    camera      ).
 valid_resource_class( audio_playback ,    ringtone    ).
+valid_resource_class( audio_playback ,    aliencall   ).
 valid_resource_class( audio_playback ,    alarm       ).
 valid_resource_class( audio_playback ,    game        ).
 valid_resource_class( audio_playback ,    player      ).
@@ -124,6 +128,7 @@ valid_resource_class( video_playback ,    navigator   ).
 valid_resource_class( video_playback ,    call        ).
 valid_resource_class( video_playback ,    videoeditor ).
 valid_resource_class( video_playback ,    camera      ).
+valid_resource_class( video_playback ,    aliencall   ).
 valid_resource_class( video_playback ,    game        ).
 valid_resource_class( video_playback ,    player      ).
 valid_resource_class( video_playback ,    implicit    ).
@@ -133,6 +138,7 @@ valid_resource_class( video_playback ,    alien       ).
 valid_resource_class( audio_recording,    call        ).
 valid_resource_class( audio_recording,    videoeditor ).
 valid_resource_class( audio_recording,    camera      ).
+valid_resource_class( audio_recording,    aliencall   ).
 valid_resource_class( audio_recording,    player      ).
 valid_resource_class( audio_recording,    implicit    ).
 valid_resource_class( audio_recording,    background  ).
@@ -140,6 +146,7 @@ valid_resource_class( audio_recording,    alien       ).
 
 valid_resource_class( video_recording,    videoeditor ).
 valid_resource_class( video_recording,    camera      ).
+valid_resource_class( video_recording,    aliencall   ).
 valid_resource_class( video_recording,    implicit    ).
 valid_resource_class( video_recording,    background  ).
 valid_resource_class( video_recording,    alien       ).

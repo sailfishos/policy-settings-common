@@ -236,6 +236,7 @@ affected_accessories_(Accessory, [H|T], ListAcc, List) :-
 %   2) B is .*andA, or
 %   3) B is Aand*.
 %   4) B is Aforcall
+%   5) B is Aforalien
 
 is_affected_accessory(Accessory, Accessory).
 is_affected_accessory(Accessory, TwinAccessory) :-
@@ -250,6 +251,10 @@ is_affected_accessory(Accessory, CallAccessory) :-
     atom_length(Accessory, Len),
     sub_atom(CallAccessory, 0, Len, 7, Accessory),
     sub_atom(CallAccessory, Len, 7, 0, forcall).
+is_affected_accessory(Accessory, CallAccessory) :-
+    atom_length(Accessory, Len),
+    sub_atom(CallAccessory, 0, Len, 8, Accessory),
+    sub_atom(CallAccessory, Len, 8, 0, foralien).
 
 
 /*

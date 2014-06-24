@@ -14,6 +14,7 @@ resource_class_privacy(implicit   , public).
 resource_class_privacy(event      , public).
 resource_class_privacy(background , public).
 resource_class_privacy(alien      , public).
+resource_class_privacy(aliencall  , public).
 resource_class_privacy(nobody     , public).
 
 /*
@@ -33,10 +34,15 @@ implicated_privacy(public) :-
 %
 % never route voice call output to public devices
 % explicitly demands it via privacy override
-%
-invalid_audio_device_choice(call, sink, Device) :-
+invalid_audio_device_choice_in_class(Device) :-
     ((audio_route:privacy_override(public) ; implicated_privacy(public)) *-> Privacy=private ; Privacy=public),
     audio_device_privacy(Privacy, Device).
+
+invalid_audio_device_choice(call, sink, Device) :-
+    invalid_audio_device_choice_in_class(Device).
+invalid_audio_device_choice(aliencall, sink, Device) :-
+    invalid_audio_device_choice_in_class(Device).
+
 
 % do not route *forcall if call is not active
 %
@@ -54,6 +60,27 @@ invalid_audio_device_choice(Class, sink, bthspforcall) :-
 
 invalid_audio_device_choice(Class, source, bthspforcall) :-
     not(Class = call).
+
+% do not route *foralien if aliencall is not active
+%
+invalid_audio_device_choice(Class, sink, ihfforalien) :-
+    not(Class = aliencall).
+
+invalid_audio_device_choice(Class, _, headsetforalien) :-
+    not(Class = aliencall).
+
+invalid_audio_device_choice(Class, sink, headphoneforalien) :-
+    not(Class = aliencall).
+
+invalid_audio_device_choice(Class, sink, earpieceforalien) :-
+    not(Class = aliencall).
+
+invalid_audio_device_choice(Class, _, bthspforalien) :-
+    not(Class = aliencall).
+
+invalid_audio_device_choice(Class, _, bta2dpforalien) :-
+    not(Class = aliencall).
+
 
 %
 % Do not route to bthspforcall if bluetooth_override is active, that is, anything but default.
@@ -84,6 +111,8 @@ invalid_audio_device_choice(call, sink, earpiece) :-
 invalid_audio_device_choice(call, sink, earpieceandtvout) :-
     resource:resource_owner(video_playback, call).
 
+invalid_audio_device_choice(aliencall, sink, earpieceforalien) :-
+    resource:resource_owner(video_playback, aliencall).
 
 %
 % Do not route ringtones to private accessories except in silent mode to 

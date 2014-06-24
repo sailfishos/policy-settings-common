@@ -5,6 +5,7 @@ cork( navigator  , nonsilent  , uncorked).
 cork( navigator  , cstone     , uncorked).
 cork( navigator  , navigator  , uncorked).
 cork( navigator  , call       , uncorked).
+cork( navigator  , aliencall  , uncorked).
 cork( navigator  , videoeditor, uncorked).
 cork( navigator  , camera     , uncorked).
 cork( navigator  , ringtone   , uncorked).
@@ -27,6 +28,7 @@ cork( call       , nonsilent  , uncorked).
 cork( call       , cstone     , uncorked).
 cork( call       , navigator  , uncorked).
 cork( call       , call       , uncorked).
+cork( call       , aliencall  , corked  ).
 cork( call       , videoeditor, uncorked).
 cork( call       , camera     , uncorked).
 cork( call       , ringtone   , uncorked).
@@ -49,6 +51,7 @@ cork( videoeditor, nonsilent  , uncorked).
 cork( videoeditor, cstone     , uncorked).
 cork( videoeditor, navigator  , uncorked).
 cork( videoeditor, call       , uncorked).
+cork( videoeditor, aliencall  , uncorked).
 cork( videoeditor, videoeditor, uncorked).
 cork( videoeditor, camera     , uncorked).
 cork( videoeditor, ringtone   , uncorked).
@@ -71,6 +74,7 @@ cork( camera     , nonsilent  , uncorked).
 cork( camera     , cstone     , uncorked).
 cork( camera     , navigator  , uncorked).
 cork( camera     , call       , uncorked).
+cork( camera     , aliencall  , uncorked).
 cork( camera     , videoeditor, uncorked).
 cork( camera     , camera     , uncorked).
 cork( camera     , ringtone   , uncorked).
@@ -93,6 +97,7 @@ cork( ringtone   , nonsilent  , uncorked).
 cork( ringtone   , cstone     , uncorked).
 cork( ringtone   , navigator  , uncorked).
 cork( ringtone   , call       , uncorked).
+cork( ringtone   , aliencall  , corked  ).
 cork( ringtone   , videoeditor, uncorked).
 cork( ringtone   , camera     , uncorked).
 cork( ringtone   , ringtone   , uncorked).
@@ -115,6 +120,7 @@ cork( alarm      , nonsilent  , uncorked).
 cork( alarm      , cstone     , uncorked).
 cork( alarm      , navigator  , uncorked).
 cork( alarm      , call       , uncorked).
+cork( alarm      , aliencall  , uncorked).
 cork( alarm      , videoeditor, uncorked).
 cork( alarm      , camera     , uncorked).
 cork( alarm      , ringtone   , uncorked).
@@ -137,6 +143,7 @@ cork( game       , nonsilent  , uncorked).
 cork( game       , cstone     , uncorked).
 cork( game       , navigator  , uncorked).
 cork( game       , call       , uncorked).
+cork( game       , aliencall  , uncorked).
 cork( game       , videoeditor, uncorked).
 cork( game       , camera     , uncorked).
 cork( game       , ringtone   , uncorked).
@@ -159,6 +166,7 @@ cork( player     , nonsilent  , uncorked).
 cork( player     , cstone     , uncorked).
 cork( player     , navigator  , uncorked).
 cork( player     , call       , uncorked).
+cork( player     , aliencall  , uncorked).
 cork( player     , videoeditor, uncorked).
 cork( player     , camera     , uncorked).
 cork( player     , ringtone   , uncorked).
@@ -181,6 +189,7 @@ cork( flash      , nonsilent  , uncorked).
 cork( flash      , cstone     , uncorked).
 cork( flash      , navigator  , uncorked).
 cork( flash      , call       , uncorked).
+cork( flash      , aliencall  , uncorked).
 cork( flash      , videoeditor, uncorked).
 cork( flash      , camera     , uncorked).
 cork( flash      , ringtone   , uncorked).
@@ -203,6 +212,7 @@ cork( othermedia , nonsilent  , uncorked).
 cork( othermedia , cstone     , uncorked).
 cork( othermedia , navigator  , uncorked).
 cork( othermedia , call       , uncorked).
+cork( othermedia , aliencall  , uncorked).
 cork( othermedia , videoeditor, uncorked).
 cork( othermedia , camera     , uncorked).
 cork( othermedia , ringtone   , uncorked).
@@ -225,6 +235,7 @@ cork( event      , nonsilent  , uncorked).
 cork( event      , cstone     , uncorked).
 cork( event      , navigator  , uncorked).
 cork( event      , call       , uncorked).
+cork( event      , aliencall  , uncorked).
 cork( event      , videoeditor, uncorked).
 cork( event      , camera     , uncorked).
 cork( event      , ringtone   , uncorked).
@@ -247,6 +258,7 @@ cork( background , nonsilent  , uncorked).
 cork( background , cstone     , uncorked).
 cork( background , navigator  , uncorked).
 cork( background , call       , uncorked).
+cork( background , aliencall  , uncorked).
 cork( background , videoeditor, uncorked).
 cork( background , camera     , uncorked).
 cork( background , ringtone   , uncorked).
@@ -269,6 +281,7 @@ cork( alien      , nonsilent  , uncorked).
 cork( alien      , cstone     , uncorked).
 cork( alien      , navigator  , uncorked).
 cork( alien      , call       , uncorked).
+cork( alien      , aliencall  , uncorked).
 cork( alien      , videoeditor, uncorked).
 cork( alien      , camera     , uncorked).
 cork( alien      , ringtone   , uncorked).
@@ -285,11 +298,35 @@ cork( alien      , background , uncorked).
 cork( alien      , alien      , uncorked).
 cork( alien      , idle       , uncorked).
 
+cork( aliencall  , alwayson   , uncorked).
+cork( aliencall  , nonsilent  , uncorked).
+cork( aliencall  , cstone     , uncorked).
+cork( aliencall  , navigator  , uncorked).
+cork( aliencall  , call       , uncorked).
+cork( aliencall  , aliencall  , uncorked).
+cork( aliencall  , videoeditor, uncorked).
+cork( aliencall  , camera     , uncorked).
+cork( aliencall  , ringtone   , uncorked).
+cork( aliencall  , alarm      , uncorked).
+cork( aliencall  , game       , corked  ).
+cork( aliencall  , player     , uncorked).
+cork( aliencall  , flash      , corked  ).
+cork( aliencall  , event      , uncorked).
+cork( aliencall  , systemsound, uncorked).
+cork( aliencall  , feedbacksound, uncorked).
+cork( aliencall  , inputsound , uncorked).
+cork( aliencall  , othermedia , corked  ).
+cork( aliencall  , background , uncorked).
+cork( aliencall  , alien      , uncorked).
+cork( aliencall  , btnotify   , uncorked).
+cork( aliencall  , idle       , uncorked).
+
 cork( btnotify   , alwayson   , uncorked).
 cork( btnotify   , nonsilent  , uncorked).
 cork( btnotify   , cstone     , uncorked).
 cork( btnotify   , navigator  , uncorked).
 cork( btnotify   , call       , uncorked).
+cork( btnotify   , aliencall  , uncorked).
 cork( btnotify   , videoeditor, uncorked).
 cork( btnotify   , camera     , uncorked).
 cork( btnotify   , ringtone   , uncorked).
@@ -313,6 +350,7 @@ cork( idle       , nonsilent  , uncorked).
 cork( idle       , cstone     , uncorked).
 cork( idle       , navigator  , uncorked).
 cork( idle       , call       , uncorked).
+cork( idle       , aliencall  , uncorked).
 cork( idle       , videoeditor, uncorked).
 cork( idle       , camera     , uncorked).
 cork( idle       , ringtone   , uncorked).
