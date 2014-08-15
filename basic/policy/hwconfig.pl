@@ -12,20 +12,26 @@ audio_device(ihfandbthsp).
 audio_device(ihfandheadset).
 audio_device(ihfandheadphone).
 audio_device(bta2dp).
+audio_device(bta2dpforalien).
 audio_device(bthspforcall).
+audio_device(bthspforalien).
 audio_device(bthsp).
 audio_device(headsetforcall).
+audio_device(headsetforalien).
 audio_device(headset).
 audio_device(headphoneforcall).
+audio_device(headphoneforalien).
 audio_device(headphone).
 audio_device(headmike).
 audio_device(ihfandtvout).
 audio_device(tvout).
 audio_device(earpieceandtvout).
 audio_device(earpiece).
+audio_device(earpieceforalien).
 audio_device(microphone).
 audio_device(backmicrophone).
 audio_device(ihfforcall).
+audio_device(ihfforalien).
 audio_device(ihf).
 audio_device(null).
 
@@ -37,24 +43,32 @@ audio_device_type(sink  , ihfandbthsp).
 audio_device_type(sink  , ihfandheadset).
 audio_device_type(sink  , ihfandheadphone).
 audio_device_type(sink  , bta2dp).
+audio_device_type(sink  , bta2dpforalien).
 audio_device_type(sink  , bthspforcall).
+audio_device_type(sink  , bthspforalien).
 audio_device_type(sink  , bthsp).
 audio_device_type(sink  , headsetforcall).
+audio_device_type(sink  , headsetforalien).
 audio_device_type(sink  , headset).
 audio_device_type(sink  , headphoneforcall).
+audio_device_type(sink  , headphoneforalien).
 audio_device_type(sink  , headphone).
 audio_device_type(sink  , ihfandtvout).
 audio_device_type(sink  , tvout).
 audio_device_type(sink  , earpieceandtvout).
+audio_device_type(sink  , earpieceforalien).
 audio_device_type(sink  , earpiece).
 audio_device_type(sink  , ihfforcall).
+audio_device_type(sink  , ihfforalien).
 audio_device_type(sink  , ihf).
 audio_device_type(sink  , null).
 audio_device_type(source, tvoutandbthsp).
 audio_device_type(source, bthsp).
 audio_device_type(source, bthspforcall).
+audio_device_type(source, bthspforalien).
 audio_device_type(source, headset).
 audio_device_type(source, headsetforcall).
+audio_device_type(source, headsetforalien).
 audio_device_type(source, headmike).
 audio_device_type(source, microphone).
 audio_device_type(source, backmicrophone).
@@ -66,17 +80,23 @@ audio_device_privacy(private, ihfandbthsp).
 audio_device_privacy(private, ihfandheadset).
 audio_device_privacy(private, ihfandheadphone).
 audio_device_privacy(private, bta2dp).
+audio_device_privacy(private, bta2dpforalien).
 audio_device_privacy(private, bthspforcall).
+audio_device_privacy(private, bthspforalien).
 audio_device_privacy(private, bthsp).
 audio_device_privacy(private, headsetforcall).
+audio_device_privacy(private, headsetforalien).
 audio_device_privacy(private, headset).
 audio_device_privacy(private, headphoneforcall).
+audio_device_privacy(private, headphoneforalien).
 audio_device_privacy(private, headphone).
-audio_device_privacy(private, earpieceandtvout). 
+audio_device_privacy(private, earpieceandtvout).
+audio_device_privacy(private, earpieceforalien).
 audio_device_privacy(private, earpiece).
 audio_device_privacy(public , ihfandtvout).
 audio_device_privacy(public , tvout).
 audio_device_privacy(public , ihfforcall).
+audio_device_privacy(public , ihfforalien).
 audio_device_privacy(public , ihf).
 audio_device_privacy(private, microphone).
 audio_device_privacy(public , microphone).
@@ -86,11 +106,15 @@ audio_device_privacy(private, headmike).
 
 accessory(incompatible).
 accessory(bta2dp).
+accessory(bta2dpforalien).
 accessory(bthspforcall).
+accessory(bthspforalien).
 accessory(bthsp).
 accessory(headsetforcall).
+accessory(headsetforalien).
 accessory(headset).
 accessory(headphoneforcall).
+accessory(headphoneforalien).
 accessory(headphone).
 accessory(tvout).
 accessory(headmike).
@@ -112,6 +136,12 @@ call_audio_device(ihf,          ihfforcall).
 call_audio_device(headset,      headsetforcall).
 call_audio_device(headphone,    headphoneforcall).
 call_audio_device(bthsp,        bthspforcall).
+call_audio_device(ihf,          ihfforalien).
+call_audio_device(earpiece,     earpieceforalien).
+call_audio_device(headset,      headsetforalien).
+call_audio_device(headphone,    headphoneforalien).
+call_audio_device(bthsp,        bthspforalien).
+call_audio_device(bta2dp,       bta2dpforalien).
 
 
 twin_video_device(builtinandtvout).

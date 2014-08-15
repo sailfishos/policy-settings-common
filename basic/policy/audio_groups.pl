@@ -23,6 +23,8 @@ audio_type( sink  ,     event      ).
 audio_type( sink  ,     background ).
 audio_type( sink  ,     alien      ).
 audio_type( source,     alien      ).
+audio_type( sink  ,     aliencall  ).
+audio_type( source,     aliencall  ).
 audio_type( sink  ,     nobody     ).
 audio_type( source,     nobody     ).
 
@@ -36,6 +38,7 @@ audio_group(nonsilent).   %
 audio_group(cstone).      % call progress indication & DTMF for GSM and 3G
 audio_group(navigator).   % Voice guided navigation
 audio_group(call).        % Telephony GSM, 3G, Skype and other VoIP
+audio_group(aliencall).   % Alien voice call applications
 audio_group(videoeditor). % Video editor
 audio_group(camera).      % camera applications
 audio_group(ringtone).    % phone ringing
@@ -70,6 +73,7 @@ audio_group_type( event   ,   nonsilent  ).
 audio_group_type( event   ,   cstone     ).
 audio_group_type( resource,   navigator  ).
 audio_group_type( resource,   call       ).
+audio_group_type( resource,   aliencall  ).
 audio_group_type( resource,   videoeditor).
 audio_group_type( resource,   camera     ).
 audio_group_type( resource,   ringtone   ).
@@ -97,6 +101,7 @@ audio_group_type( internal,   idle       ).
 audio_group_resource_class(   proclaimer ,   alwayson   ).
 audio_group_resource_class(   navigator  ,   navigator  ).
 audio_group_resource_class(   call       ,   call       ).
+audio_group_resource_class(   aliencall  ,   aliencall  ).
 audio_group_resource_class(   videoeditor,   videoeditor).
 audio_group_resource_class(   camera     ,   camera     ).
 audio_group_resource_class(   ringtone   ,   ringtone   ).
