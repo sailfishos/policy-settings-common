@@ -150,8 +150,21 @@ invalid_audio_device_choice(ringtone, sink, Device) :-
 %
 % do not route cscall or ipcall to bta2dp
 %
-invalid_audio_device_choice(call, _, bta2dp).
-invalid_audio_device_choice(call, _, tvoutandbta2dp).
+invalid_audio_device_choice(_, _, bta2dp) :-
+    context:call_state(active) ;
+    context:call_state(incoming) ;
+    context:call_state(outgoing),!.
+
+invalid_audio_device_choice(_, _, tvoutandbta2dp) :-
+    context:call_state(active) ;
+    context:call_state(incoming) ;
+    context:call_state(outgoing),!.
+
+invalid_audio_device_choice(_, _, bta2dpforalien) :-
+    context:call_state(active) ;
+    context:call_state(incoming) ;
+    context:call_state(outgoing),!.
+
 %
 % do not route calls to regular bthsp
 %
