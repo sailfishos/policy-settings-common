@@ -41,6 +41,9 @@ make DESTDIR=%{buildroot} INSTALL_SYMLINKS=1 install
 %{_datadir}/policy/rules/current
 %{_datadir}/policy/rules/basic/*.plc
 %{_datadir}/policy/rules/basic/*.dresc
+%dir %{_datadir}/policy
+%dir %{_datadir}/policy/rules
+%dir %{_datadir}/policy/rules/basic
 
 %files -n policy-settings-common-text
 %defattr(-,root,root,-)
