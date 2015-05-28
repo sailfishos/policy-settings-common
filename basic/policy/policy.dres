@@ -250,9 +250,13 @@ $vibra_mute += { group: event, mute: unmuted }
 # backlight control
 $backlight   = { state: off }
 
+# currently active (topmost) application pid
+$active_application = { pid: 0 }
+
 # contexts
 $context   = { variable: call                   ,  value: inactive }
 $context   = { variable: bluetooth_override     ,  value: disabled }  # disabled - active - inactive
+$context   = { variable: media_state            ,  value: inactive }  # inactive - background - foreground - active
 #$context   = { variable: call_audio_type,  value: none     }
 #$context   = { variable: camera         ,  value: inactive }
 
@@ -497,11 +501,14 @@ telephony_sending_dialstring:
 # dialstring sending stopped
 telephony_stopped_dialstring:
 
+active_application_request:
+	$active_application:pid = &pid
 
 # context variables:
 # call                  - com.nokia.policy.call ($call) changes
 # bluetooth_override    - com.nokia.policy.bluetooth_override ($bluetooth_override) changes
-context: $call $bluetooth_override
+# media_state           - com.nokia.policy.media_state
+context: $bluetooth_override $active_application $resource_set
 	$context[variable] |= prolog(update_contexts)
 
 # block resolving if any policy plugin is not ready

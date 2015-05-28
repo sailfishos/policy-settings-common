@@ -2,7 +2,8 @@
 	  [update_resource_entries/1, update_resource_owner_entries/1,
 	   resource_owner/2, resource_owner/3, resource_group/2,
  	   granted_resource/2, granted_resource/3, active_resource/3,
-	   force_resource_release/3, resource_class_request/4]).
+	   force_resource_release/3, resource_class_request/4,
+	   resource_set_pid_registered/2, resource_set_pid_granted/2]).
 
 rules([update_resource_entries/1, update_resource_owner_entries/1,
        force_resource_release/3, resource_class_request/4]).
@@ -406,6 +407,22 @@ resource_set_with_active_audio(ManagerId, Class, AudioGroup) :-
 		[ManagerId , Class, acquire, 0    , Granted, AudioGroup]),
     resource_class(Class),
     resource_bit(audio_playback, ResourceBit),
+    GrantedBit is Granted /\ ResourceBit,
+    GrantedBit = ResourceBit.
+
+resource_set_pid_registered(ClientPid, Resource) :-
+    fact_exists('com.nokia.policy.resource_set',
+        [client_pid, mandatory],
+        [ClientPid,  Mandatory]),
+    resource_bit(Resource, ResourceBit),
+    WantedBit is Mandatory /\ ResourceBit,
+    WantedBit = ResourceBit.
+
+resource_set_pid_granted(ClientPid, Resource) :-
+    fact_exists('com.nokia.policy.resource_set',
+        [client_pid, granted],
+        [ClientPid,  Granted]),
+    resource_bit(Resource, ResourceBit),
     GrantedBit is Granted /\ ResourceBit,
     GrantedBit = ResourceBit.
 

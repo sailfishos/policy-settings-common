@@ -47,6 +47,18 @@ bluetooth_override_state(Value) :-
 		(bt_override(any) *-> Value=active ; Value=inactive) ;
 		Value=disabled).
 
+% if call is ongoing -> inactive
+% if resources are granted AND the app is topmost -> active
+% if resources are granted AND the app is not topmost -> background
+% if resources are not granted AND the app is topmost -> foreground
+% else inactive
+media_playing_state(Value) :-
+	active_application_pid(Pid),
+	(call_state_all(any) *-> Value=inactive ;
+		(granted_resource(_, audio_playback) *->
+			(resource_set_pid_granted(Pid, audio_playback) -> Value=active ; Value=background)) ;
+			(resource_set_pid_registered(Pid, audio_playback) *-> Value=foreground ; Value=inactive)).
+
 % # call context predicate
 context_variable(call, Entry) :-
 	call_state(State),
@@ -57,11 +69,19 @@ context_variable(bluetooth_override, Entry) :-
 	bluetooth_override_state(State),
 	set_context_variable_and_value(bluetooth_override, State, Entry).
 
+% media_state context value
+context_variable(media_state, Entry) :-
+	media_playing_state(State),
+	set_context_variable_and_value(media_state, State, Entry).
 
 
 % #############################################################################
 % #                        ### helper predicates ###                          #
 % #############################################################################
+
+active_application_pid(Pid) :-
+	fact_exists('com.nokia.policy.active_application', [pid], [Pid]),
+	not(Pid = 0).
 
 set_context_variable_and_value(Variable, Value, Entry) :-
 	Entry = [context, [variable, Variable], [value, Value]].
