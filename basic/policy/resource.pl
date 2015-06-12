@@ -1,12 +1,14 @@
 :- module(resource,
-	  [update_resource_entries/1, update_resource_owner_entries/1,
-	   resource_owner/2, resource_owner/3, resource_group/2,
- 	   granted_resource/2, granted_resource/3, active_resource/3,
-	   force_resource_release/3, resource_class_request/4,
-	   resource_set_pid_registered/2, resource_set_pid_granted/2]).
+         [update_resource_entries/1, update_resource_owner_entries/1,
+          resource_owner/2, resource_owner/3, resource_group/2,
+          granted_resource/2, granted_resource/3, active_resource/3,
+          force_resource_release/3, resource_class_request/4,
+          resource_set_pid_registered/2, resource_set_pid_granted/2,
+          force_resource_release_one/2, get_active_audio_manager_id/1]).
 
 rules([update_resource_entries/1, update_resource_owner_entries/1,
-       force_resource_release/3, resource_class_request/4]).
+       force_resource_release/3, resource_class_request/4,
+       force_resource_release_one/2, get_active_audio_manager_id/1]).
 
 
 /*
@@ -409,6 +411,20 @@ resource_set_with_active_audio(ManagerId, Class, AudioGroup) :-
     resource_bit(audio_playback, ResourceBit),
     GrantedBit is Granted /\ ResourceBit,
     GrantedBit = ResourceBit.
+
+get_active_audio_manager_id(ActionList) :-
+    resource_set_with_active_audio(ManagerId, _, _) *->
+        ActionList = [[ active_audio_manager_id, [ id, ManagerId ] ]]
+    ;
+        ActionList = [[ active_audio_manager_id, [ id, 0 ] ]].
+
+block_entry_one(ManagerId, Entry) :-
+    Entry = [resource_set, [manager_id, ManagerId], [block, 1]].
+
+force_resource_release_one(ManagerId, List) :-
+    findall(E, block_entry_one(ManagerId, E), List), !
+    ;
+    List = [].
 
 resource_set_pid_registered(ClientPid, Resource) :-
     fact_exists('com.nokia.policy.resource_set',

@@ -30,6 +30,8 @@ $resource_owner += {resource: audio_playback , owner: nobody, mode: shared, \
                     group   : nobody }
 
 $audio_resource_owner = { previous: nobody, current: nobody }
+$active_audio_manager_id = { id: 0 }
+$active_audio_manager = { previous: 0, current: 0 }
 $call_start_privacy = { value: none }
 
 $resource_set = {manager_id:0,  client_name:dres, client_id:0, class:fake,    \
@@ -393,9 +395,28 @@ backlight_actions: $backlight
 resource_request:
 	echo('*** resource_request: ', &request, ' ', &manager_id)
 	$audio_resource_owner:previous = $resource_owner[resource:audio_playback]:owner
+	$active_audio_manager_id = prolog(get_active_audio_manager_id)
+	$active_audio_manager:previous = $active_audio_manager_id:id
+	#echo('$active_audio_manager:previous changes to ', $active_audio_manager:previous)
 	$resource_set[manager_id] |= prolog(update_resource_entries)
 	$resource_owner[resource] |= prolog(update_resource_owner_entries)
 	$audio_resource_owner:current = $resource_owner[resource:audio_playback]:owner
+	$active_audio_manager_id = prolog(get_active_audio_manager_id)
+	$active_audio_manager:current = $active_audio_manager_id:id
+	#echo('$active_audio_manager:current changes to ', $active_audio_manager:current)
+
+	# If active manager_id changes release the previous active playback, so that when the
+	# new player pauses, previously active playback won't continue.
+	if $active_audio_manager:previous != 0 &&                           \
+	   $active_audio_manager:current != 0 &&                            \
+	   $audio_resource_owner:previous != 'call' &&                      \
+	   $audio_resource_owner:current != 'call' &&                       \
+	   $active_audio_manager:previous != $active_audio_manager:current  \
+	   then
+	    #echo('*** force_resource_release_one ', $active_audio_manager:previous)
+	    $resource_set[manager_id] |= prolog(force_resource_release_one, $active_audio_manager:previous)
+	end
+
 	resolve(all)
 
 
