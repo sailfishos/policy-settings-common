@@ -32,6 +32,7 @@ audio_device(microphone).
 audio_device(backmicrophone).
 audio_device(ihfforcall).
 audio_device(ihfforalien).
+audio_device(usbaudio).
 audio_device(ihf).
 audio_device(null).
 
@@ -60,8 +61,10 @@ audio_device_type(sink  , earpieceforalien).
 audio_device_type(sink  , earpiece).
 audio_device_type(sink  , ihfforcall).
 audio_device_type(sink  , ihfforalien).
+audio_device_type(sink  , usbaudio).
 audio_device_type(sink  , ihf).
 audio_device_type(sink  , null).
+audio_device_type(source, usbaudio).
 audio_device_type(source, tvoutandbthsp).
 audio_device_type(source, bthsp).
 audio_device_type(source, bthspforcall).
@@ -103,6 +106,7 @@ audio_device_privacy(public , microphone).
 audio_device_privacy(private, backmicrophone).
 audio_device_privacy(public , backmicrophone).
 audio_device_privacy(private, headmike).
+audio_device_privacy(private, usbaudio).
 
 accessory(incompatible).
 accessory(bta2dp).
@@ -118,6 +122,7 @@ accessory(headphoneforalien).
 accessory(headphone).
 accessory(tvout).
 accessory(headmike).
+accessory(usbaudio).
 
 video_accessory(tvout).
 
@@ -128,6 +133,7 @@ audio_accessory(headset).
 audio_accessory(headphone).
 audio_accessory(tvout).
 audio_accessory(headmike).
+audio_accessory(usbaudio).
 
 wired_audio_accessory(headset).
 wired_audio_accessory(headphone).

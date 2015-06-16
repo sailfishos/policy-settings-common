@@ -62,6 +62,11 @@ $audio_device_accessible += { name: headphone     , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headset       , driver: 1, connected: 0 }
 $audio_device_accessible += { name: bthsp         , driver: 0, connected: 0 }
 $audio_device_accessible += { name: bta2dp        , driver: 0, connected: 0 }
+# We consider the usbaudio device to be always connected, as the driver and
+# selectable are updated when the interface appears.
+# We will never route to usbaudio unless the device is selectable, so this
+# shouldn't cause any problems.
+$audio_device_accessible += { name: usbaudio      , driver: 0, connected: 1 }
 $audio_device_accessible += { name: incompatible  , driver: 0, connected: 0 }
 
 $audio_device_selectable  = { name: null            , selectable: 1 }
@@ -93,6 +98,7 @@ $audio_device_selectable += { name: ihfandheadphone , selectable: 0 }
 $audio_device_selectable += { name: ihfandbthsp     , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbthsp   , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbta2dp  , selectable: 0 }
+$audio_device_selectable += { name: usbaudio        , selectable: 0 }
 $audio_device_selectable += { name: incompatible    , selectable: 0 }
 
 
@@ -122,6 +128,7 @@ $audio_mode += { device: tvoutandbthsp   , default: btmono        }
 $audio_mode += { device: tvoutandbta2dp  , default: bta2dp        }
 $audio_mode += { device: ihfandheadset   , default: ihfandheadset }
 $audio_mode += { device: ihfandheadphone , default: ihfandlineout }
+$audio_mode += { device: usbaudio        , default: usbaudio      }
 
 
 # audio output configuration
@@ -174,6 +181,8 @@ $audio_output_configuration += { device: ihfandbthsp    , mode: ihfandbtmono,\
 $audio_output_configuration += { device: tvoutandbthsp  , mode: btmono       ,\
 			         hwid:na}
 $audio_output_configuration += { device: tvoutandbta2dp , mode: bta2dp       ,\
+			         hwid:na}
+$audio_output_configuration += { device: usbaudio       , mode: usbaudio     ,\
 			         hwid:na}
 
 $privacy = { stage: previous, value: public }
@@ -242,6 +251,7 @@ $audio_mute   += { device: bthspforcall  , mute: unmuted }
 $audio_mute   += { device: bthspforalien , mute: unmuted }
 $audio_mute   += { device: bthsp         , mute: unmuted }
 $audio_mute   += { device: tvoutandbthsp , mute: unmuted }
+$audio_mute   += { device: usbaudio      , mute: unmuted }
 
 # vibra control
 $vibra_mute  = { group: other, mute: unmuted }
