@@ -264,6 +264,8 @@ $backlight   = { state: off }
 
 # currently active (topmost) application pid
 $active_application = { pid: 0 }
+# alien UI process id
+$alien_application = { pid: -1 }
 
 # contexts
 $context   = { variable: call                   ,  value: inactive }
@@ -535,11 +537,14 @@ telephony_stopped_dialstring:
 active_application_request:
 	$active_application:pid = &pid
 
+alien_application_request:
+	$alien_application:pid = &pid
+
 # context variables:
 # call                  - com.nokia.policy.call ($call) changes
 # bluetooth_override    - com.nokia.policy.bluetooth_override ($bluetooth_override) changes
 # media_state           - com.nokia.policy.media_state
-context: $bluetooth_override $active_application $resource_set
+context: $bluetooth_override $active_application $alien_application $resource_set
 	$context[variable] |= prolog(update_contexts)
 
 # block resolving if any policy plugin is not ready
