@@ -48,16 +48,19 @@ bluetooth_override_state(Value) :-
 		Value=disabled).
 
 % if call is ongoing -> inactive
+% if alien application is defined and topmost -> active
 % if resources are granted AND the app is topmost -> active
 % if resources are granted AND the app is not topmost -> background
 % if resources are not granted AND the app is topmost -> foreground
 % else inactive
 media_playing_state(Value) :-
+	alien_application_pid(AlienPid),
 	active_application_pid(Pid),
 	(call_state_all(any) *-> Value=inactive ;
-		(granted_resource(_, audio_playback) *->
-			(resource_set_pid_granted(Pid, audio_playback) -> Value=active ; Value=background)) ;
-			(resource_set_pid_registered(Pid, audio_playback) *-> Value=foreground ; Value=inactive)).
+		((AlienPid>0, AlienPid=:=Pid) -> Value=active ;
+			(granted_resource(_, audio_playback) *->
+				(resource_set_pid_granted(Pid, audio_playback) -> Value=active ; Value=background) ;
+				(resource_set_pid_registered(Pid, audio_playback) *-> Value=foreground ; Value=inactive)))).
 
 % # call context predicate
 context_variable(call, Entry) :-
@@ -81,6 +84,10 @@ context_variable(media_state, Entry) :-
 
 active_application_pid(Pid) :-
 	fact_exists('com.nokia.policy.active_application', [pid], [Pid]),
+	not(Pid = 0).
+
+alien_application_pid(Pid) :-
+	fact_exists('com.nokia.policy.alien_application', [pid], [Pid]),
 	not(Pid = 0).
 
 set_context_variable_and_value(Variable, Value, Entry) :-
