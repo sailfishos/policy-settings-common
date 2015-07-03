@@ -422,7 +422,9 @@ resource_request:
 	if $active_audio_manager:previous != 0 &&                           \
 	   $active_audio_manager:current != 0 &&                            \
 	   $audio_resource_owner:previous != 'call' &&                      \
+	   $audio_resource_owner:previous != 'ringtone' &&                  \
 	   $audio_resource_owner:current != 'call' &&                       \
+	   $audio_resource_owner:current != 'ringtone' &&                   \
 	   $active_audio_manager:previous != $active_audio_manager:current  \
 	   then
 	    #echo('*** force_resource_release_one ', $active_audio_manager:previous)
