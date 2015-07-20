@@ -419,13 +419,12 @@ resource_request:
 
 	# If active manager_id changes release the previous active playback, so that when the
 	# new player pauses, previously active playback won't continue.
-	if $active_audio_manager:previous != 0 &&                           \
-	   $active_audio_manager:current != 0 &&                            \
-	   $audio_resource_owner:previous != 'call' &&                      \
-	   $audio_resource_owner:previous != 'ringtone' &&                  \
-	   $audio_resource_owner:current != 'call' &&                       \
-	   $audio_resource_owner:current != 'ringtone' &&                   \
-	   $active_audio_manager:previous != $active_audio_manager:current  \
+	if $active_audio_manager:previous != 0 &&                               \
+	   $active_audio_manager:current != 0 &&                                \
+	       ($audio_resource_owner:previous == 'player' ||                   \
+	        $audio_resource_owner:previous == 'game') &&                    \
+	   $audio_resource_owner:previous == $audio_resource_owner:current &&   \
+	   $active_audio_manager:previous != $active_audio_manager:current      \
 	   then
 	    #echo('*** force_resource_release_one ', $active_audio_manager:previous)
 	    $resource_set[manager_id] |= prolog(force_resource_release_one, $active_audio_manager:previous)
