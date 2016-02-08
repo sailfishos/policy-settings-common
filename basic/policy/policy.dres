@@ -115,9 +115,9 @@ $audio_mode += { device: ihfandtvout     , default:'ihfandtv-out' }
 $audio_mode += { device: headphoneforcall, default: lineout       }
 $audio_mode += { device: headphoneforalien,default: lineout       }
 $audio_mode += { device: headphone       , default: lineout       }
-$audio_mode += { device: headsetforcall  , default: hs            }
-$audio_mode += { device: headsetforalien , default: hs            }
-$audio_mode += { device: headset         , default: hs            }
+$audio_mode += { device: headsetforcall  , default: lineout       }
+$audio_mode += { device: headsetforalien , default: lineout       }
+$audio_mode += { device: headset         , default: lineout       }
 $audio_mode += { device: bthspforcall    , default: btmono        }
 $audio_mode += { device: bthspforalien   , default: btmono        }
 $audio_mode += { device: bthsp           , default: btmono        }
@@ -156,11 +156,11 @@ $audio_output_configuration += { device: headphoneforalien,mode: lineout     ,\
 			         hwid:na}
 $audio_output_configuration += { device: headphone      , mode: lineout      ,\
 			         hwid:na}
-$audio_output_configuration += { device: headsetforcall , mode: hs           ,\
+$audio_output_configuration += { device: headsetforcall , mode: lineout      ,\
 			         hwid:na}
-$audio_output_configuration += { device: headsetforalien, mode: hs           ,\
+$audio_output_configuration += { device: headsetforalien, mode: lineout      ,\
 			         hwid:na}
-$audio_output_configuration += { device: headset        , mode: hs           ,\
+$audio_output_configuration += { device: headset        , mode: lineout      ,\
 			         hwid:na}
 $audio_output_configuration += { device: bthspforcall   , mode: btmono       ,\
 			         hwid:na }
