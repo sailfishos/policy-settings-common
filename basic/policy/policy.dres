@@ -271,6 +271,7 @@ $alien_application = { pid: -1 }
 $context   = { variable: call                   ,  value: inactive }
 $context   = { variable: bluetooth_override     ,  value: disabled }  # disabled - active - inactive
 $context   = { variable: media_state            ,  value: inactive }  # inactive - background - foreground - active
+$context   = { variable: voicecall_record       ,  value: disabled }  # disabled - enabled
 #$context   = { variable: call_audio_type,  value: none     }
 #$context   = { variable: camera         ,  value: inactive }
 
@@ -285,6 +286,9 @@ $privacy_override = { default_value: default, value: default }
 
 # override audio route from bluetooth to other devices
 $bluetooth_override = { default_value: default, value: default }
+
+# enable voicecall recording during phone call
+$voicecall_record = { default_value: disabled, value: disabled }
 
 #
 # we always need at least one enforcement point
@@ -375,6 +379,22 @@ bluetooth_override_request:
 
 reset_bluetooth_override:
 	$bluetooth_override:value = $bluetooth_override:default_value
+
+audio_voicecall_record_request:
+	if $context[variable:call]:value == 'active' || \
+	   $context[variable:call]:value == 'outgoing' then
+
+		if &voicecall == 1 then
+			$voicecall_record:value = 'enabled'
+		else
+			$voicecall_record:value = $voicecall_record:default_value
+		end
+
+	end
+	resolve(all)
+
+reset_audio_voicecall_record:
+	$voicecall_record:value = $voicecall_record:default_value
 
 actions: audio_actions video_actions vibra_actions backlight_actions
 
@@ -503,7 +523,7 @@ telephony_first_call_hook: audio_mute_reset privacy_override_reset reset_bluetoo
 	end
 
 # last call hook
-telephony_last_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
+telephony_last_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override reset_audio_voicecall_record
 	#$mode[foo] = prolog(update_mode)
 	# resolve(all, '', 0)
 	$call_start_privacy:value = none
@@ -545,7 +565,8 @@ alien_application_request:
 # call                  - com.nokia.policy.call ($call) changes
 # bluetooth_override    - com.nokia.policy.bluetooth_override ($bluetooth_override) changes
 # media_state           - com.nokia.policy.media_state
-context: $bluetooth_override $active_application $alien_application $resource_set
+context: $voicecall_record $bluetooth_override $active_application \
+         $alien_application $resource_set
 	$context[variable] |= prolog(update_contexts)
 
 # block resolving if any policy plugin is not ready
