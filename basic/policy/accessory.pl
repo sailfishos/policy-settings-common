@@ -135,6 +135,11 @@ selectable_audio_entry_list_elem(Accessory, Selectable, Elem) :-
      accessible_audio(Twin),
      Elem = [selectable_audio, [name, TwinDevice], [selectable, Selectable]]
     )
+     ;
+    (slave_audio_device(Accessory, Slave, SlaveDevice),
+     accessible_audio(Slave),
+     Elem = [selectable_audio, [name, SlaveDevice], [selectable, Selectable]]
+    )
     ;
     (call_audio_device(Accessory, CallDevice),
      Elem = [selectable_audio, [name, CallDevice], [selectable, Selectable]]

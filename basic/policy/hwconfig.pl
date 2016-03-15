@@ -6,6 +6,10 @@ audio_device_type(sink).
 audio_device_type(source).
 
 audio_device(incompatible).
+audio_device(headphoneasfmradiolp).
+audio_device(headsetasfmradiolp).
+audio_device(headphoneasfmradio).
+audio_device(headsetasfmradio).
 audio_device(tvoutandbta2dp).
 audio_device(tvoutandbthsp).
 audio_device(ihfandbthsp).
@@ -34,6 +38,8 @@ audio_device(ihfforcall).
 audio_device(ihfforalien).
 audio_device(usbaudio).
 audio_device(ihf).
+audio_device(fmradiolp).
+audio_device(fmradio).
 audio_device(null).
 
 
@@ -64,6 +70,12 @@ audio_device_type(sink  , ihfforalien).
 audio_device_type(sink  , usbaudio).
 audio_device_type(sink  , ihf).
 audio_device_type(sink  , null).
+audio_device_type(source, fmradiolp).
+audio_device_type(source, fmradio).
+audio_device_type(source, headphoneasfmradiolp).
+audio_device_type(source, headsetasfmradiolp).
+audio_device_type(source, headphoneasfmradio).
+audio_device_type(source, headsetasfmradio).
 audio_device_type(source, usbaudio).
 audio_device_type(source, tvoutandbthsp).
 audio_device_type(source, bthsp).
@@ -107,6 +119,12 @@ audio_device_privacy(private, backmicrophone).
 audio_device_privacy(public , backmicrophone).
 audio_device_privacy(private, headmike).
 audio_device_privacy(private, usbaudio).
+audio_device_privacy(private, fmradiolp).
+audio_device_privacy(private, fmradio).
+audio_device_privacy(private, headphoneasfmradiolp).
+audio_device_privacy(private, headsetasfmradiolp).
+audio_device_privacy(private, headphoneasfmradio).
+audio_device_privacy(private, headsetasfmradio).
 
 accessory(incompatible).
 accessory(bta2dp).
@@ -134,6 +152,8 @@ audio_accessory(headphone).
 audio_accessory(tvout).
 audio_accessory(headmike).
 audio_accessory(usbaudio).
+audio_accessory(fmradiolp).
+audio_accessory(fmradio).
 
 wired_audio_accessory(headset).
 wired_audio_accessory(headphone).
@@ -184,4 +204,15 @@ twin_audio_device(bthsp     , ihf     , ihfandbthsp).
 twin_audio_device(tvout     , ihf     , ihfandtvout).
 twin_audio_device(tvout     , earpiece, earpieceandtvout). % not really a twin
 
+slave_audio_device(fmradiolp).
+slave_audio_device(fmradio).
 
+slave_audio_device(headphone, fmradiolp, headphoneasfmradiolp).
+slave_audio_device(fmradiolp, headphone, headphoneasfmradiolp).
+slave_audio_device(headset, fmradiolp, headsetasfmradiolp).
+slave_audio_device(fmradiolp, headset, headsetasfmradiolp).
+
+slave_audio_device(headphone, fmradio, headphoneasfmradio).
+slave_audio_device(fmradio, headphone, headphoneasfmradio).
+slave_audio_device(headset, fmradio, headsetasfmradio).
+slave_audio_device(fmradio, headset, headsetasfmradio).

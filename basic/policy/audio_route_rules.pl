@@ -44,6 +44,29 @@ invalid_audio_device_choice(aliencall, sink, Device) :-
     invalid_audio_device_choice_in_class(Device).
 
 
+% slave audio device is never valid choice for routing
+invalid_audio_device_choice(_, _, Device) :-
+    slave_audio_device(Device).
+
+% never route to fmradio during active call.
+fmradio_invalid(any) :-
+    context:call_state(active) ;
+    context:call_state(incoming) ;
+    context:call_state(outgoing),!.
+
+invalid_audio_device_choice(_, source, headphoneasfmradiolp) :-
+    fmradio_invalid(any).
+
+invalid_audio_device_choice(_, source, headsetasfmradiolp) :-
+    fmradio_invalid(any).
+
+invalid_audio_device_choice(_, source, headphoneasfmradio) :-
+    fmradio_invalid(any).
+
+invalid_audio_device_choice(_, source, headsetasfmradio) :-
+    fmradio_invalid(any).
+
+
 % do not route *forcall if call is not active
 %
 invalid_audio_device_choice(Class, sink, ihfforcall) :-
