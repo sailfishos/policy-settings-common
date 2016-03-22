@@ -143,67 +143,124 @@ $audio_mode += { device: headphoneasfmradio  , default: lineout   }
 $audio_mode += { device: headsetasfmradio    , default: lineout   }
 
 
-# audio output configuration
+# audio output configuration - this list needs to include all output devices from
+# audio_device_selectable list
 $audio_output_configuration  = { device: null           , mode: null         ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: null }
 $audio_output_configuration += { device: ihfforcall     , mode: ihf          ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: speaker }
 $audio_output_configuration += { device: ihfforalien    , mode: ihf          ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: speaker }
 $audio_output_configuration += { device: ihf            , mode: ihf          ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: speaker }
 $audio_output_configuration += { device: earpieceforalien, mode: hp          ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: earpiece }
 $audio_output_configuration += { device: earpiece       , mode: hp           ,\
-			         hwid:na} 
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: earpiece }
 $audio_output_configuration += { device: earpieceandtvout,mode: hp           ,\
-			         hwid:na}
-$audio_output_configuration += { device: tvout          , mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: earpiecendtvout }
+$audio_output_configuration += { device: tvout          , mode: wired        ,\
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: tvout }
 $audio_output_configuration += { device: ihfandtvout    , mode:'ihfandtv-out',\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: speakerandtvout }
 $audio_output_configuration += { device: headphoneforcall,mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headphone }
 $audio_output_configuration += { device: headphoneforalien,mode: lineout     ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headphone }
 $audio_output_configuration += { device: headphone      , mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headphone }
 $audio_output_configuration += { device: headsetforcall , mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headset }
 $audio_output_configuration += { device: headsetforalien, mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headset }
 $audio_output_configuration += { device: headset        , mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headset }
 $audio_output_configuration += { device: bthspforcall   , mode: btmono       ,\
-			         hwid:na }
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
 $audio_output_configuration += { device: bthspforalien  , mode: btmono       ,\
-			         hwid:na }
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
 $audio_output_configuration += { device: bthsp          , mode: btmono       ,\
-			         hwid:na }
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
 $audio_output_configuration += { device: bta2dpforalien , mode: bta2dp       ,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetootha2dp }
 $audio_output_configuration += { device: bta2dp         , mode: bta2dp       ,\
-			         hwid:na}
-$audio_output_configuration += { device: ihfandheadset  , mode:ihfandheadset,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetootha2dp }
+$audio_output_configuration += { device: ihfandheadset  , mode:ihfandheadset ,\
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: speakerandheadset }
 $audio_output_configuration += { device: ihfandheadphone , mode:ihfandlineout,\
-			         hwid:na}
-$audio_output_configuration += { device: ihfandbthsp    , mode: ihfandbtmono,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: speakerandheadphone }
+$audio_output_configuration += { device: ihfandbthsp    , mode: ihfandbtmono ,\
+                                 hwid: na               , type: wired        ,\
+                                 commonname: speakerandbluetoothsco }
 $audio_output_configuration += { device: tvoutandbthsp  , mode: btmono       ,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: tvoutandbluetoothsco }
 $audio_output_configuration += { device: tvoutandbta2dp , mode: bta2dp       ,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: tvoutandbluetootha2dp }
 $audio_output_configuration += { device: usbaudio       , mode: usbaudio     ,\
-			         hwid:na}
-$audio_output_configuration += { device: headphoneasfmradiolp, mode: lineout ,\
-			         hwid:na}
-$audio_output_configuration += { device: headsetasfmradiolp  , mode: lineout ,\
-			         hwid:na}
-$audio_output_configuration += { device: headphoneasfmradio  , mode: lineout ,\
-			         hwid:na}
-$audio_output_configuration += { device: headsetasfmradio    , mode: lineout ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: usbaudio }
+$audio_output_configuration += { device: incompatible   , mode: lineout      ,\
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: incompatible }
+
+# audio input configuration - this list needs to include all input devices from
+# audio_device_selectable list
+$audio_input_configuration   = { device: null                 , type: builtin ,\
+                                 commonname: null }
+$audio_input_configuration  += { device: microphone           , type: builtin ,\
+                                 commonname: microphone }
+$audio_input_configuration  += { device: backmicrophone       , type: builtin ,\
+                                 commonname: backmicrophone }
+$audio_input_configuration  += { device: headmike             , type: wired   ,\
+                                 commonname: headmike }
+$audio_input_configuration  += { device: headset              , type: wired   ,\
+                                 commonname: headset }
+$audio_input_configuration  += { device: headsetforcall       , type: wired   ,\
+                                 commonname: headset }
+$audio_input_configuration  += { device: headsetforalien      , type: wired   ,\
+                                 commonname: headset }
+$audio_input_configuration  += { device: bthsp                , type: wireless,\
+                                 commonname: bluetoothsco }
+$audio_input_configuration  += { device: bthspforcall         , type: wireless,\
+                                 commonname: bluetoothsco }
+$audio_input_configuration  += { device: bthspforalien        , type: wireless,\
+                                 commonname: bluetoothsco }
+$audio_input_configuration  += { device: usbaudio             , type: wired   ,\
+                                 commonname: usbaudio }
+$audio_input_configuration  += { device: headphoneasfmradiolp , type: wired   ,\
+                                 commonname: fmradioloopback }
+$audio_input_configuration  += { device: headsetasfmradiolp   , type: wired   ,\
+                                 commonname: fmradioloopback }
+$audio_input_configuration  += { device: headphoneasfmradio   , type: wired   ,\
+                                 commonname: fmradio }
+$audio_input_configuration  += { device: headsetasfmradio     , type: wired   ,\
+                                 commonname: fmradio }
+$audio_input_configuration  += { device: incompatible         , type: builtin ,\
+                                 commonname: incompatible }
 
 $privacy = { stage: previous, value: public }
 $privacy = { stage: current , value: public }
