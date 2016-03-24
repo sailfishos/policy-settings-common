@@ -67,6 +67,9 @@ $audio_device_accessible += { name: bta2dp        , driver: 0, connected: 0 }
 # We will never route to usbaudio unless the device is selectable, so this
 # shouldn't cause any problems.
 $audio_device_accessible += { name: usbaudio      , driver: 0, connected: 1 }
+$audio_device_accessible += { name: fmradioloopback, driver: 0, connected: 0 }
+$audio_device_accessible += { name: fmradio       , driver: 0, connected: 0 }
+$audio_device_accessible += { name: voicecall     , driver: 0, connected: 0 }
 $audio_device_accessible += { name: incompatible  , driver: 0, connected: 0 }
 
 $audio_device_selectable  = { name: null            , selectable: 1 }
@@ -99,6 +102,13 @@ $audio_device_selectable += { name: ihfandbthsp     , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbthsp   , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbta2dp  , selectable: 0 }
 $audio_device_selectable += { name: usbaudio        , selectable: 0 }
+$audio_device_selectable += { name: fmradioloopback, selectable: 0 }
+$audio_device_selectable += { name: fmradio         , selectable: 0 }
+$audio_device_selectable += { name: headphoneasfmradiolp, selectable: 0 }
+$audio_device_selectable += { name: headsetasfmradiolp  , selectable: 0 }
+$audio_device_selectable += { name: headphoneasfmradio  , selectable: 0 }
+$audio_device_selectable += { name: headsetasfmradio    , selectable: 0 }
+$audio_device_selectable += { name: voicecall       , selectable: 0 }
 $audio_device_selectable += { name: incompatible    , selectable: 0 }
 
 
@@ -129,61 +139,132 @@ $audio_mode += { device: tvoutandbta2dp  , default: bta2dp        }
 $audio_mode += { device: ihfandheadset   , default: ihfandheadset }
 $audio_mode += { device: ihfandheadphone , default: ihfandlineout }
 $audio_mode += { device: usbaudio        , default: usbaudio      }
+$audio_mode += { device: headphoneasfmradiolp, default: lineout   }
+$audio_mode += { device: headsetasfmradiolp  , default: lineout   }
+$audio_mode += { device: headphoneasfmradio  , default: lineout   }
+$audio_mode += { device: headsetasfmradio    , default: lineout   }
 
 
-# audio output configuration
+# audio output configuration - this list needs to include all output devices from
+# audio_device_selectable list
 $audio_output_configuration  = { device: null           , mode: null         ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: null }
 $audio_output_configuration += { device: ihfforcall     , mode: ihf          ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: speaker }
 $audio_output_configuration += { device: ihfforalien    , mode: ihf          ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: speaker }
 $audio_output_configuration += { device: ihf            , mode: ihf          ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: speaker }
 $audio_output_configuration += { device: earpieceforalien, mode: hp          ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: earpiece }
 $audio_output_configuration += { device: earpiece       , mode: hp           ,\
-			         hwid:na} 
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: earpiece }
 $audio_output_configuration += { device: earpieceandtvout,mode: hp           ,\
-			         hwid:na}
-$audio_output_configuration += { device: tvout          , mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: earpiecendtvout }
+$audio_output_configuration += { device: tvout          , mode: wired        ,\
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: tvout }
 $audio_output_configuration += { device: ihfandtvout    , mode:'ihfandtv-out',\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: speakerandtvout }
 $audio_output_configuration += { device: headphoneforcall,mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headphone }
 $audio_output_configuration += { device: headphoneforalien,mode: lineout     ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headphone }
 $audio_output_configuration += { device: headphone      , mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headphone }
 $audio_output_configuration += { device: headsetforcall , mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headset }
 $audio_output_configuration += { device: headsetforalien, mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headset }
 $audio_output_configuration += { device: headset        , mode: lineout      ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: headset }
 $audio_output_configuration += { device: bthspforcall   , mode: btmono       ,\
-			         hwid:na }
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
 $audio_output_configuration += { device: bthspforalien  , mode: btmono       ,\
-			         hwid:na }
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
 $audio_output_configuration += { device: bthsp          , mode: btmono       ,\
-			         hwid:na }
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
 $audio_output_configuration += { device: bta2dpforalien , mode: bta2dp       ,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetootha2dp }
 $audio_output_configuration += { device: bta2dp         , mode: bta2dp       ,\
-			         hwid:na}
-$audio_output_configuration += { device: ihfandheadset  , mode:ihfandheadset,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetootha2dp }
+$audio_output_configuration += { device: ihfandheadset  , mode:ihfandheadset ,\
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: speakerandheadset }
 $audio_output_configuration += { device: ihfandheadphone , mode:ihfandlineout,\
-			         hwid:na}
-$audio_output_configuration += { device: ihfandbthsp    , mode: ihfandbtmono,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: speakerandheadphone }
+$audio_output_configuration += { device: ihfandbthsp    , mode: ihfandbtmono ,\
+                                 hwid: na               , type: wired        ,\
+                                 commonname: speakerandbluetoothsco }
 $audio_output_configuration += { device: tvoutandbthsp  , mode: btmono       ,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: tvoutandbluetoothsco }
 $audio_output_configuration += { device: tvoutandbta2dp , mode: bta2dp       ,\
-			         hwid:na}
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: tvoutandbluetootha2dp }
 $audio_output_configuration += { device: usbaudio       , mode: usbaudio     ,\
-			         hwid:na}
+                                 hwid: na               , type: wired        ,\
+                                 commonname: usbaudio }
+$audio_output_configuration += { device: incompatible   , mode: lineout      ,\
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: incompatible }
+
+# audio input configuration - this list needs to include all input devices from
+# audio_device_selectable list
+$audio_input_configuration   = { device: null                 , type: builtin ,\
+                                 commonname: null }
+$audio_input_configuration  += { device: microphone           , type: builtin ,\
+                                 commonname: microphone }
+$audio_input_configuration  += { device: backmicrophone       , type: builtin ,\
+                                 commonname: backmicrophone }
+$audio_input_configuration  += { device: headmike             , type: wired   ,\
+                                 commonname: headmike }
+$audio_input_configuration  += { device: headset              , type: wired   ,\
+                                 commonname: headset }
+$audio_input_configuration  += { device: headsetforcall       , type: wired   ,\
+                                 commonname: headset }
+$audio_input_configuration  += { device: headsetforalien      , type: wired   ,\
+                                 commonname: headset }
+$audio_input_configuration  += { device: bthsp                , type: wireless,\
+                                 commonname: bluetoothsco }
+$audio_input_configuration  += { device: bthspforcall         , type: wireless,\
+                                 commonname: bluetoothsco }
+$audio_input_configuration  += { device: bthspforalien        , type: wireless,\
+                                 commonname: bluetoothsco }
+$audio_input_configuration  += { device: usbaudio             , type: wired   ,\
+                                 commonname: usbaudio }
+$audio_input_configuration  += { device: headphoneasfmradiolp , type: wired   ,\
+                                 commonname: fmradioloopback }
+$audio_input_configuration  += { device: headsetasfmradiolp   , type: wired   ,\
+                                 commonname: fmradioloopback }
+$audio_input_configuration  += { device: headphoneasfmradio   , type: wired   ,\
+                                 commonname: fmradio }
+$audio_input_configuration  += { device: headsetasfmradio     , type: wired   ,\
+                                 commonname: fmradio }
+$audio_input_configuration  += { device: voicecall            , type: builtin ,\
+                                 commonname: voicecallrecord }
+$audio_input_configuration  += { device: incompatible         , type: builtin ,\
+                                 commonname: incompatible }
 
 $privacy = { stage: previous, value: public }
 $privacy = { stage: current , value: public }
@@ -252,6 +333,10 @@ $audio_mute   += { device: bthspforalien , mute: unmuted }
 $audio_mute   += { device: bthsp         , mute: unmuted }
 $audio_mute   += { device: tvoutandbthsp , mute: unmuted }
 $audio_mute   += { device: usbaudio      , mute: unmuted }
+$audio_mute   += { device: headphoneasfmradiolp, mute: unmuted }
+$audio_mute   += { device: headsetasfmradiolp  , mute: unmuted }
+$audio_mute   += { device: headphoneasfmradio  , mute: unmuted }
+$audio_mute   += { device: headsetasfmradio    , mute: unmuted }
 
 # vibra control
 $vibra_mute  = { group: other, mute: unmuted }
@@ -267,10 +352,17 @@ $active_application = { pid: 0 }
 # alien UI process id
 $alien_application = { pid: -1 }
 
+# features
+$feature   = { name: fmradio            , allowed: 0        , enabled: 0 }
+$feature  += { name: fmradioloopback    , allowed: 0        , enabled: 0 }
+$feature  += { name: voicecallrecord    , allowed: 0        , enabled: 0 }
+$feature  += { name: bluetoothoverride  , allowed: 0        , enabled: 0 }
+
 # contexts
 $context   = { variable: call                   ,  value: inactive }
 $context   = { variable: bluetooth_override     ,  value: disabled }  # disabled - active - inactive
 $context   = { variable: media_state            ,  value: inactive }  # inactive - background - foreground - active
+$context   = { variable: voicecall_record       ,  value: disabled }  # disabled - enabled
 #$context   = { variable: call_audio_type,  value: none     }
 #$context   = { variable: camera         ,  value: inactive }
 
@@ -286,6 +378,9 @@ $privacy_override = { default_value: default, value: default }
 # override audio route from bluetooth to other devices
 $bluetooth_override = { default_value: default, value: default }
 
+# enable voicecall recording during phone call
+$voicecall_record = { default_value: disabled, value: disabled }
+
 #
 # we always need at least one enforcement point
 # (workaround for a resolver factstore tracking buglet/feature...)
@@ -299,8 +394,18 @@ $resolver = { blocked: 0 }
 # internally used variables
 $completion_handler_called = { value: no }
 
-all: plugin_check video_route audio_route audio_volume audio_cork audio_mute context \
-     $vibra_mute $backlight $enforcement_point
+all: plugin_check               \
+     video_route                \
+     update_feature_allowed     \
+     audio_route                \
+     audio_volume               \
+     audio_cork                 \
+     audio_mute                 \
+     context                    \
+     $vibra_mute                \
+     $backlight                 \
+     $enforcement_point
+
 	if !$resolver:blocked then
 	    #echo('*** all ***')
 	    $completion_handler_called:value = no
@@ -312,6 +417,106 @@ all: plugin_check video_route audio_route audio_volume audio_cork audio_mute con
 	    #end
 	end
 
+update_feature_allowed:
+	# disable fmradio feature when call is starting
+	if $context[variable:call]:value != 'inactive' then
+		$feature[name:fmradio]:allowed = 0
+		$feature[name:fmradioloopback]:allowed = 0
+	end
+
+	if $context[variable:call]:value == 'active' || \
+	   $context[variable:call]:value == 'outgoing' then
+		$feature[name:voicecallrecord]:allowed = 1
+	else
+		$feature[name:voicecallrecord]:allowed = 0
+		$feature[name:voicecallrecord]:enabled = 0
+
+		# fmradio is allowed only when call is not active
+		# however, keep allow on during ringtone as well so that
+		# enabled state is not reset during incoming call
+		if $audio_device_selectable[name:headset]:selectable == 1               || \
+		   $audio_device_selectable[name:headsetforcall]:selectable == 1        || \
+		   $audio_device_selectable[name:headsetforalien]:selectable == 1       || \
+		   $audio_device_selectable[name:headphone]:selectable == 1             || \
+		   $audio_device_selectable[name:headphoneforcall]:selectable == 1      || \
+		   $audio_device_selectable[name:headphoneforalien]:selectable == 1     || \
+		   $audio_device_selectable[name:ihfandheadphone]:selectable == 1       || \
+		   $audio_device_selectable[name:ihfandheadset]:selectable == 1         then
+			$feature[name:fmradio]:allowed = 1
+			$feature[name:fmradioloopback]:allowed = 1
+		else
+			$feature[name:fmradio]:allowed = 0
+			$feature[name:fmradio]:enabled = 0
+			$feature[name:fmradioloopback]:allowed = 0
+			$feature[name:fmradioloopback]:enabled = 0
+		end
+
+	end
+
+	resolve(voicecallrecord_feature_update)
+	resolve(fmradioloopback_feature_update)
+	resolve(fmradio_feature_update)
+
+voicecallrecord_feature_update: $feature
+	if $feature[name:voicecallrecord]:enabled == 1 then
+		$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
+		                                        'voicecall', 1, 1)
+		$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
+		                                        'voicecall', 1, 1)
+	else
+		$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
+		                                        'voicecall', 0, 0)
+		$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
+		                                        'voicecall', 0, 0)
+	end
+
+fmradioloopback_feature_update: $feature
+	if $feature[name:fmradioloopback]:enabled == 1 then
+		$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
+		                                        'fmradioloopback', 1, 1)
+		$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
+		                                        'fmradioloopback', 1, 1)
+	else
+		$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
+		                                        'fmradioloopback', 0, 0)
+		$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
+		                                        'fmradioloopback', 0, 0)
+	end
+
+fmradio_feature_update: $feature
+	if $feature[name:fmradio]:enabled == 1 then
+		$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
+		                                        'fmradio', 1, 1)
+		$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
+		                                        'fmradio', 1, 1)
+	else
+		$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
+		                                        'fmradio', 0, 0)
+		$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
+		                                        'fmradio', 0, 0)
+	end
+
+feature_request:
+	# allow enabling only when allowed is true, disabling is allowed always
+	if $feature[name:&feature_name]:allowed == 1 || &value == 0 then
+		$feature[name:&feature_name]:enabled = &value
+		if &feature_name == 'fmradio'           ||\
+		   &feature_name == 'fmradioloopback'   then
+				$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
+				                                        &feature_name, &value, &value)
+				$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
+				                                        &feature_name, &value, &value)
+		end
+		if &feature_name == 'voicecallrecord' then
+			resolve(voicecallrecord_feature_update)
+			if &value == 1 then
+				$voicecall_record:value = 'enabled'
+			else
+				$voicecall_record:value = $voicecall_record:default_value
+			end
+		end
+		resolve(all)
+	end
 
 video_route: $video_device_selectable $gconf
 	$video_route = prolog(set_video_routes)
@@ -375,6 +580,22 @@ bluetooth_override_request:
 
 reset_bluetooth_override:
 	$bluetooth_override:value = $bluetooth_override:default_value
+
+audio_voicecall_record_request:
+	if $context[variable:call]:value == 'active' || \
+	   $context[variable:call]:value == 'outgoing' then
+
+		if &voicecall == 1 then
+			$voicecall_record:value = 'enabled'
+		else
+			$voicecall_record:value = $voicecall_record:default_value
+		end
+
+	end
+	resolve(all)
+
+reset_audio_voicecall_record:
+	$voicecall_record:value = $voicecall_record:default_value
 
 actions: audio_actions video_actions vibra_actions backlight_actions
 
@@ -503,7 +724,7 @@ telephony_first_call_hook: audio_mute_reset privacy_override_reset reset_bluetoo
 	end
 
 # last call hook
-telephony_last_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
+telephony_last_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override reset_audio_voicecall_record
 	#$mode[foo] = prolog(update_mode)
 	# resolve(all, '', 0)
 	$call_start_privacy:value = none
@@ -545,7 +766,8 @@ alien_application_request:
 # call                  - com.nokia.policy.call ($call) changes
 # bluetooth_override    - com.nokia.policy.bluetooth_override ($bluetooth_override) changes
 # media_state           - com.nokia.policy.media_state
-context: $bluetooth_override $active_application $alien_application $resource_set
+context: $voicecall_record $bluetooth_override $active_application \
+         $alien_application $resource_set
 	$context[variable] |= prolog(update_contexts)
 
 # block resolving if any policy plugin is not ready

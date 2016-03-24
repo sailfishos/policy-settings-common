@@ -62,6 +62,13 @@ media_playing_state(Value) :-
 				(resource_set_pid_granted(Pid, audio_playback) -> Value=active ; Value=background) ;
 				(resource_set_pid_registered(Pid, audio_playback) *-> Value=foreground ; Value=inactive)))).
 
+% if call is ongoing -> possible to set enabled or disabled
+%                       then voicecall_record fact determines whether the
+%                       context value is enabled or disabled
+voicecall_record_state(Value) :-
+	call_state_all(any) *-> (voicecall_record_value(enabled) *-> Value=enabled ; Value=disabled) ;
+	                        Value=disabled.
+
 % # call context predicate
 context_variable(call, Entry) :-
 	call_state(State),
@@ -77,10 +84,19 @@ context_variable(media_state, Entry) :-
 	media_playing_state(State),
 	set_context_variable_and_value(media_state, State, Entry).
 
+% voicecall_record context value
+context_variable(voicecall_record, Entry) :-
+	voicecall_record_state(State),
+	set_context_variable_and_value(voicecall_record, State, Entry).
+
 
 % #############################################################################
 % #                        ### helper predicates ###                          #
 % #############################################################################
+
+voicecall_record_value(A) :-
+	fact_exists('com.nokia.policy.voicecall_record', [value], [A]),
+	not(A = disabled).
 
 active_application_pid(Pid) :-
 	fact_exists('com.nokia.policy.active_application', [pid], [Pid]),
