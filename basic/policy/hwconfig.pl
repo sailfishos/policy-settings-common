@@ -10,6 +10,7 @@ audio_device(headphoneasfmradiolp).
 audio_device(headsetasfmradiolp).
 audio_device(headphoneasfmradio).
 audio_device(headsetasfmradio).
+audio_device(voicecall).
 audio_device(tvoutandbta2dp).
 audio_device(tvoutandbthsp).
 audio_device(ihfandbthsp).
@@ -72,6 +73,7 @@ audio_device_type(sink  , ihf).
 audio_device_type(sink  , null).
 audio_device_type(source, fmradioloopback).
 audio_device_type(source, fmradio).
+audio_device_type(source, voicecall).
 audio_device_type(source, headphoneasfmradiolp).
 audio_device_type(source, headsetasfmradiolp).
 audio_device_type(source, headphoneasfmradio).
@@ -125,6 +127,7 @@ audio_device_privacy(private, headphoneasfmradiolp).
 audio_device_privacy(private, headsetasfmradiolp).
 audio_device_privacy(private, headphoneasfmradio).
 audio_device_privacy(private, headsetasfmradio).
+audio_device_privacy(private, voicecall).
 
 accessory(incompatible).
 accessory(bta2dp).
@@ -154,6 +157,7 @@ audio_accessory(headmike).
 audio_accessory(usbaudio).
 audio_accessory(fmradioloopback).
 audio_accessory(fmradio).
+audio_accessory(voicecall).
 
 wired_audio_accessory(headset).
 wired_audio_accessory(headphone).
