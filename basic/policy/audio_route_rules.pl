@@ -52,22 +52,23 @@ invalid_audio_device_choice(_, _, Device) :-
     slave_audio_device(Device).
 
 % never route to fmradio during active call.
-fmradio_invalid(any) :-
+fmradio_invalid(Class, any) :-
+    Class = camera ;
     context:call_state(active) ;
     context:call_state(incoming) ;
     context:call_state(outgoing),!.
 
-invalid_audio_device_choice(_, source, headphoneasfmradiolp) :-
-    fmradio_invalid(any).
+invalid_audio_device_choice(Class, source, headphoneasfmradiolp) :-
+    fmradio_invalid(Class, any).
 
-invalid_audio_device_choice(_, source, headsetasfmradiolp) :-
-    fmradio_invalid(any).
+invalid_audio_device_choice(Class, source, headsetasfmradiolp) :-
+    fmradio_invalid(Class, any).
 
-invalid_audio_device_choice(_, source, headphoneasfmradio) :-
-    fmradio_invalid(any).
+invalid_audio_device_choice(Class, source, headphoneasfmradio) :-
+    fmradio_invalid(Class, any).
 
-invalid_audio_device_choice(_, source, headsetasfmradio) :-
-    fmradio_invalid(any).
+invalid_audio_device_choice(Class, source, headsetasfmradio) :-
+    fmradio_invalid(Class, any).
 
 
 % do not route *forcall if call is not active
