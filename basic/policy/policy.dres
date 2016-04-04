@@ -322,21 +322,24 @@ $audio_cork += { group: nonsilent  , cork: uncorked }
 $audio_cork += { group: alwayson   , cork: uncorked }
 
 # muting
-$audio_mute    = { device: microphone    , mute: unmuted }
-$audio_mute   += { device: backmicrophone, mute: unmuted }
-$audio_mute   += { device: headmike      , mute: unmuted }
-$audio_mute   += { device: headsetforcall, mute: unmuted }
-$audio_mute   += { device: headsetforalien,mute: unmuted }
-$audio_mute   += { device: headset       , mute: unmuted }
-$audio_mute   += { device: bthspforcall  , mute: unmuted }
-$audio_mute   += { device: bthspforalien , mute: unmuted }
-$audio_mute   += { device: bthsp         , mute: unmuted }
-$audio_mute   += { device: tvoutandbthsp , mute: unmuted }
-$audio_mute   += { device: usbaudio      , mute: unmuted }
-$audio_mute   += { device: headphoneasfmradiolp, mute: unmuted }
-$audio_mute   += { device: headsetasfmradiolp  , mute: unmuted }
-$audio_mute   += { device: headphoneasfmradio  , mute: unmuted }
-$audio_mute   += { device: headsetasfmradio    , mute: unmuted }
+$audio_mute    = { device: microphone           , mute: unmuted }
+$audio_mute   += { device: backmicrophone       , mute: unmuted }
+$audio_mute   += { device: headmike             , mute: unmuted }
+$audio_mute   += { device: headsetforcall       , mute: unmuted }
+$audio_mute   += { device: headsetforalien      , mute: unmuted }
+$audio_mute   += { device: headset              , mute: unmuted }
+$audio_mute   += { device: bthspforcall         , mute: unmuted }
+$audio_mute   += { device: bthspforalien        , mute: unmuted }
+$audio_mute   += { device: bthsp                , mute: unmuted }
+$audio_mute   += { device: tvoutandbthsp        , mute: unmuted }
+$audio_mute   += { device: usbaudio             , mute: unmuted }
+$audio_mute   += { device: voicecall            , mute: unmuted }
+$audio_mute   += { device: fmradio              , mute: unmuted }
+$audio_mute   += { device: fmradioloopback      , mute: unmuted }
+$audio_mute   += { device: headphoneasfmradiolp , mute: unmuted }
+$audio_mute   += { device: headsetasfmradiolp   , mute: unmuted }
+$audio_mute   += { device: headphoneasfmradio   , mute: unmuted }
+$audio_mute   += { device: headsetasfmradio     , mute: unmuted }
 
 # vibra control
 $vibra_mute  = { group: other, mute: unmuted }
