@@ -162,6 +162,12 @@ audio_accessory(voicecall).
 wired_audio_accessory(headset).
 wired_audio_accessory(headphone).
 
+bt_audio_accessory(bta2dp).
+bt_audio_accessory(bta2dpforalien).
+bt_audio_accessory(bthspforcall).
+bt_audio_accessory(bthspforalien).
+bt_audio_accessory(bthsp).
+
 call_audio_device(ihf,          ihfforcall).
 call_audio_device(headset,      headsetforcall).
 call_audio_device(headphone,    headphoneforcall).
