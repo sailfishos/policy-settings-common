@@ -26,6 +26,7 @@ Summary:    Common policy settings sources
 %setup -q -n %{name}-%{version}
 
 %build
+rm -f dummy.h* basic/policy/{policy.dresc,policy.plc}
 %autogen --disable-static
 %configure
 make -j1
