@@ -359,7 +359,7 @@ $alien_application = { pid: -1 }
 $feature   = { name: fmradio            , allowed: 0        , enabled: 0 }
 $feature  += { name: fmradioloopback    , allowed: 0        , enabled: 0 }
 $feature  += { name: voicecallrecord    , allowed: 0        , enabled: 0 }
-$feature  += { name: bluetoothoverride  , allowed: 0        , enabled: 0 }
+$feature  += { name: speaker            , allowed: 0        , enabled: 0 }
 
 # contexts
 $context   = { variable: call                   ,  value: inactive }
@@ -399,12 +399,13 @@ $completion_handler_called = { value: no }
 
 all: plugin_check               \
      video_route                \
-     update_feature_allowed     \
      audio_route                \
      audio_volume               \
      audio_cork                 \
      audio_mute                 \
      context                    \
+     update_feature_allowed     \
+     update_feature_enabled     \
      $vibra_mute                \
      $backlight                 \
      $enforcement_point
@@ -420,7 +421,7 @@ all: plugin_check               \
 	    #end
 	end
 
-update_feature_allowed:
+update_feature_allowed: $context $audio_device_selectable
 	# disable fmradio feature when call is starting
 	if $context[variable:call]:value != 'inactive' then
 		$feature[name:fmradio]:allowed = 0
@@ -456,9 +457,24 @@ update_feature_allowed:
 
 	end
 
+	# speaker routing is allowed only when fmradio is enabled,
+	# or while phone call is active
+	if $feature[name:fmradioloopback]:enabled == 1      || \
+	   $feature[name:fmradio]:enabled == 1              || \
+	   $context[variable:call]:value == 'outgoing'      || \
+	   $context[variable:call]:value == 'active'        then
+		$feature[name:speaker]:allowed = 1
+	else
+		$feature[name:speaker]:allowed = 0
+		$feature[name:speaker]:enabled = 0
+	end
+
+update_feature_enabled: $feature
 	resolve(voicecallrecord_feature_update)
 	resolve(fmradioloopback_feature_update)
 	resolve(fmradio_feature_update)
+	resolve(speaker_feature_update)
+	resolve(audio_route)
 
 voicecallrecord_feature_update: $feature
 	if $feature[name:voicecallrecord]:enabled == 1 then
@@ -499,6 +515,13 @@ fmradio_feature_update: $feature
 		                                        'fmradio', 0, 0)
 	end
 
+speaker_feature_update: $feature
+	if $feature[name:speaker]:enabled == 1 then
+		$privacy_override:value = 'public'
+	else
+		$privacy_override:value = $privacy_override:default_value
+	end
+
 feature_request:
 	# allow enabling only when allowed is true, disabling is allowed always
 	if $feature[name:&feature_name]:allowed == 1 || &value == 0 then
@@ -517,6 +540,9 @@ feature_request:
 			else
 				$voicecall_record:value = $voicecall_record:default_value
 			end
+		end
+		if &feature_name == 'speaker' then
+			resolve(speaker_feature_update)
 		end
 		resolve(all)
 	end
@@ -568,10 +594,16 @@ audio_mute_reset:
 
 privacy_override_request:
 	$privacy_override:value = &privacy_override_state
+	if &privacy_override_state == 'public' then
+		$feature[name:speaker]:enabled = 1
+	else
+		$feature[name:speaker]:enabled = 0
+	end
 	resolve(all)
 
 privacy_override_reset:
 	$privacy_override:value = $privacy_override:default_value
+	$feature[name:speaker]:enabled = 0
 
 bluetooth_override_request:
 	if &bluetooth_override_state == 'disconnected' || &bluetooth_override_state == 'default' then

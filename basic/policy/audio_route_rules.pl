@@ -70,6 +70,14 @@ invalid_audio_device_choice(Class, source, headphoneasfmradio) :-
 invalid_audio_device_choice(Class, source, headsetasfmradio) :-
     fmradio_invalid(Class, any).
 
+% do not route to wired accessories if speaker override is on.
+% this allows routing to speaker even when not in call, like
+% during listening to fmradio.
+invalid_audio_device_choice(_, sink, headphone) :-
+    speaker_override.
+
+invalid_audio_device_choice(_, sink, headset) :-
+    speaker_override.
 
 % do not route *forcall if call is not active
 %
