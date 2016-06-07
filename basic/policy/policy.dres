@@ -360,7 +360,6 @@ $feature   = { name: fmradio            , allowed: 0        , enabled: 0 }
 $feature  += { name: fmradioloopback    , allowed: 0        , enabled: 0 }
 $feature  += { name: voicecallrecord    , allowed: 0        , enabled: 0 }
 $feature  += { name: speaker            , allowed: 0        , enabled: 0 }
-$feature  += { name: bluetoothoverride  , allowed: 0        , enabled: 0 }
 
 # contexts
 $context   = { variable: call                   ,  value: inactive }
