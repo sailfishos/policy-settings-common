@@ -360,6 +360,7 @@ $feature   = { name: fmradio            , allowed: 0        , enabled: 0 }
 $feature  += { name: fmradioloopback    , allowed: 0        , enabled: 0 }
 $feature  += { name: voicecallrecord    , allowed: 0        , enabled: 0 }
 $feature  += { name: speaker            , allowed: 0        , enabled: 0 }
+$feature  += { name: bluetooth_override , allowed: 0        , enabled: 0 }
 
 # contexts
 $context   = { variable: call                   ,  value: inactive }
@@ -457,6 +458,14 @@ update_feature_allowed: $context $audio_device_selectable
 
 	end
 
+	if $audio_device_selectable[name:bthspforcall]:selectable == 1              && \
+	   $context[variable:call]:value != 'inactive'                              then
+		$feature[name:bluetooth_override]:allowed = 1
+	else
+		$feature[name:bluetooth_override]:allowed = 0
+		$feature[name:bluetooth_override]:enabled = 0
+	end
+
 	# speaker routing is allowed only when fmradio is enabled,
 	# or while phone call is active
 	if $feature[name:fmradioloopback]:enabled == 1      || \
@@ -474,6 +483,7 @@ update_feature_enabled: $feature
 	resolve(fmradioloopback_feature_update)
 	resolve(fmradio_feature_update)
 	resolve(speaker_feature_update)
+	resolve(bluetooth_override_feature_update)
 	resolve(audio_route)
 
 voicecallrecord_feature_update: $feature
@@ -520,6 +530,13 @@ speaker_feature_update: $feature
 		$privacy_override:value = 'public'
 	else
 		$privacy_override:value = $privacy_override:default_value
+	end
+
+bluetooth_override_feature_update: $feature
+	if $feature[name:bluetooth_override]:enabled == 1 then
+		$bluetooth_override:value = 'earpiece'
+	else
+		$bluetooth_override:value = $bluetooth_override:default_value
 	end
 
 feature_request:
@@ -608,13 +625,16 @@ privacy_override_reset:
 bluetooth_override_request:
 	if &bluetooth_override_state == 'disconnected' || &bluetooth_override_state == 'default' then
 		$bluetooth_override:value = $bluetooth_override:default_value
+		$feature[name:bluetooth_override]:enabled = 0
 	else
 		$bluetooth_override:value = &bluetooth_override_state
+		$feature[name:bluetooth_override]:enabled = 1
 	end
 	resolve(all)
 
 reset_bluetooth_override:
 	$bluetooth_override:value = $bluetooth_override:default_value
+	$feature[name:bluetooth_override]:enabled = 0
 
 audio_voicecall_record_request:
 	if $context[variable:call]:value == 'active' || \
