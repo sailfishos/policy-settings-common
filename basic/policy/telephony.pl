@@ -41,7 +41,7 @@ max_allowed_calls(2).      % maximum number of allowed calls
 % * Calls are always allowed to be put on hold.
 % *
 
-call_actions(Id, onhold, [Action]) :- hold_call(Id, Action), !.
+call_actions(Id, onhold, [Action]) :- held_call(Id, Action), !.
 
 % *
 % * When disconnecting a call, check which end initiated the disconnection.
@@ -125,24 +125,30 @@ call_actions(Id, created, [Action]) :-
      ;
          create_call(Id, Action)), !.
 
+% *
+% * A call can always be activated without further actions. ofono will take care of
+% * holding any active call.
+% *
+call_actions(Id, active, [Action]) :-
+    activate_call(Id, Action), !.
 
 % *
 % * A call can be activated without further actions if we have no active calls.
 % *
 
-call_actions(Id, active, [Action]) :- 
-    not(has_active_call),
-    activate_call(Id, Action), !.
+%call_actions(Id, active, [Action]) :- 
+%    not(has_active_call),
+%    activate_call(Id, Action), !.
 
 % *
 % * Otherwise the active call(s) must be either put on hold first or
 % * disconnected depending on whether the new call is an emergency call.
 % *
 
-call_actions(Id, active, Actions) :-
-    autohold_active_calls(Id, AutoHoldActions),
-    activate_call(Id, ActivateActions),
-    append(AutoHoldActions, [ActivateActions], Actions), !.
+%call_actions(Id, active, Actions) :-
+%    autohold_active_calls(Id, AutoHoldActions),
+%    activate_call(Id, ActivateActions),
+%    append(AutoHoldActions, [ActivateActions], Actions), !.
 
 
 % *
@@ -150,7 +156,7 @@ call_actions(Id, active, Actions) :-
 % * disconnecting the call.
 % *
 
-call_actions(Id, _, [Action]) :- reject_call(Id, Action), !.
+%call_actions(Id, _, [Action]) :- reject_call(Id, Action), !.
 
 
 % *
@@ -317,6 +323,9 @@ create_call(Id, [Id, created]).
 
 % hold a call
 hold_call(Id, [Id, onhold]).
+
+% Notify a held a call
+held_call(Id, [Id, held]).
 
 % *
 % * Autoholding is the action of automatically holding a call to make
