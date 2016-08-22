@@ -16,6 +16,7 @@ resource(lock_button).
 resource(scale_button).
 resource(snap_button).
 resource(lens_cover).
+resource(rear_flashlight).
 
 %               resource        decimal mask      bit  hexa mask
 %            -----------------------------------------------------
@@ -33,6 +34,7 @@ resource_bit( scale_button    ,        1024 ).  %  10  0x00000400
 resource_bit( snap_button     ,        2048 ).  %  11  0x00000800
 resource_bit( lens_cover      ,        4096 ).  %  12  0x00001000
 resource_bit( headset_buttons ,        8192 ).  %  13  0x00002000
+resource_bit( rear_flashlight ,       16384 ).  %  14  0x00004000
 
 /****************************************************************************
  *
@@ -270,3 +272,7 @@ valid_resource_class( snap_button     ,    event       ).
 valid_resource_class( snap_button     ,    background  ).
 valid_resource_class( snap_button     ,    alien       ).
 valid_resource_class( snap_button     ,    nobody      ).
+
+valid_resource_class( rear_flashlight ,    camera      ).
+valid_resource_class( rear_flashlight ,    background  ).
+valid_resource_class( rear_flashlight ,    nobody      ).
