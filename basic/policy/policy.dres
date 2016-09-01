@@ -2,6 +2,8 @@
 PREFIX = com.nokia.policy
 
 # resource
+$resource_owner  = {resource: rear_flashlight, owner: nobody, mode: shared, \
+                    group   : nobody }
 $resource_owner  = {resource: headset_buttons, owner: nobody, mode: shared, \
                     group   : nobody }
 $resource_owner += {resource: lens_cover,      owner: nobody, mode: shared, \
