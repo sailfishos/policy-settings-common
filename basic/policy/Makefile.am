@@ -2,7 +2,7 @@ dist_ruleset_SCRIPTS = policy.plc
 RULESET      = $(notdir $(shell cd ..; pwd))
 EXTRA_DIST   = $(ruleset_DATA)
 rulesetdir   = $(datadir)/policy/rules/$(RULESET)
-ruleset_DATA = policy.dresc $(SOURCES)
+ruleset_DATA = $(SOURCES)
 SOURCES      = $(shell ls *.pl *.dres)
 LIBPROLOG    = /usr/share/libprolog/libprolog.pl
 
@@ -11,14 +11,16 @@ PLC   = @PLC@
 
 MAINTAINERCLEANFILES = Makefile.in
 
-policy.dresc: policy.dres
-	$(DRESC) $< -o $@
+test-dres: policy.dres
+	$(DRESC) --compile $<
 
 policy.plc: policy.pl $(LIBPROLOG)
 	$(PLC) -q -t precompile -s ../../scripts/plc -- -c $? -o $@
 
 clean-local:
 	rm -f *~ *.plc *.dresc
+
+install-exec-hook: test-dres
 
 install-data-hook: install-symlinks
 
