@@ -12,11 +12,9 @@
 %
 % accessories that are mutualy exclusive:
 %
-accessory_exclude( bta2dp,          headset              ).
-accessory_exclude( bta2dp,          headphone            ).
 accessory_exclude( bta2dp,          headsetforcall       ).
 accessory_exclude( bta2dp,          headphoneforcall     ).
-%accessory_exclude( bta2dp,          ihfforcall           ).
+accessory_exclude( bta2dp,          ihfforcall           ).
 
 %
 % *** bthsp ***
@@ -27,11 +25,9 @@ accessory_exclude( bta2dp,          headphoneforcall     ).
 %
 % accessories that are mutualy exclusive:
 %
-accessory_exclude( bthsp,           headset             ).
-accessory_exclude( bthsp,           headphone           ).
 accessory_exclude( bthsp,           headsetforcall      ).
 accessory_exclude( bthsp,           headphoneforcall    ).
-%accessory_exclude( bthsp,           ihfforcall          ).
+accessory_exclude( bthsp,           ihfforcall          ).
 accessory_exclude( bthsp,           headmike            ).
 
 %
@@ -42,7 +38,6 @@ accessory_exclude( bthsp,           headmike            ).
 %
 % accessories that are mutualy exclusive:
 %
-accessory_exclude( headset, bta2dp    ).
 accessory_exclude( headset, bthsp     ).
 accessory_exclude( headset, headphone ).
 accessory_exclude( headset, tvout     ).
@@ -56,7 +51,6 @@ accessory_exclude( headset, headmike  ).
 %
 % accessories that are mutualy exclusive:
 %
-accessory_exclude( headphone, bta2dp   ).
 accessory_exclude( headphone, bthsp    ).
 accessory_exclude( headphone, headset  ).
 accessory_exclude( headphone, tvout    ).

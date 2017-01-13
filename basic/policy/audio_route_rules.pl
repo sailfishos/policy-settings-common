@@ -79,6 +79,9 @@ invalid_audio_device_choice(_, sink, headphone) :-
 invalid_audio_device_choice(_, sink, headset) :-
     speaker_override.
 
+invalid_audio_device_choice(_, sink, bta2dp) :-
+    speaker_override.
+
 % do not route *forcall if call is not active
 %
 invalid_audio_device_choice(Class, sink, ihfforcall) :-
