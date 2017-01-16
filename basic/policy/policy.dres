@@ -400,6 +400,9 @@ $resolver = { blocked: 0 }
 # internally used variables
 $completion_handler_called = { value: no }
 
+# workaround to reference variables in requests
+$ref = { variable_a:0, variable_b:0 }
+
 all: plugin_check               \
      video_route                \
      audio_route                \
@@ -683,7 +686,9 @@ backlight_actions: $backlight
 		       'com.nokia.policy.backlight')
 
 resource_request:
-	echo('*** resource_request: ', &request, ' ', &manager_id)
+	#echo('*** resource_request: ', &request, ' ', &manager_id)
+	$ref:variable_a = &request
+	$ref:variable_b = &manager_id
 	$audio_resource_owner:previous = $resource_owner[resource:audio_playback]:owner
 	$active_audio_manager_id = prolog(get_active_audio_manager_id)
 	$active_audio_manager:previous = $active_audio_manager_id:id
