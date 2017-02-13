@@ -583,18 +583,20 @@ audio_route: $audio_device_selectable $audio_output_configuration \
 	# after call ends route is private, force release resources (use case:
 	# listen to music speaker, answer call, plug headset in for the duration of
 	# the call, end call with headset connected -> audio stays paused)
-	if (($privacy[stage:previous]:value == 'private' ||     \
+	if ($call_start_privacy:value != 'private' &&           \
+	   (($privacy[stage:previous]:value == 'private' ||     \
 	        ($audio_resource_owner:previous == 'call' &&    \
 	         $audio_resource_owner:current != 'call')) &&   \
-	   $privacy[stage:current]:value  == 'public') ||       \
+	   $privacy[stage:current]:value  == 'public')) ||      \
 	   ($call_start_privacy:value == 'public' &&            \
 	        $audio_resource_owner:previous == 'call' &&     \
 	         $audio_resource_owner:current != 'call' &&     \
 	   $privacy[stage:current]:value  == 'private')         \
 	then
 	    #echo('*** stop players ***')
+	    #echo('$privacy[stage:previous]:value ==', $privacy[stage:previous]:value, '$privacy[stage:current]:value ==', $privacy[stage:current]:value, '$audio_resource_owner:previous ==', $audio_resource_owner:previous, '$audio_resource_owner:current ==', $audio_resource_owner:current, '$call_start_privacy:value ==', $call_start_privacy:value)
 	    $resource_set[manager_id] |= prolog(force_resource_release, \
-	                               	        player, player)
+	                                        player, player)
 	end
 
 audio_volume: $resource_owner $resource_set $volume_limit \
