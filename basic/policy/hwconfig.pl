@@ -54,7 +54,6 @@ audio_device_type(sink  , bthspforalien).
 audio_device_type(sink  , bta2dpforalien).
 audio_device_type(sink  , bta2dp).
 audio_device_type(sink  , bthspforcall).
-audio_device_type(sink  , bthsp).
 audio_device_type(sink  , headsetforcall).
 audio_device_type(sink  , headsetforalien).
 audio_device_type(sink  , headset).
@@ -71,6 +70,7 @@ audio_device_type(sink  , ihfforalien).
 audio_device_type(sink  , usbaudio).
 audio_device_type(sink  , ihf).
 audio_device_type(sink  , null).
+audio_device_type(sink  , bthsp).
 audio_device_type(source, fmradioloopback).
 audio_device_type(source, fmradio).
 audio_device_type(source, voicecall).
@@ -82,13 +82,13 @@ audio_device_type(source, usbaudio).
 audio_device_type(source, tvoutandbthsp).
 audio_device_type(source, bthspforcall).
 audio_device_type(source, bthspforalien).
-audio_device_type(source, bthsp).
 audio_device_type(source, headset).
 audio_device_type(source, headsetforcall).
 audio_device_type(source, headsetforalien).
 audio_device_type(source, headmike).
 audio_device_type(source, microphone).
 audio_device_type(source, backmicrophone).
+audio_device_type(source, bthsp).
 
 audio_device_privavy(private, incompatible).
 audio_device_privacy(private, tvoutandbta2dp).

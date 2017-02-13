@@ -99,6 +99,10 @@ invalid_audio_device_choice(Class, sink, bthspforcall) :-
 invalid_audio_device_choice(Class, source, bthspforcall) :-
     not(Class = call).
 
+% don't route bthspforcall source unless sink is bthspforcall.
+invalid_audio_device_choice(_, source, bthspforcall) :-
+    not(audio_route:get_route(sink, bthspforcall)).
+
 % do not route *foralien if aliencall is not active
 %
 invalid_audio_device_choice(Class, sink, ihfforalien) :-
