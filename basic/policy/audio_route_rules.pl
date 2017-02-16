@@ -79,6 +79,9 @@ invalid_audio_device_choice(_, sink, headphone) :-
 invalid_audio_device_choice(_, sink, headset) :-
     speaker_override.
 
+invalid_audio_device_choice(_, sink, bta2dp) :-
+    speaker_override.
+
 % do not route *forcall if call is not active
 %
 invalid_audio_device_choice(Class, sink, ihfforcall) :-
@@ -95,6 +98,10 @@ invalid_audio_device_choice(Class, sink, bthspforcall) :-
 
 invalid_audio_device_choice(Class, source, bthspforcall) :-
     not(Class = call).
+
+% don't route bthspforcall source unless sink is bthspforcall.
+invalid_audio_device_choice(_, source, bthspforcall) :-
+    not(audio_route:get_route(sink, bthspforcall)).
 
 % do not route *foralien if aliencall is not active
 %
@@ -206,24 +213,17 @@ invalid_audio_device_choice(_, _, bta2dpforalien) :-
     context:call_state(outgoing),!.
 
 %
-% do not route calls to regular bthsp
+% do not route to bthsp EVER
 %
-invalid_audio_device_choice(call, _, bthsp).
-invalid_audio_device_choice(call, _, tvoutandbthsp).
+invalid_audio_device_choice(_, _, bthsp).
+invalid_audio_device_choice(_, _, ihfandbthsp).
+invalid_audio_device_choice(_, _, tvoutandbthsp).
 
 %
 % never route anyting to headmike
 %
 invalid_audio_device_choice(_, source, headmike).
 
-%
-% route the source to accessories that have mike as well if the
-% sink is also routed there
-% 
-invalid_audio_device_choice(_, source, bthsp) :-
-    not(audio_route:get_route(sink, bthsp)).
-invalid_audio_device_choice(_, source, tvoutandbthsp) :-
-    not(audio_route:get_route(sink, tvoutandbthsp)).
 
 invalid_audio_device_choice(_, source, headset) :-
     not(audio_route:get_route(sink, headset)).
