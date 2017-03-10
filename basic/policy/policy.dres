@@ -81,6 +81,7 @@ $audio_device_selectable += { name: earpieceforalien, selectable: 1 }
 $audio_device_selectable += { name: ihf             , selectable: 1 }
 $audio_device_selectable += { name: microphone      , selectable: 1 }
 $audio_device_selectable += { name: backmicrophone  , selectable: 1 }
+$audio_device_selectable += { name: earpieceforcall , selectable: 1 }
 $audio_device_selectable += { name: earpiece        , selectable: 1 }
 $audio_device_selectable += { name: earpieceandtvout, selectable: 0 }
 $audio_device_selectable += { name: tvout           , selectable: 0 }
@@ -120,6 +121,7 @@ $audio_mode += { device: ihfforcall      , default: ihf           }
 $audio_mode += { device: ihfforalien     , default: ihf           }
 $audio_mode += { device: earpieceforalien, default: hp            }
 $audio_mode += { device: ihf             , default: ihf           }
+$audio_mode += { device: earpieceforcall , default: hp            }
 $audio_mode += { device: earpiece        , default: hp            }
 $audio_mode += { device: earpieceandtvout, default: hp            }
 $audio_mode += { device: tvout           , default: lineout       }
@@ -162,6 +164,9 @@ $audio_output_configuration += { device: ihf            , mode: ihf          ,\
                                  hwid: na               , type: builtin      ,\
                                  commonname: speaker }
 $audio_output_configuration += { device: earpieceforalien, mode: hp          ,\
+                                 hwid: na               , type: builtin      ,\
+                                 commonname: earpiece }
+$audio_output_configuration += { device: earpieceforcall, mode: hp           ,\
                                  hwid: na               , type: builtin      ,\
                                  commonname: earpiece }
 $audio_output_configuration += { device: earpiece       , mode: hp           ,\
