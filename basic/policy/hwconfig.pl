@@ -30,6 +30,7 @@ audio_device(headphone).
 audio_device(headmike).
 audio_device(ihfandtvout).
 audio_device(tvout).
+audio_device(earpieceforcall).
 audio_device(earpieceandtvout).
 audio_device(earpiece).
 audio_device(earpieceforalien).
@@ -62,6 +63,7 @@ audio_device_type(sink  , headphoneforalien).
 audio_device_type(sink  , headphone).
 audio_device_type(sink  , ihfandtvout).
 audio_device_type(sink  , tvout).
+audio_device_type(sink  , earpieceforcall).
 audio_device_type(sink  , earpieceandtvout).
 audio_device_type(sink  , earpieceforalien).
 audio_device_type(sink  , earpiece).
@@ -107,6 +109,7 @@ audio_device_privacy(private, headset).
 audio_device_privacy(private, headphoneforcall).
 audio_device_privacy(private, headphoneforalien).
 audio_device_privacy(private, headphone).
+audio_device_privacy(private, earpieceforcall).
 audio_device_privacy(private, earpieceandtvout).
 audio_device_privacy(private, earpieceforalien).
 audio_device_privacy(private, earpiece).
@@ -172,6 +175,7 @@ call_audio_device(ihf,          ihfforcall).
 call_audio_device(headset,      headsetforcall).
 call_audio_device(headphone,    headphoneforcall).
 call_audio_device(bthsp,        bthspforcall).
+call_audio_device(earpiece,     earpieceforcall).
 call_audio_device(ihf,          ihfforalien).
 call_audio_device(earpiece,     earpieceforalien).
 call_audio_device(headset,      headsetforalien).

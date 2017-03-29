@@ -84,6 +84,9 @@ invalid_audio_device_choice(_, sink, bta2dp) :-
 
 % do not route *forcall if call is not active
 %
+invalid_audio_device_choice(Class, sink, earpieceforcall) :-
+    not(Class = call).
+
 invalid_audio_device_choice(Class, sink, ihfforcall) :-
     not(Class = call).
 
@@ -155,6 +158,9 @@ invalid_audio_device_choice(navigator, sink, Device) :-
 invalid_audio_device_choice(call, sink, earpiece) :-
     resource:resource_owner(video_playback, call).
 
+invalid_audio_device_choice(call, sink, earpieceforcall) :-
+    resource:resource_owner(video_playback, call).
+
 invalid_audio_device_choice(call, sink, earpieceandtvout) :-
     resource:resource_owner(video_playback, call).
 
@@ -176,6 +182,9 @@ invalid_audio_device_choice(ringtone, sink, Device) :-
 % do not route anything to earpiece if we had no active call 
 %
 invalid_audio_device_choice(_, sink, earpiece) :-
+    not(resource:granted_resource(call, audio_playback)).
+
+invalid_audio_device_choice(_, sink, earpieceforcall) :-
     not(resource:granted_resource(call, audio_playback)).
 
 invalid_audio_device_choice(_, sink, earpieceandtvout) :-
