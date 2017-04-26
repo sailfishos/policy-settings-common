@@ -71,7 +71,8 @@ $audio_device_accessible += { name: bta2dp        , driver: 0, connected: 0 }
 $audio_device_accessible += { name: usbaudio      , driver: 0, connected: 1 }
 $audio_device_accessible += { name: fmradioloopback, driver: 0, connected: 0 }
 $audio_device_accessible += { name: fmradio       , driver: 0, connected: 0 }
-$audio_device_accessible += { name: voicecall     , driver: 0, connected: 0 }
+# voicecall is always connected, we rely on xpolicy.conf info on whether the route exists
+$audio_device_accessible += { name: voicecall     , driver: 0, connected: 1 }
 $audio_device_accessible += { name: incompatible  , driver: 0, connected: 0 }
 
 $audio_device_selectable  = { name: null            , selectable: 1 }
@@ -389,9 +390,6 @@ $privacy_override = { default_value: default, value: default }
 # override audio route from bluetooth to other devices
 $bluetooth_override = { default_value: default, value: default }
 
-# enable voicecall recording during phone call
-$voicecall_record = { default_value: disabled, value: disabled }
-
 #
 # we always need at least one enforcement point
 # (workaround for a resolver factstore tracking buglet/feature...)
@@ -439,13 +437,8 @@ update_feature_allowed: $context $audio_device_selectable
 		$feature[name:fmradioloopback]:allowed = 0
 	end
 
-	if $context[variable:call]:value == 'active' || \
-	   $context[variable:call]:value == 'outgoing' then
-		$feature[name:voicecallrecord]:allowed = 1
-	else
-		$feature[name:voicecallrecord]:allowed = 0
-		$feature[name:voicecallrecord]:enabled = 0
-
+	if $context[variable:call]:value == 'incoming' || \
+	   $context[variable:call]:value == 'inactive' then
 		# fmradio is allowed only when call is not active
 		# however, keep allow on during ringtone as well so that
 		# enabled state is not reset during incoming call
@@ -489,25 +482,11 @@ update_feature_allowed: $context $audio_device_selectable
 	end
 
 update_feature_enabled: $feature
-	resolve(voicecallrecord_feature_update)
 	resolve(fmradioloopback_feature_update)
 	resolve(fmradio_feature_update)
 	resolve(speaker_feature_update)
 	resolve(bluetooth_override_feature_update)
 	resolve(audio_route)
-
-voicecallrecord_feature_update: $feature
-	if $feature[name:voicecallrecord]:enabled == 1 then
-		$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
-		                                        'voicecall', 1, 1)
-		$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
-		                                        'voicecall', 1, 1)
-	else
-		$audio_device_accessible[name] = prolog(update_accessible_audio_entry,\
-		                                        'voicecall', 0, 0)
-		$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
-		                                        'voicecall', 0, 0)
-	end
 
 fmradioloopback_feature_update: $feature
 	if $feature[name:fmradioloopback]:enabled == 1 then
@@ -559,14 +538,6 @@ feature_request:
 				                                        &feature_name, &value, &value)
 				$audio_device_selectable[name] = prolog(update_selectable_audio_entry,\
 				                                        &feature_name, &value, &value)
-		end
-		if &feature_name == 'voicecallrecord' then
-			resolve(voicecallrecord_feature_update)
-			if &value == 1 then
-				$voicecall_record:value = 'enabled'
-			else
-				$voicecall_record:value = $voicecall_record:default_value
-			end
 		end
 		if &feature_name == 'speaker' then
 			resolve(speaker_feature_update)
@@ -648,22 +619,6 @@ reset_bluetooth_override:
 	$bluetooth_override:value = $bluetooth_override:default_value
 	$feature[name:bluetooth_override]:enabled = 0
 
-audio_voicecall_record_request:
-	if $context[variable:call]:value == 'active' || \
-	   $context[variable:call]:value == 'outgoing' then
-
-		if &voicecall == 1 then
-			$voicecall_record:value = 'enabled'
-		else
-			$voicecall_record:value = $voicecall_record:default_value
-		end
-
-	end
-	resolve(all)
-
-reset_audio_voicecall_record:
-	$voicecall_record:value = $voicecall_record:default_value
-
 actions: audio_actions video_actions vibra_actions backlight_actions
 
 audio_actions: $audio_mute $audio_cork $volume_limit $context $audio_route \
@@ -738,6 +693,12 @@ accessory_request:
 	$video_device_selectable[name] = prolog(update_selectable_video_entry,\
 	                                        &accessory_name, \
 						&accessory_connected)
+
+	if $audio_device_accessible[name:voicecall]:driver == 1 \
+	then
+		$feature[name:voicecallrecord]:allowed = 1
+	end
+
 	resolve(all, '', 0)
 
 update_accessory_mode:
@@ -793,7 +754,7 @@ telephony_first_call_hook: audio_mute_reset privacy_override_reset reset_bluetoo
 	end
 
 # last call hook
-telephony_last_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override reset_audio_voicecall_record
+telephony_last_call_hook: audio_mute_reset privacy_override_reset reset_bluetooth_override
 	#$mode[foo] = prolog(update_mode)
 	# resolve(all, '', 0)
 	$call_start_privacy:value = none
@@ -835,7 +796,7 @@ alien_application_request:
 # call                  - com.nokia.policy.call ($call) changes
 # bluetooth_override    - com.nokia.policy.bluetooth_override ($bluetooth_override) changes
 # media_state           - com.nokia.policy.media_state
-context: $voicecall_record $bluetooth_override $active_application \
+context: $bluetooth_override $active_application \
          $alien_application $resource_set
 	$context[variable] |= prolog(update_contexts)
 
