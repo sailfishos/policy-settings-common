@@ -12,8 +12,6 @@ audio_device(headphoneasfmradio).
 audio_device(headsetasfmradio).
 audio_device(voicecall).
 audio_device(tvoutandbta2dp).
-audio_device(tvoutandbthsp).
-audio_device(ihfandbthsp).
 audio_device(ihfandheadset).
 audio_device(ihfandheadphone).
 audio_device(bta2dp).
@@ -47,8 +45,6 @@ audio_device(null).
 
 audio_device_type(sink  , incompatible).
 audio_device_type(sink  , tvoutandbta2dp).
-audio_device_type(sink  , tvoutandbthsp).
-audio_device_type(sink  , ihfandbthsp).
 audio_device_type(sink  , ihfandheadset).
 audio_device_type(sink  , ihfandheadphone).
 audio_device_type(sink  , bthspforalien).
@@ -81,7 +77,6 @@ audio_device_type(source, headsetasfmradiolp).
 audio_device_type(source, headphoneasfmradio).
 audio_device_type(source, headsetasfmradio).
 audio_device_type(source, usbaudio).
-audio_device_type(source, tvoutandbthsp).
 audio_device_type(source, bthspforcall).
 audio_device_type(source, bthspforalien).
 audio_device_type(source, headset).
@@ -94,8 +89,6 @@ audio_device_type(source, bthsp).
 
 audio_device_privavy(private, incompatible).
 audio_device_privacy(private, tvoutandbta2dp).
-audio_device_privacy(private, tvoutandbthsp).
-audio_device_privacy(private, ihfandbthsp).
 audio_device_privacy(private, ihfandheadset).
 audio_device_privacy(private, ihfandheadphone).
 audio_device_privacy(private, bta2dp).
@@ -205,16 +198,12 @@ twin_video_device(tvout, builtinandtvout).
 
 twin_audio_device(ihfandheadset).
 twin_audio_device(ihfandheadphone).
-twin_audio_device(ihfandbthsp).
 twin_audio_device(ihfandtvout).
 
 twin_audio_device(tvout     , bta2dp  , tvoutandbta2dp).   % not really a twin
-twin_audio_device(tvout     , bthsp   , tvoutandbthsp).    % not really a twin
 twin_audio_device(bta2dp    , tvout   , tvoutandbta2dp).
-twin_audio_device(bthsp     , tvout   , tvoutandbthsp).
 twin_audio_device(headset   , ihf     , ihfandheadset).
 twin_audio_device(headphone , ihf     , ihfandheadphone).
-twin_audio_device(bthsp     , ihf     , ihfandbthsp).
 twin_audio_device(tvout     , ihf     , ihfandtvout).
 twin_audio_device(tvout     , earpiece, earpieceandtvout). % not really a twin
 

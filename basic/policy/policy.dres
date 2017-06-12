@@ -102,8 +102,6 @@ $audio_device_selectable += { name: bta2dp          , selectable: 0 }
 $audio_device_selectable += { name: bta2dpforalien  , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadset   , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadphone , selectable: 0 }
-$audio_device_selectable += { name: ihfandbthsp     , selectable: 0 }
-$audio_device_selectable += { name: tvoutandbthsp   , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbta2dp  , selectable: 0 }
 $audio_device_selectable += { name: usbaudio        , selectable: 0 }
 $audio_device_selectable += { name: fmradioloopback, selectable: 0 }
@@ -138,8 +136,6 @@ $audio_mode += { device: bthspforalien   , default: btmono        }
 $audio_mode += { device: bthsp           , default: btmono        }
 $audio_mode += { device: bta2dp          , default: bta2dp        }
 $audio_mode += { device: bta2dpforalien  , default: bta2dp        }
-$audio_mode += { device: ihfandbthsp     , default: ihfandbtmono  }
-$audio_mode += { device: tvoutandbthsp   , default: btmono        }
 $audio_mode += { device: tvoutandbta2dp  , default: bta2dp        }
 $audio_mode += { device: ihfandheadset   , default: ihfandheadset }
 $audio_mode += { device: ihfandheadphone , default: ihfandlineout }
@@ -221,12 +217,6 @@ $audio_output_configuration += { device: ihfandheadset  , mode:ihfandheadset ,\
 $audio_output_configuration += { device: ihfandheadphone , mode:ihfandlineout,\
                                  hwid: na               , type: wireless     ,\
                                  commonname: speakerandheadphone }
-$audio_output_configuration += { device: ihfandbthsp    , mode: ihfandbtmono ,\
-                                 hwid: na               , type: wired        ,\
-                                 commonname: speakerandbluetoothsco }
-$audio_output_configuration += { device: tvoutandbthsp  , mode: btmono       ,\
-                                 hwid: na               , type: wireless     ,\
-                                 commonname: tvoutandbluetoothsco }
 $audio_output_configuration += { device: tvoutandbta2dp , mode: bta2dp       ,\
                                  hwid: na               , type: wireless     ,\
                                  commonname: tvoutandbluetootha2dp }
@@ -339,7 +329,6 @@ $audio_mute   += { device: headset              , mute: unmuted }
 $audio_mute   += { device: bthspforcall         , mute: unmuted }
 $audio_mute   += { device: bthspforalien        , mute: unmuted }
 $audio_mute   += { device: bthsp                , mute: unmuted }
-$audio_mute   += { device: tvoutandbthsp        , mute: unmuted }
 $audio_mute   += { device: usbaudio             , mute: unmuted }
 $audio_mute   += { device: voicecall            , mute: unmuted }
 $audio_mute   += { device: fmradio              , mute: unmuted }
@@ -725,8 +714,6 @@ active_ui_change_request:
 bthsp_start_audio:
 	$audio_output_configuration[device:bthsp]:hwid = &hwid
 	$audio_output_configuration[device:bthspforcall]:hwid = &hwid
-	$audio_output_configuration[device:ihfandbthsp]:hwid = &hwid
-	$audio_output_configuration[device:tvoutandbthsp]:hwid = &hwid
 
 # Bluetooth HSP goes from playing to connected state, check if we should
 # set up the bluetooth override (transfer audio back to device).
@@ -738,8 +725,6 @@ bthsp_disconnect:
 	# unset the HSP/HFP flag
 	$audio_output_configuration[device:bthsp]:hwid = na
 	$audio_output_configuration[device:bthspforcall]:hwid = na
-	$audio_output_configuration[device:ihfandbthsp]:hwid = na
-	$audio_output_configuration[device:tvoutandbthsp]:hwid = na
 
 bthsp_connect:
 

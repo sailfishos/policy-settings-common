@@ -225,8 +225,6 @@ invalid_audio_device_choice(_, _, bta2dpforalien) :-
 % do not route to bthsp EVER
 %
 invalid_audio_device_choice(_, _, bthsp).
-invalid_audio_device_choice(_, _, ihfandbthsp).
-invalid_audio_device_choice(_, _, tvoutandbthsp).
 
 %
 % never route anyting to headmike
