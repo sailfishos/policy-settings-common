@@ -96,6 +96,16 @@ invalid_audio_device_choice(Class, _, headsetforcall) :-
 invalid_audio_device_choice(Class, sink, headphoneforcall) :-
     not(Class = call).
 
+invalid_audio_device_choice(Class, sink, bthfpforcall) :-
+    not(Class = call).
+
+invalid_audio_device_choice(Class, source, bthfpforcall) :-
+    not(Class = call).
+
+% don't route bthfpforcall source unless sink is bthfpforcall.
+invalid_audio_device_choice(_, source, bthfpforcall) :-
+    not(audio_route:get_route(sink, bthfpforcall)).
+
 invalid_audio_device_choice(Class, sink, bthspforcall) :-
     not(Class = call).
 
@@ -120,6 +130,9 @@ invalid_audio_device_choice(Class, sink, headphoneforalien) :-
 invalid_audio_device_choice(Class, sink, earpieceforalien) :-
     not(Class = aliencall).
 
+invalid_audio_device_choice(Class, _, bthfpforalien) :-
+    not(Class = aliencall).
+
 invalid_audio_device_choice(Class, _, bthspforalien) :-
     not(Class = aliencall).
 
@@ -133,8 +146,12 @@ invalid_audio_device_choice(aliencall, _, bta2dp).
 
 
 %
-% Do not route to bthspforcall if bluetooth_override is active, that is, anything but default.
+% Do not route to bth*pforcall if bluetooth_override is active, that is, anything but default.
 %
+invalid_audio_device_choice(call, _, bthfpforcall) :-
+    audio_route:bluetooth_override(A),
+    not(A = default).
+
 invalid_audio_device_choice(call, _, bthspforcall) :-
     audio_route:bluetooth_override(A),
     not(A = default).
@@ -222,8 +239,9 @@ invalid_audio_device_choice(_, _, bta2dpforalien) :-
     context:call_state(outgoing),!.
 
 %
-% do not route to bthsp EVER
+% do not route to bthfp or bthsp EVER
 %
+invalid_audio_device_choice(_, _, bthfp).
 invalid_audio_device_choice(_, _, bthsp).
 
 %
