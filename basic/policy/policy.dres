@@ -732,27 +732,27 @@ active_ui_change_request:
 	echo('*** active_ui_change_request appwin=', &appwin, \
                   ' pid=', &pid , ' iconize=', &iconize, ' ***')
 
-# Bluetooth HSP state machine hooks
+# Bluetooth HFP/HSP state machine hooks
 
 # Bluetooth HSP goes from connected to playing state
-
 bthsp_start_audio:
-	$audio_output_configuration[device:bthsp]:hwid = &hwid
-	$audio_output_configuration[device:bthspforcall]:hwid = &hwid
 
-# Bluetooth HSP goes from playing to connected state, check if we should
-# set up the bluetooth override (transfer audio back to device).
-
+# Bluetooth HSP goes from playing to connected state
 bthsp_stop_audio:
-	# echo('bthsp_stop_audio')
 
 bthsp_disconnect:
-	# unset the HSP/HFP flag
-	$audio_output_configuration[device:bthsp]:hwid = na
-	$audio_output_configuration[device:bthspforcall]:hwid = na
 
 bthsp_connect:
 
+# Bluetooth HFP goes from connected to playing state
+bthfp_start_audio:
+
+# Bluetooth HFP goes from playing to connected state
+bthfp_stop_audio:
+
+bthfp_disconnect:
+
+bthfp_connect:
 
 
 # first call hook
