@@ -62,6 +62,7 @@ $audio_device_accessible += { name: tvout         , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headmike      , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headphone     , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headset       , driver: 1, connected: 0 }
+$audio_device_accessible += { name: bthfp         , driver: 0, connected: 0 }
 $audio_device_accessible += { name: bthsp         , driver: 0, connected: 0 }
 $audio_device_accessible += { name: bta2dp        , driver: 0, connected: 0 }
 # We consider the usbaudio device to be always connected, as the driver and
@@ -94,16 +95,16 @@ $audio_device_selectable += { name: headphone       , selectable: 0 }
 $audio_device_selectable += { name: headsetforcall  , selectable: 0 }
 $audio_device_selectable += { name: headsetforalien , selectable: 0 }
 $audio_device_selectable += { name: headset         , selectable: 0 }
+$audio_device_selectable += { name: bthfpforcall    , selectable: 0 }
+$audio_device_selectable += { name: bthfpforalien   , selectable: 0 }
+$audio_device_selectable += { name: bthfp           , selectable: 0 }
 $audio_device_selectable += { name: bthspforcall    , selectable: 0 }
 $audio_device_selectable += { name: bthspforalien   , selectable: 0 }
-#$audio_device_selectable += { name: bthspforcall    , selectable: 1 }
 $audio_device_selectable += { name: bthsp           , selectable: 0 }
 $audio_device_selectable += { name: bta2dp          , selectable: 0 }
 $audio_device_selectable += { name: bta2dpforalien  , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadset   , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadphone , selectable: 0 }
-$audio_device_selectable += { name: ihfandbthsp     , selectable: 0 }
-$audio_device_selectable += { name: tvoutandbthsp   , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbta2dp  , selectable: 0 }
 $audio_device_selectable += { name: usbaudio        , selectable: 0 }
 $audio_device_selectable += { name: fmradioloopback, selectable: 0 }
@@ -133,13 +134,14 @@ $audio_mode += { device: headphone       , default: lineout       }
 $audio_mode += { device: headsetforcall  , default: lineout       }
 $audio_mode += { device: headsetforalien , default: lineout       }
 $audio_mode += { device: headset         , default: lineout       }
+$audio_mode += { device: bthfpforcall    , default: btmono        }
+$audio_mode += { device: bthfpforalien   , default: btmono        }
+$audio_mode += { device: bthfp           , default: btmono        }
 $audio_mode += { device: bthspforcall    , default: btmono        }
 $audio_mode += { device: bthspforalien   , default: btmono        }
 $audio_mode += { device: bthsp           , default: btmono        }
 $audio_mode += { device: bta2dp          , default: bta2dp        }
 $audio_mode += { device: bta2dpforalien  , default: bta2dp        }
-$audio_mode += { device: ihfandbthsp     , default: ihfandbtmono  }
-$audio_mode += { device: tvoutandbthsp   , default: btmono        }
 $audio_mode += { device: tvoutandbta2dp  , default: bta2dp        }
 $audio_mode += { device: ihfandheadset   , default: ihfandheadset }
 $audio_mode += { device: ihfandheadphone , default: ihfandlineout }
@@ -200,6 +202,15 @@ $audio_output_configuration += { device: headsetforalien, mode: lineout      ,\
 $audio_output_configuration += { device: headset        , mode: lineout      ,\
                                  hwid: na               , type: wired        ,\
                                  commonname: headset }
+$audio_output_configuration += { device: bthfpforcall   , mode: btmono       ,\
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
+$audio_output_configuration += { device: bthfpforalien  , mode: btmono       ,\
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
+$audio_output_configuration += { device: bthfp          , mode: btmono       ,\
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: bluetoothsco }
 $audio_output_configuration += { device: bthspforcall   , mode: btmono       ,\
                                  hwid: na               , type: wireless     ,\
                                  commonname: bluetoothsco }
@@ -221,12 +232,6 @@ $audio_output_configuration += { device: ihfandheadset  , mode:ihfandheadset ,\
 $audio_output_configuration += { device: ihfandheadphone , mode:ihfandlineout,\
                                  hwid: na               , type: wireless     ,\
                                  commonname: speakerandheadphone }
-$audio_output_configuration += { device: ihfandbthsp    , mode: ihfandbtmono ,\
-                                 hwid: na               , type: wired        ,\
-                                 commonname: speakerandbluetoothsco }
-$audio_output_configuration += { device: tvoutandbthsp  , mode: btmono       ,\
-                                 hwid: na               , type: wireless     ,\
-                                 commonname: tvoutandbluetoothsco }
 $audio_output_configuration += { device: tvoutandbta2dp , mode: bta2dp       ,\
                                  hwid: na               , type: wireless     ,\
                                  commonname: tvoutandbluetootha2dp }
@@ -253,6 +258,12 @@ $audio_input_configuration  += { device: headsetforcall       , type: wired   ,\
                                  commonname: headset }
 $audio_input_configuration  += { device: headsetforalien      , type: wired   ,\
                                  commonname: headset }
+$audio_input_configuration  += { device: bthfp                , type: wireless,\
+                                 commonname: bluetoothsco }
+$audio_input_configuration  += { device: bthfpforcall         , type: wireless,\
+                                 commonname: bluetoothsco }
+$audio_input_configuration  += { device: bthfpforalien        , type: wireless,\
+                                 commonname: bluetoothsco }
 $audio_input_configuration  += { device: bthsp                , type: wireless,\
                                  commonname: bluetoothsco }
 $audio_input_configuration  += { device: bthspforcall         , type: wireless,\
@@ -336,10 +347,12 @@ $audio_mute   += { device: headmike             , mute: unmuted }
 $audio_mute   += { device: headsetforcall       , mute: unmuted }
 $audio_mute   += { device: headsetforalien      , mute: unmuted }
 $audio_mute   += { device: headset              , mute: unmuted }
+$audio_mute   += { device: bthfpforcall         , mute: unmuted }
+$audio_mute   += { device: bthfpforalien        , mute: unmuted }
+$audio_mute   += { device: bthfp                , mute: unmuted }
 $audio_mute   += { device: bthspforcall         , mute: unmuted }
 $audio_mute   += { device: bthspforalien        , mute: unmuted }
 $audio_mute   += { device: bthsp                , mute: unmuted }
-$audio_mute   += { device: tvoutandbthsp        , mute: unmuted }
 $audio_mute   += { device: usbaudio             , mute: unmuted }
 $audio_mute   += { device: voicecall            , mute: unmuted }
 $audio_mute   += { device: fmradio              , mute: unmuted }
@@ -461,7 +474,8 @@ update_feature_allowed: $context $audio_device_selectable
 
 	end
 
-	if $audio_device_selectable[name:bthspforcall]:selectable == 1              && \
+	if $audio_device_selectable[name:bthspforcall]:selectable == 1              || \
+	   $audio_device_selectable[name:bthfpforcall]:selectable == 1              && \
 	   $context[variable:call]:value != 'inactive'                              then
 		$feature[name:bluetooth_override]:allowed = 1
 	else
@@ -718,31 +732,27 @@ active_ui_change_request:
 	echo('*** active_ui_change_request appwin=', &appwin, \
                   ' pid=', &pid , ' iconize=', &iconize, ' ***')
 
-# Bluetooth HSP state machine hooks
+# Bluetooth HFP/HSP state machine hooks
 
 # Bluetooth HSP goes from connected to playing state
-
 bthsp_start_audio:
-	$audio_output_configuration[device:bthsp]:hwid = &hwid
-	$audio_output_configuration[device:bthspforcall]:hwid = &hwid
-	$audio_output_configuration[device:ihfandbthsp]:hwid = &hwid
-	$audio_output_configuration[device:tvoutandbthsp]:hwid = &hwid
 
-# Bluetooth HSP goes from playing to connected state, check if we should
-# set up the bluetooth override (transfer audio back to device).
-
+# Bluetooth HSP goes from playing to connected state
 bthsp_stop_audio:
-	# echo('bthsp_stop_audio')
 
 bthsp_disconnect:
-	# unset the HSP/HFP flag
-	$audio_output_configuration[device:bthsp]:hwid = na
-	$audio_output_configuration[device:bthspforcall]:hwid = na
-	$audio_output_configuration[device:ihfandbthsp]:hwid = na
-	$audio_output_configuration[device:tvoutandbthsp]:hwid = na
 
 bthsp_connect:
 
+# Bluetooth HFP goes from connected to playing state
+bthfp_start_audio:
+
+# Bluetooth HFP goes from playing to connected state
+bthfp_stop_audio:
+
+bthfp_disconnect:
+
+bthfp_connect:
 
 
 # first call hook
