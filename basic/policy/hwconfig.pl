@@ -35,6 +35,7 @@ audio_device(earpieceforcall).
 audio_device(earpieceandtvout).
 audio_device(earpiece).
 audio_device(earpieceforalien).
+audio_device(usbmic).
 audio_device(microphone).
 audio_device(backmicrophone).
 audio_device(ihfforcall).
@@ -82,7 +83,6 @@ audio_device_type(source, headphoneasfmradiolp).
 audio_device_type(source, headsetasfmradiolp).
 audio_device_type(source, headphoneasfmradio).
 audio_device_type(source, headsetasfmradio).
-audio_device_type(source, usbaudio).
 audio_device_type(source, bthfpforcall).
 audio_device_type(source, bthfpforalien).
 audio_device_type(source, bthspforcall).
@@ -91,6 +91,7 @@ audio_device_type(source, headset).
 audio_device_type(source, headsetforcall).
 audio_device_type(source, headsetforalien).
 audio_device_type(source, headmike).
+audio_device_type(source, usbmic).
 audio_device_type(source, microphone).
 audio_device_type(source, backmicrophone).
 audio_device_type(source, bthfp).
@@ -129,6 +130,7 @@ audio_device_privacy(private, backmicrophone).
 audio_device_privacy(public , backmicrophone).
 audio_device_privacy(private, headmike).
 audio_device_privacy(private, usbaudio).
+audio_device_privacy(private, usbmic).
 audio_device_privacy(private, fmradioloopback).
 audio_device_privacy(private, fmradio).
 audio_device_privacy(private, headphoneasfmradiolp).
@@ -155,6 +157,7 @@ accessory(headphone).
 accessory(tvout).
 accessory(headmike).
 accessory(usbaudio).
+accessory(usbmic).
 
 video_accessory(tvout).
 
@@ -167,6 +170,7 @@ audio_accessory(headphone).
 audio_accessory(tvout).
 audio_accessory(headmike).
 audio_accessory(usbaudio).
+audio_accessory(usbmic).
 audio_accessory(fmradioloopback).
 audio_accessory(fmradio).
 audio_accessory(voicecall).

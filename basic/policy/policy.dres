@@ -65,11 +65,12 @@ $audio_device_accessible += { name: headset       , driver: 1, connected: 0 }
 $audio_device_accessible += { name: bthfp         , driver: 0, connected: 0 }
 $audio_device_accessible += { name: bthsp         , driver: 0, connected: 0 }
 $audio_device_accessible += { name: bta2dp        , driver: 0, connected: 0 }
-# We consider the usbaudio device to be always connected, as the driver and
+# We consider the usb audio devices to be always connected, as the driver and
 # selectable are updated when the interface appears.
-# We will never route to usbaudio unless the device is selectable, so this
+# We will never route to usb audio unless the device is selectable, so this
 # shouldn't cause any problems.
 $audio_device_accessible += { name: usbaudio      , driver: 0, connected: 1 }
+$audio_device_accessible += { name: usbmic        , driver: 0, connected: 1 }
 $audio_device_accessible += { name: fmradioloopback, driver: 0, connected: 0 }
 $audio_device_accessible += { name: fmradio       , driver: 0, connected: 0 }
 # voicecall is always connected, we rely on xpolicy.conf info on whether the route exists
@@ -107,6 +108,7 @@ $audio_device_selectable += { name: ihfandheadset   , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadphone , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbta2dp  , selectable: 0 }
 $audio_device_selectable += { name: usbaudio        , selectable: 0 }
+$audio_device_selectable += { name: usbmic          , selectable: 0 }
 $audio_device_selectable += { name: fmradioloopback, selectable: 0 }
 $audio_device_selectable += { name: fmradio         , selectable: 0 }
 $audio_device_selectable += { name: headphoneasfmradiolp, selectable: 0 }
@@ -270,7 +272,7 @@ $audio_input_configuration  += { device: bthspforcall         , type: wireless,\
                                  commonname: bluetoothsco }
 $audio_input_configuration  += { device: bthspforalien        , type: wireless,\
                                  commonname: bluetoothsco }
-$audio_input_configuration  += { device: usbaudio             , type: wired   ,\
+$audio_input_configuration  += { device: usbmic               , type: wired   ,\
                                  commonname: usbaudio }
 $audio_input_configuration  += { device: headphoneasfmradiolp , type: wired   ,\
                                  commonname: fmradioloopback }
@@ -353,7 +355,7 @@ $audio_mute   += { device: bthfp                , mute: unmuted }
 $audio_mute   += { device: bthspforcall         , mute: unmuted }
 $audio_mute   += { device: bthspforalien        , mute: unmuted }
 $audio_mute   += { device: bthsp                , mute: unmuted }
-$audio_mute   += { device: usbaudio             , mute: unmuted }
+$audio_mute   += { device: usbmic               , mute: unmuted }
 $audio_mute   += { device: voicecall            , mute: unmuted }
 $audio_mute   += { device: fmradio              , mute: unmuted }
 $audio_mute   += { device: fmradioloopback      , mute: unmuted }
