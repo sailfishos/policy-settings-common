@@ -54,6 +54,7 @@ $video_route = { device: builtin, tvstandard: pal, aspectratio: normal }
 
 # audio devices
 $audio_device_accessible  = { name: null          , driver: 1, connected: 1 }
+$audio_device_accessible += { name: nullsource    , driver: 0, connected: 1 }
 $audio_device_accessible += { name: ihf           , driver: 1, connected: 1 }
 $audio_device_accessible += { name: microphone    , driver: 1, connected: 1 }
 $audio_device_accessible += { name: backmicrophone, driver: 1, connected: 1 }
@@ -78,6 +79,7 @@ $audio_device_accessible += { name: voicecall     , driver: 0, connected: 1 }
 $audio_device_accessible += { name: incompatible  , driver: 0, connected: 0 }
 
 $audio_device_selectable  = { name: null            , selectable: 1 }
+$audio_device_selectable += { name: nullsource      , selectable: 0 }
 $audio_device_selectable += { name: ihfforcall      , selectable: 1 }
 $audio_device_selectable += { name: ihfforalien     , selectable: 1 }
 $audio_device_selectable += { name: earpieceforalien, selectable: 1 }
@@ -246,7 +248,7 @@ $audio_output_configuration += { device: incompatible   , mode: lineout      ,\
 
 # audio input configuration - this list needs to include all input devices from
 # audio_device_selectable list
-$audio_input_configuration   = { device: null                 , type: builtin ,\
+$audio_input_configuration   = { device: nullsource           , type: builtin ,\
                                  commonname: null }
 $audio_input_configuration  += { device: microphone           , type: builtin ,\
                                  commonname: microphone }
@@ -384,6 +386,9 @@ $feature  += { name: fmradioloopback    , allowed: 0        , enabled: 0 }
 $feature  += { name: voicecallrecord    , allowed: 0        , enabled: 0 }
 $feature  += { name: speaker            , allowed: 0        , enabled: 0 }
 $feature  += { name: bluetooth_override , allowed: 0        , enabled: 0 }
+
+# mobile device management
+$mdm       = { name: microphone         , value: enabled }
 
 # contexts
 $context   = { variable: call                   ,  value: inactive }
@@ -561,12 +566,23 @@ feature_request:
 		resolve(all)
 	end
 
+mdm_request:
+	$mdm[name:&mdm_name]:value = &mdm_value
+	if $mdm[name:microphone]:value == 'enabled' && \
+	   $audio_device_accessible[name:voicecall]:driver == 1 \
+	then
+		$feature[name:voicecallrecord]:allowed = 1
+	else
+		$feature[name:voicecallrecord]:allowed = 0
+	end
+	resolve(all)
+
 video_route: $video_device_selectable $gconf
 	$video_route = prolog(set_video_routes)
 
 audio_route: $audio_device_selectable $audio_output_configuration \
              $resource_owner $privacy_override $bluetooth_override \
-             $current_profile
+             $current_profile $mdm
 	$privacy[stage]    |= prolog(set_audio_privacy, previous)
 	$audio_route[type] |= prolog(set_audio_routes)
 	$privacy[stage]    |= prolog(set_audio_privacy, current)
@@ -710,7 +726,8 @@ accessory_request:
 	                                        &accessory_name, \
 						&accessory_connected)
 
-	if $audio_device_accessible[name:voicecall]:driver == 1 \
+	if $mdm[name:microphone]:value == 'enabled' && \
+	   $audio_device_accessible[name:voicecall]:driver == 1 \
 	then
 		$feature[name:voicecallrecord]:allowed = 1
 	end
