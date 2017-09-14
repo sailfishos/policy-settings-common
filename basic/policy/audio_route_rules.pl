@@ -260,6 +260,12 @@ invalid_audio_device_choice(camera, source, microphone) :-
     resource:granted_resource(camera, audio_recording),
     resource:granted_resource(camera, video_recording).
 
+%
+% as nullsource has the highest priority,
+% route only from nullsource unless recording is allowed
+invalid_audio_device_choice(_, source, nullsource) :-
+    is_recording_allowed.
+
 invalid_audio_device_choice(_, _, incompatible).
 
 
@@ -273,3 +279,6 @@ is_silent_profile :-
 % true when touchscreen.sound.level is 0
 is_silent_feedback :-
     fact_exists('com.nokia.policy.current_profile', ['touchscreen.sound.level'], ['0']).
+
+is_recording_allowed :-
+    fact_exists('com.nokia.policy.mdm', [name, value], [microphone, enabled]).
