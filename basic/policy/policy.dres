@@ -365,6 +365,7 @@ $audio_mute   += { device: headphoneasfmradiolp , mute: unmuted }
 $audio_mute   += { device: headsetasfmradiolp   , mute: unmuted }
 $audio_mute   += { device: headphoneasfmradio   , mute: unmuted }
 $audio_mute   += { device: headsetasfmradio     , mute: unmuted }
+$audio_mute   += { device: nullsource           , mute: unmuted }
 
 # vibra control
 $vibra_mute  = { group: other, mute: unmuted }
