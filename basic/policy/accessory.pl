@@ -1,7 +1,8 @@
 :- module(accessory,
 	  [update_accessible_video_entry/3, update_selectable_video_entry/3,
 	   update_accessible_audio_entry/4, update_selectable_audio_entry/4,
-	   selectable_video/1, selectable_audio/1, update_accessory_mode/3]).
+	   selectable_video/1, selectable_audio/1, update_accessory_mode/3,
+	   accessible_audio/1]).
 
 
 rules([update_accessible_video_entry/3, update_selectable_video_entry/3,

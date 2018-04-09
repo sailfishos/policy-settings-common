@@ -33,15 +33,25 @@ implicated_privacy(public) :-
  */
 %
 % never route voice call output to public devices
-% explicitly demands it via privacy override
+% explicitly demands it via privacy override, UNLESS
+% device doesn't have earpiece accessory.
 invalid_audio_device_choice_in_class(Device) :-
     ((audio_route:privacy_override(public) ; implicated_privacy(public)) *-> Privacy=private ; Privacy=public),
-    audio_device_privacy(Privacy, Device).
+    % if earpiece exists in device, use audio_device_privacy/2 always,
+    % but if the earpiece doesn't exist, only when policy_override is public
+    % do the audio_device_privacy/2 call. This way with earpiece-less device
+    % we treat ihfforcall as private, and route to ihfforcall by default, and
+    % route to other accessories if they are present. Then when
+    % privacy_override is enabled we route only to ihfforcall.
+    (accessible_audio(earpiece) -> audio_device_privacy(Privacy, Device)
+                                 ; (audio_route:privacy_override(public),
+                                     audio_device_privacy(Privacy, Device))).
 
 invalid_audio_device_choice(call, sink, Device) :-
-    invalid_audio_device_choice_in_class(Device).
+    (invalid_audio_device_choice_in_class(Device) -> true ; fail).
+
 invalid_audio_device_choice(aliencall, sink, Device) :-
-    invalid_audio_device_choice_in_class(Device).
+    (invalid_audio_device_choice_in_class(Device) -> true ; fail).
 
 % allow voicecall source only if call is active
 invalid_audio_device_choice(Class, source, voicecall) :-

@@ -144,6 +144,9 @@ audio_device_privacy(private, nullsource).
 
 accessory(incompatible).
 accessory(nullsource).
+accessory(earpieceforcall).
+accessory(earpieceforalien).
+accessory(earpiece).
 accessory(bta2dp).
 accessory(bta2dpforalien).
 accessory(bthfpforcall).
@@ -167,6 +170,7 @@ video_accessory(tvout).
 
 audio_accessory(incompatible).
 audio_accessory(nullsource).
+audio_accessory(earpiece).
 audio_accessory(bta2dp).
 audio_accessory(bthfp).
 audio_accessory(bthsp).
