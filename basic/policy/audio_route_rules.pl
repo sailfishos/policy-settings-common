@@ -259,6 +259,13 @@ invalid_audio_device_choice(_, source, headset) :-
     not(audio_route:get_route(sink, headset)).
 
 %
+% Do not route from usbmic if fmradio is enabled
+%
+invalid_audio_device_choice(_, source, usbmic) :-
+    is_fmradio_enabled,
+    is_fmradioloopback_enabled.
+
+%
 % do not route microphone to camera if video and audio recording are on.
 % backmicrophone will be used instead.
 invalid_audio_device_choice(camera, source, microphone) :-
@@ -287,3 +294,9 @@ is_silent_feedback :-
 
 is_recording_allowed :-
     fact_exists('com.nokia.policy.mdm', [name, value], [microphone, enabled]).
+
+is_fmradio_enabled :-
+    fact_exists('com.nokia.policy.feature', [name, value], [fmradio, 1]).
+
+is_fmradioloopback_enabled :-
+    fact_exists('com.nokia.policy.feature', [name, value], [fmradioloopback, 1]).
