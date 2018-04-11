@@ -56,6 +56,7 @@ audio_device_type(sink  , bthfpforalien).
 audio_device_type(sink  , bthspforalien).
 audio_device_type(sink  , bta2dpforalien).
 audio_device_type(sink  , bta2dp).
+audio_device_type(sink  , usbaudio).
 audio_device_type(sink  , bthfpforcall).
 audio_device_type(sink  , bthspforcall).
 audio_device_type(sink  , headsetforcall).
@@ -72,7 +73,6 @@ audio_device_type(sink  , earpieceforalien).
 audio_device_type(sink  , earpiece).
 audio_device_type(sink  , ihfforcall).
 audio_device_type(sink  , ihfforalien).
-audio_device_type(sink  , usbaudio).
 audio_device_type(sink  , ihf).
 audio_device_type(sink  , null).
 audio_device_type(sink  , bthfp).
