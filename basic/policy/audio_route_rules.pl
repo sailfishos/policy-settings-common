@@ -226,7 +226,7 @@ invalid_audio_device_choice(ringtone, sink, Device) :-
     twin_audio_device(Device).
 
 %
-% do not route cscall or ipcall to bta2dp
+% do not route cscall or ipcall to bta2dp or usbaudio
 %
 invalid_audio_device_choice(_, _, bta2dp) :-
     context:call_state(active) ;
@@ -239,6 +239,11 @@ invalid_audio_device_choice(_, _, tvoutandbta2dp) :-
     context:call_state(outgoing),!.
 
 invalid_audio_device_choice(_, _, bta2dpforalien) :-
+    context:call_state(active) ;
+    context:call_state(incoming) ;
+    context:call_state(outgoing),!.
+
+invalid_audio_device_choice(_, _, usbaudio) :-
     context:call_state(active) ;
     context:call_state(incoming) ;
     context:call_state(outgoing),!.
