@@ -33,15 +33,25 @@ implicated_privacy(public) :-
  */
 %
 % never route voice call output to public devices
-% explicitly demands it via privacy override
+% explicitly demands it via privacy override, UNLESS
+% device doesn't have earpiece accessory.
 invalid_audio_device_choice_in_class(Device) :-
     ((audio_route:privacy_override(public) ; implicated_privacy(public)) *-> Privacy=private ; Privacy=public),
-    audio_device_privacy(Privacy, Device).
+    % if earpiece exists in device, use audio_device_privacy/2 always,
+    % but if the earpiece doesn't exist, only when policy_override is public
+    % do the audio_device_privacy/2 call. This way with earpiece-less device
+    % we treat ihfforcall as private, and route to ihfforcall by default, and
+    % route to other accessories if they are present. Then when
+    % privacy_override is enabled we route only to ihfforcall.
+    (accessible_audio(earpiece) -> audio_device_privacy(Privacy, Device)
+                                 ; (audio_route:privacy_override(public),
+                                     audio_device_privacy(Privacy, Device))).
 
 invalid_audio_device_choice(call, sink, Device) :-
-    invalid_audio_device_choice_in_class(Device).
+    (invalid_audio_device_choice_in_class(Device) -> true ; fail).
+
 invalid_audio_device_choice(aliencall, sink, Device) :-
-    invalid_audio_device_choice_in_class(Device).
+    (invalid_audio_device_choice_in_class(Device) -> true ; fail).
 
 % allow voicecall source only if call is active
 invalid_audio_device_choice(Class, source, voicecall) :-
@@ -70,16 +80,11 @@ invalid_audio_device_choice(Class, source, headphoneasfmradio) :-
 invalid_audio_device_choice(Class, source, headsetasfmradio) :-
     fmradio_invalid(Class, any).
 
-% do not route to wired accessories if speaker override is on.
+% do not route to accessories if speaker override is on.
 % this allows routing to speaker even when not in call, like
 % during listening to fmradio.
-invalid_audio_device_choice(_, sink, headphone) :-
-    speaker_override.
-
-invalid_audio_device_choice(_, sink, headset) :-
-    speaker_override.
-
-invalid_audio_device_choice(_, sink, bta2dp) :-
+invalid_audio_device_choice(_, sink, Device) :-
+    audio_accessory(Device),
     speaker_override.
 
 % do not route *forcall if call is not active
