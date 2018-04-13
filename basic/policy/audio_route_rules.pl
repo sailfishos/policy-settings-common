@@ -199,13 +199,15 @@ invalid_audio_device_choice(ringtone, sink, Device) :-
 %
 % do not route anything to earpiece if we had no active call 
 %
-invalid_audio_device_choice(_, sink, earpiece) :-
-    not(resource:granted_resource(call, audio_playback)).
-
 invalid_audio_device_choice(_, sink, earpieceforcall) :-
     not(resource:granted_resource(call, audio_playback)).
 
 invalid_audio_device_choice(_, sink, earpieceandtvout) :-
+    not(resource:granted_resource(call, audio_playback)).
+
+% do not route to earpiece unless there is a call or the route is preferred
+invalid_audio_device_choice(_, sink, earpiece) :-
+    not(preferred_audio(earpiece)),
     not(resource:granted_resource(call, audio_playback)).
 
 
