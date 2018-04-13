@@ -17,41 +17,19 @@ resource_class_privacy(alien      , public).
 resource_class_privacy(aliencall  , public).
 resource_class_privacy(nobody     , public).
 
-/*
- * implicated privacies
- */
-%
-% active video calls implicate 'public' privacy
-%
 implicated_privacy(public) :-
-    resource:resource_owner(audio_playback, call),
-    resource:resource_owner(video_playback, call).
+    fail.
 
+% never route to fmradio during active call.
+fmradio_invalid(Class, any) :-
+    Class = camera ;
+    context:call_state(active) ;
+    context:call_state(incoming) ;
+    context:call_state(outgoing),!.
 
 /*
  * Here is a bunch of exception for audio routing
  */
-%
-% never route voice call output to public devices
-% explicitly demands it via privacy override, UNLESS
-% device doesn't have earpiece accessory.
-invalid_audio_device_choice_in_class(Device) :-
-    ((audio_route:privacy_override(public) ; implicated_privacy(public)) *-> Privacy=private ; Privacy=public),
-    % if earpiece exists in device, use audio_device_privacy/2 always,
-    % but if the earpiece doesn't exist, only when policy_override is public
-    % do the audio_device_privacy/2 call. This way with earpiece-less device
-    % we treat ihfforcall as private, and route to ihfforcall by default, and
-    % route to other accessories if they are present. Then when
-    % privacy_override is enabled we route only to ihfforcall.
-    (accessible_audio(earpiece) -> audio_device_privacy(Privacy, Device)
-                                 ; (audio_route:privacy_override(public),
-                                     audio_device_privacy(Privacy, Device))).
-
-invalid_audio_device_choice(call, sink, Device) :-
-    (invalid_audio_device_choice_in_class(Device) -> true ; fail).
-
-invalid_audio_device_choice(aliencall, sink, Device) :-
-    (invalid_audio_device_choice_in_class(Device) -> true ; fail).
 
 % allow voicecall source only if call is active
 invalid_audio_device_choice(Class, source, voicecall) :-
@@ -60,13 +38,6 @@ invalid_audio_device_choice(Class, source, voicecall) :-
 % slave audio device is never valid choice for routing
 invalid_audio_device_choice(_, _, Device) :-
     slave_audio_device(Device).
-
-% never route to fmradio during active call.
-fmradio_invalid(Class, any) :-
-    Class = camera ;
-    context:call_state(active) ;
-    context:call_state(incoming) ;
-    context:call_state(outgoing),!.
 
 invalid_audio_device_choice(Class, source, headphoneasfmradiolp) :-
     fmradio_invalid(Class, any).
