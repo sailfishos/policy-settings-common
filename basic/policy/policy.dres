@@ -79,6 +79,7 @@ $audio_device_accessible += { name: fmradio       , driver: 0, connected: 0 }
 $audio_device_accessible += { name: voicecall     , driver: 0, connected: 1 }
 $audio_device_accessible += { name: incompatible  , driver: 0, connected: 0 }
 
+
 $audio_device_selectable  = { name: null            , selectable: 1 }
 $audio_device_selectable += { name: nullsource      , selectable: 0 }
 $audio_device_selectable += { name: ihfforcall      , selectable: 1 }
@@ -126,6 +127,51 @@ $audio_device_selectable += { name: headsetasfmradio    , selectable: 0 }
 $audio_device_selectable += { name: lineoutasfmradio    , selectable: 0 }
 $audio_device_selectable += { name: voicecall       , selectable: 0 }
 $audio_device_selectable += { name: incompatible    , selectable: 0 }
+
+
+# preferred devices. this needs to be 1:1 copy of
+# audio_device_selectable list.
+$audio_device_preferred  = { name: null                 , preferred: 0 }
+$audio_device_preferred += { name: nullsource           , preferred: 0 }
+$audio_device_preferred += { name: ihfforcall           , preferred: 0 }
+$audio_device_preferred += { name: ihfforalien          , preferred: 0 }
+$audio_device_preferred += { name: earpieceforalien     , preferred: 0 }
+$audio_device_preferred += { name: ihf                  , preferred: 0 }
+$audio_device_preferred += { name: microphone           , preferred: 0 }
+$audio_device_preferred += { name: backmicrophone       , preferred: 0 }
+$audio_device_preferred += { name: earpieceforcall      , preferred: 0 }
+$audio_device_preferred += { name: earpiece             , preferred: 0 }
+$audio_device_preferred += { name: earpieceandtvout     , preferred: 0 }
+$audio_device_preferred += { name: tvout                , preferred: 0 }
+$audio_device_preferred += { name: ihfandtvout          , preferred: 0 }
+$audio_device_preferred += { name: headmike             , preferred: 0 }
+$audio_device_preferred += { name: headphoneforcall     , preferred: 0 }
+$audio_device_preferred += { name: headphoneforalien    , preferred: 0 }
+$audio_device_preferred += { name: headphone            , preferred: 0 }
+$audio_device_preferred += { name: headsetforcall       , preferred: 0 }
+$audio_device_preferred += { name: headsetforalien      , preferred: 0 }
+$audio_device_preferred += { name: headset              , preferred: 0 }
+$audio_device_preferred += { name: bthfpforcall         , preferred: 0 }
+$audio_device_preferred += { name: bthfpforalien        , preferred: 0 }
+$audio_device_preferred += { name: bthfp                , preferred: 0 }
+$audio_device_preferred += { name: bthspforcall         , preferred: 0 }
+$audio_device_preferred += { name: bthspforalien        , preferred: 0 }
+$audio_device_preferred += { name: bthsp                , preferred: 0 }
+$audio_device_preferred += { name: bta2dp               , preferred: 0 }
+$audio_device_preferred += { name: bta2dpforalien       , preferred: 0 }
+$audio_device_preferred += { name: ihfandheadset        , preferred: 0 }
+$audio_device_preferred += { name: ihfandheadphone      , preferred: 0 }
+$audio_device_preferred += { name: tvoutandbta2dp       , preferred: 0 }
+$audio_device_preferred += { name: usbaudio             , preferred: 0 }
+$audio_device_preferred += { name: usbmic               , preferred: 0 }
+$audio_device_preferred += { name: fmradioloopback      , preferred: 0 }
+$audio_device_preferred += { name: fmradio              , preferred: 0 }
+$audio_device_preferred += { name: headphoneasfmradiolp , preferred: 0 }
+$audio_device_preferred += { name: headsetasfmradiolp   , preferred: 0 }
+$audio_device_preferred += { name: headphoneasfmradio   , preferred: 0 }
+$audio_device_preferred += { name: headsetasfmradio     , preferred: 0 }
+$audio_device_preferred += { name: voicecall            , preferred: 0 }
+$audio_device_preferred += { name: incompatible         , preferred: 0 }
 
 
 # audio modes for ECI detection
@@ -622,7 +668,7 @@ video_route: $video_device_selectable $gconf
 
 audio_route: $audio_device_selectable $audio_output_configuration \
              $resource_owner $privacy_override $bluetooth_override \
-             $current_profile $mdm
+             $current_profile $mdm $audio_device_preferred
 	$privacy[stage]    |= prolog(set_audio_privacy, previous)
 	$audio_route[type] |= prolog(set_audio_routes)
 	$privacy[stage]    |= prolog(set_audio_privacy, current)
@@ -678,6 +724,7 @@ privacy_override_request:
 	resolve(all)
 
 privacy_override_reset:
+	$audio_device_preferred[name] = prolog(clear_preferred_audio_entry)
 	$privacy_override:value = $privacy_override:default_value
 	$feature[name:speaker]:enabled = 0
 
@@ -763,6 +810,7 @@ accessory_request:
 	                                        &accessory_name, \
 						&accessory_driver, \
 						&accessory_connected)
+	$audio_device_preferred[name] = prolog(update_preferred_audio_entry)
 	$video_device_accessible[name] = prolog(update_accessible_video_entry,\
 	                                        &accessory_name, \
 						&accessory_connected)
@@ -777,6 +825,14 @@ accessory_request:
 	end
 
 	resolve(all, '', 0)
+
+
+prefer_request:
+	$audio_device_preferred[name] = prolog(set_preferred_audio_entry,\
+	                                       &accessory_name,\
+	                                       &accessory_preferred)
+	resolve(all, '', 0)
+
 
 update_accessory_mode:
 	$audio_output_configuration[device] |= prolog(update_accessory_mode, \

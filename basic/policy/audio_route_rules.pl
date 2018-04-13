@@ -311,6 +311,13 @@ invalid_audio_device_choice(_, source, nullsource) :-
 invalid_audio_device_choice(_, _, incompatible).
 
 
+%
+% If any device is preferred don't route to other devices.
+%
+invalid_audio_device_choice(_, sink, Device) :-
+    preferred_audio(_),
+    not(preferred_audio(Device)).
+
 /*
  * Supporting predicates
  */
