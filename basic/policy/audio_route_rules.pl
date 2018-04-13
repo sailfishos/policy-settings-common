@@ -57,13 +57,6 @@ invalid_audio_device_choice(Class, source, headsetasfmradio) :-
 invalid_audio_device_choice(Class, source, lineoutasfmradio) :-
     fmradio_invalid(Class, any).
 
-% do not route to accessories if speaker override is on.
-% this allows routing to speaker even when not in call, like
-% during listening to fmradio.
-invalid_audio_device_choice(_, sink, Device) :-
-    audio_accessory(Device),
-    speaker_override.
-
 % do not route *forcall if call is not active
 %
 invalid_audio_device_choice(Class, sink, earpieceforcall) :-

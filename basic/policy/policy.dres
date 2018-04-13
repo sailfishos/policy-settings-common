@@ -484,9 +484,6 @@ $proximity = { state: 'unknown' }
 # mute state for microphones
 $mute  = { default_value: 0, value: 0 }
 
-# override route privacy value to enable public routes during call
-$privacy_override = { default_value: default, value: default }
-
 # override audio route from bluetooth to other devices
 $bluetooth_override = { default_value: default, value: default }
 
@@ -623,9 +620,13 @@ fmradio_feature_update: $feature
 
 speaker_feature_update: $feature
 	if $feature[name:speaker]:enabled == 1 then
-		$privacy_override:value = 'public'
+		$audio_device_preferred[name] = prolog(set_preferred_audio_entry,\
+		                                       'speaker',\
+		                                       1)
 	else
-		$privacy_override:value = $privacy_override:default_value
+		$audio_device_preferred[name] = prolog(set_preferred_audio_entry,\
+		                                       'speaker',\
+		                                       0)
 	end
 
 bluetooth_override_feature_update: $feature
@@ -667,7 +668,7 @@ video_route: $video_device_selectable $gconf
 	$video_route = prolog(set_video_routes)
 
 audio_route: $audio_device_selectable $audio_output_configuration \
-             $resource_owner $privacy_override $bluetooth_override \
+             $resource_owner $bluetooth_override \
              $current_profile $mdm $audio_device_preferred
 	$privacy[stage]    |= prolog(set_audio_privacy, previous)
 	$audio_route[type] |= prolog(set_audio_routes)
@@ -715,17 +716,21 @@ audio_mute_reset:
 	$mute:value = $mute:default_value
 
 privacy_override_request:
-	$privacy_override:value = &privacy_override_state
 	if &privacy_override_state == 'public' then
 		$feature[name:speaker]:enabled = 1
+		$audio_device_preferred[name] = prolog(set_preferred_audio_entry,\
+		                                       'speaker',\
+		                                       1)
 	else
 		$feature[name:speaker]:enabled = 0
+		$audio_device_preferred[name] = prolog(set_preferred_audio_entry,\
+		                                       'speaker',\
+		                                       0)
 	end
 	resolve(all)
 
 privacy_override_reset:
 	$audio_device_preferred[name] = prolog(clear_preferred_audio_entry)
-	$privacy_override:value = $privacy_override:default_value
 	$feature[name:speaker]:enabled = 0
 
 bluetooth_override_request:
