@@ -1,16 +1,16 @@
 Name:       policy-settings-common
 Summary:    Common policy settings
-Version:    0.7.4
+Version:    0.7.5
 Release:    1
 Group:      Configs
-License:    GPLv2
+License:    GPLv2+
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  libdres-utils >= 1.1.13
-BuildRequires:  swi-prolog
-BuildRequires:  swi-prolog-library
-BuildRequires:  libprolog
+BuildRequires:  swi-prolog >= 7.0
+BuildRequires:  swi-prolog-library >= 7.0
+BuildRequires:  libprolog >= 1.2.0
 BuildRequires:  prolog-resourcepolicy-extensions
 
 %description
