@@ -15,7 +15,7 @@ test-dres: policy.dres
 	$(DRESC) --compile $<
 
 policy.plc: policy.pl $(LIBPROLOG)
-	$(PLC) -q -t precompile -s ../../scripts/plc -- -c $? -o $@
+	$(PLC) -q -t precompile -s ../../scripts/plc -o $@ -c $?
 
 clean-local:
 	rm -f *~ *.plc *.dresc
