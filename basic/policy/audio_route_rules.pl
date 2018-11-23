@@ -74,10 +74,16 @@ invalid_audio_device_choice(Class, source, headphoneasfmradiolp) :-
 invalid_audio_device_choice(Class, source, headsetasfmradiolp) :-
     fmradio_invalid(Class, any).
 
+invalid_audio_device_choice(Class, source, lineoutasfmradiolp) :-
+    fmradio_invalid(Class, any).
+
 invalid_audio_device_choice(Class, source, headphoneasfmradio) :-
     fmradio_invalid(Class, any).
 
 invalid_audio_device_choice(Class, source, headsetasfmradio) :-
+    fmradio_invalid(Class, any).
+
+invalid_audio_device_choice(Class, source, lineoutasfmradio) :-
     fmradio_invalid(Class, any).
 
 % do not route to accessories if speaker override is on.
@@ -99,6 +105,9 @@ invalid_audio_device_choice(Class, _, headsetforcall) :-
     not(Class = call).
 
 invalid_audio_device_choice(Class, sink, headphoneforcall) :-
+    not(Class = call).
+
+invalid_audio_device_choice(Class, sink, lineoutforcall) :-
     not(Class = call).
 
 invalid_audio_device_choice(Class, sink, bthfpforcall) :-
@@ -130,6 +139,9 @@ invalid_audio_device_choice(Class, _, headsetforalien) :-
     not(Class = aliencall).
 
 invalid_audio_device_choice(Class, sink, headphoneforalien) :-
+    not(Class = aliencall).
+
+invalid_audio_device_choice(Class, sink, lineoutforalien) :-
     not(Class = aliencall).
 
 invalid_audio_device_choice(Class, sink, earpieceforalien) :-
@@ -194,7 +206,7 @@ invalid_audio_device_choice(aliencall, sink, earpieceforalien) :-
 % headphone or headset
 %
 invalid_audio_device_choice(ringtone, sink, Device) :-
-    is_silent_profile *->(not(Device = headphone), not(Device = headset));
+    is_silent_profile *->(not(Device = headphone), not(Device = headset), not(Device = lineout));
     audio_accessory(Device),
     audio_device_privacy(private, Device),
     audio_device_type(sink, Device).

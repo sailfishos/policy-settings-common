@@ -29,6 +29,9 @@ audio_device(headset).
 audio_device(headphoneforcall).
 audio_device(headphoneforalien).
 audio_device(headphone).
+audio_device(lineoutforcall).
+audio_device(lineoutforalien).
+audio_device(lineout).
 audio_device(headmike).
 audio_device(ihfandtvout).
 audio_device(tvout).
@@ -65,6 +68,9 @@ audio_device_type(sink  , headset).
 audio_device_type(sink  , headphoneforcall).
 audio_device_type(sink  , headphoneforalien).
 audio_device_type(sink  , headphone).
+audio_device_type(sink  , lineoutforcall).
+audio_device_type(sink  , lineoutforalien).
+audio_device_type(sink  , lineout).
 audio_device_type(sink  , ihfandtvout).
 audio_device_type(sink  , tvout).
 audio_device_type(sink  , earpieceforcall).
@@ -117,6 +123,9 @@ audio_device_privacy(private, headset).
 audio_device_privacy(private, headphoneforcall).
 audio_device_privacy(private, headphoneforalien).
 audio_device_privacy(private, headphone).
+audio_device_privacy(private, lineoutforcall).
+audio_device_privacy(private, lineoutforalien).
+audio_device_privacy(private, lineout).
 audio_device_privacy(private, earpieceforcall).
 audio_device_privacy(private, earpieceandtvout).
 audio_device_privacy(private, earpieceforalien).
@@ -161,6 +170,9 @@ accessory(headset).
 accessory(headphoneforcall).
 accessory(headphoneforalien).
 accessory(headphone).
+accessory(lineoutforcall).
+accessory(lineoutforalien).
+accessory(lineout).
 accessory(tvout).
 accessory(headmike).
 accessory(usbaudio).
@@ -176,6 +188,7 @@ audio_accessory(bthfp).
 audio_accessory(bthsp).
 audio_accessory(headset).
 audio_accessory(headphone).
+audio_accessory(lineout).
 audio_accessory(tvout).
 audio_accessory(headmike).
 audio_accessory(usbaudio).
@@ -186,6 +199,7 @@ audio_accessory(voicecall).
 
 wired_audio_accessory(headset).
 wired_audio_accessory(headphone).
+wired_audio_accessory(lineout).
 
 bt_audio_accessory(bta2dp).
 bt_audio_accessory(bta2dpforalien).
@@ -199,6 +213,7 @@ bt_audio_accessory(bthsp).
 call_audio_device(ihf,          ihfforcall).
 call_audio_device(headset,      headsetforcall).
 call_audio_device(headphone,    headphoneforcall).
+call_audio_device(lineout,      lineoutforcall).
 call_audio_device(bthfp,        bthfpforcall).
 call_audio_device(bthsp,        bthspforcall).
 call_audio_device(earpiece,     earpieceforcall).
@@ -232,12 +247,14 @@ twin_video_device(tvout, builtinandtvout).
 
 twin_audio_device(ihfandheadset).
 twin_audio_device(ihfandheadphone).
+twin_audio_device(ihfandlineout).
 twin_audio_device(ihfandtvout).
 
 twin_audio_device(tvout     , bta2dp  , tvoutandbta2dp).   % not really a twin
 twin_audio_device(bta2dp    , tvout   , tvoutandbta2dp).
 twin_audio_device(headset   , ihf     , ihfandheadset).
 twin_audio_device(headphone , ihf     , ihfandheadphone).
+twin_audio_device(lineout   , ihf     , ihfandlineout).
 twin_audio_device(tvout     , ihf     , ihfandtvout).
 twin_audio_device(tvout     , earpiece, earpieceandtvout). % not really a twin
 
@@ -248,8 +265,12 @@ slave_audio_device(headphone        , fmradioloopback   , headphoneasfmradiolp).
 slave_audio_device(fmradioloopback  , headphone         , headphoneasfmradiolp).
 slave_audio_device(headset          , fmradioloopback   , headsetasfmradiolp).
 slave_audio_device(fmradioloopback  , headset           , headsetasfmradiolp).
+slave_audio_device(lineout          , fmradioloopback   , lineoutasfmradiolp).
+slave_audio_device(fmradioloopback  , lineout           , lineoutasfmradiolp).
 
 slave_audio_device(headphone        , fmradio           , headphoneasfmradio).
 slave_audio_device(fmradio          , headphone         , headphoneasfmradio).
 slave_audio_device(headset          , fmradio           , headsetasfmradio).
 slave_audio_device(fmradio          , headset           , headsetasfmradio).
+slave_audio_device(lineout          , fmradio           , lineoutasfmradio).
+slave_audio_device(fmradio          , lineout           , lineoutasfmradio).

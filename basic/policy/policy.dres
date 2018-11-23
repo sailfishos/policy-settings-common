@@ -62,6 +62,7 @@ $audio_device_accessible += { name: earpiece      , driver: 0, connected: 1 }
 $audio_device_accessible += { name: tvout         , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headmike      , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headphone     , driver: 1, connected: 0 }
+$audio_device_accessible += { name: lineout       , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headset       , driver: 1, connected: 0 }
 $audio_device_accessible += { name: bthfp         , driver: 0, connected: 0 }
 $audio_device_accessible += { name: bthsp         , driver: 0, connected: 0 }
@@ -95,6 +96,9 @@ $audio_device_selectable += { name: headmike        , selectable: 0 }
 $audio_device_selectable += { name: headphoneforcall, selectable: 0 }
 $audio_device_selectable += { name: headphoneforalien,selectable: 0 }
 $audio_device_selectable += { name: headphone       , selectable: 0 }
+$audio_device_selectable += { name: lineoutforcall  , selectable: 0 }
+$audio_device_selectable += { name: lineoutforalien , selectable: 0 }
+$audio_device_selectable += { name: lineout         , selectable: 0 }
 $audio_device_selectable += { name: headsetforcall  , selectable: 0 }
 $audio_device_selectable += { name: headsetforalien , selectable: 0 }
 $audio_device_selectable += { name: headset         , selectable: 0 }
@@ -108,6 +112,7 @@ $audio_device_selectable += { name: bta2dp          , selectable: 0 }
 $audio_device_selectable += { name: bta2dpforalien  , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadset   , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadphone , selectable: 0 }
+$audio_device_selectable += { name: ihfandlineout   , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbta2dp  , selectable: 0 }
 $audio_device_selectable += { name: usbaudio        , selectable: 0 }
 $audio_device_selectable += { name: usbmic          , selectable: 0 }
@@ -115,8 +120,10 @@ $audio_device_selectable += { name: fmradioloopback, selectable: 0 }
 $audio_device_selectable += { name: fmradio         , selectable: 0 }
 $audio_device_selectable += { name: headphoneasfmradiolp, selectable: 0 }
 $audio_device_selectable += { name: headsetasfmradiolp  , selectable: 0 }
+$audio_device_selectable += { name: lineoutasfmradiolp  , selectable: 0 }
 $audio_device_selectable += { name: headphoneasfmradio  , selectable: 0 }
 $audio_device_selectable += { name: headsetasfmradio    , selectable: 0 }
+$audio_device_selectable += { name: lineoutasfmradio    , selectable: 0 }
 $audio_device_selectable += { name: voicecall       , selectable: 0 }
 $audio_device_selectable += { name: incompatible    , selectable: 0 }
 
@@ -135,6 +142,9 @@ $audio_mode += { device: ihfandtvout     , default:'ihfandtv-out' }
 $audio_mode += { device: headphoneforcall, default: lineout       }
 $audio_mode += { device: headphoneforalien,default: lineout       }
 $audio_mode += { device: headphone       , default: lineout       }
+$audio_mode += { device: lineoutforcall  , default: lineout       }
+$audio_mode += { device: lineoutforalien , default: lineout       }
+$audio_mode += { device: lineout         , default: lineout       }
 $audio_mode += { device: headsetforcall  , default: lineout       }
 $audio_mode += { device: headsetforalien , default: lineout       }
 $audio_mode += { device: headset         , default: lineout       }
@@ -149,11 +159,14 @@ $audio_mode += { device: bta2dpforalien  , default: bta2dp        }
 $audio_mode += { device: tvoutandbta2dp  , default: bta2dp        }
 $audio_mode += { device: ihfandheadset   , default: lineout       }
 $audio_mode += { device: ihfandheadphone , default: lineout       }
+$audio_mode += { device: ihfandlineout   , default: lineout       }
 $audio_mode += { device: usbaudio        , default: usbaudio      }
 $audio_mode += { device: headphoneasfmradiolp, default: lineout   }
 $audio_mode += { device: headsetasfmradiolp  , default: lineout   }
+$audio_mode += { device: lineoutasfmradiolp  , default: lineout   }
 $audio_mode += { device: headphoneasfmradio  , default: lineout   }
 $audio_mode += { device: headsetasfmradio    , default: lineout   }
+$audio_mode += { device: lineoutasfmradio    , default: lineout   }
 
 
 # audio output configuration - this list needs to include all output devices from
@@ -197,6 +210,15 @@ $audio_output_configuration += { device: headphoneforalien,mode: lineout     ,\
 $audio_output_configuration += { device: headphone      , mode: lineout      ,\
                                  hwid: na               , type: wired        ,\
                                  commonname: headphone }
+$audio_output_configuration += { device: lineoutforcall , mode: lineout      ,\
+                                 hwid: na               , type: wired        ,\
+                                 commonname: lineout }
+$audio_output_configuration += { device: lineoutforalien, mode: lineout      ,\
+                                 hwid: na               , type: wired        ,\
+                                 commonname: lineout }
+$audio_output_configuration += { device: lineout        , mode: lineout      ,\
+                                 hwid: na               , type: wired        ,\
+                                 commonname: lineout }
 $audio_output_configuration += { device: headsetforcall , mode: lineout      ,\
                                  hwid: na               , type: wired        ,\
                                  commonname: headset }
@@ -236,6 +258,9 @@ $audio_output_configuration += { device: ihfandheadset  , mode:ihfandheadset ,\
 $audio_output_configuration += { device: ihfandheadphone , mode:ihfandlineout,\
                                  hwid: na               , type: wireless     ,\
                                  commonname: speakerandheadphone }
+$audio_output_configuration += { device: ihfandlineout  , mode:ihfandlineout ,\
+                                 hwid: na               , type: wireless     ,\
+                                 commonname: speakerandlineout  }
 $audio_output_configuration += { device: tvoutandbta2dp , mode: bta2dp       ,\
                                  hwid: na               , type: wireless     ,\
                                  commonname: tvoutandbluetootha2dp }
@@ -280,9 +305,13 @@ $audio_input_configuration  += { device: headphoneasfmradiolp , type: wired   ,\
                                  commonname: fmradioloopback }
 $audio_input_configuration  += { device: headsetasfmradiolp   , type: wired   ,\
                                  commonname: fmradioloopback }
+$audio_input_configuration  += { device: lineoutasfmradiolp   , type: wired   ,\
+                                 commonname: fmradioloopback }
 $audio_input_configuration  += { device: headphoneasfmradio   , type: wired   ,\
                                  commonname: fmradio }
 $audio_input_configuration  += { device: headsetasfmradio     , type: wired   ,\
+                                 commonname: fmradio }
+$audio_input_configuration  += { device: lineoutasfmradio     , type: wired   ,\
                                  commonname: fmradio }
 $audio_input_configuration  += { device: voicecall            , type: builtin ,\
                                  commonname: voicecallrecord }
@@ -363,8 +392,10 @@ $audio_mute   += { device: fmradio              , mute: unmuted }
 $audio_mute   += { device: fmradioloopback      , mute: unmuted }
 $audio_mute   += { device: headphoneasfmradiolp , mute: unmuted }
 $audio_mute   += { device: headsetasfmradiolp   , mute: unmuted }
+$audio_mute   += { device: lineoutasfmradiolp   , mute: unmuted }
 $audio_mute   += { device: headphoneasfmradio   , mute: unmuted }
 $audio_mute   += { device: headsetasfmradio     , mute: unmuted }
+$audio_mute   += { device: lineoutasfmradio     , mute: unmuted }
 $audio_mute   += { device: nullsource           , mute: unmuted }
 
 # vibra control
@@ -471,6 +502,10 @@ update_feature_allowed: $context $audio_device_selectable
 		   $audio_device_selectable[name:headphone]:selectable == 1             || \
 		   $audio_device_selectable[name:headphoneforcall]:selectable == 1      || \
 		   $audio_device_selectable[name:headphoneforalien]:selectable == 1     || \
+		   $audio_device_selectable[name:lineout]:selectable == 1               || \
+		   $audio_device_selectable[name:lineoutforcall]:selectable == 1        || \
+		   $audio_device_selectable[name:lineoutforalien]:selectable == 1       || \
+		   $audio_device_selectable[name:ihfandlineout]:selectable == 1         || \
 		   $audio_device_selectable[name:ihfandheadphone]:selectable == 1       || \
 		   $audio_device_selectable[name:ihfandheadset]:selectable == 1         then
 			$feature[name:fmradio]:allowed = 1
