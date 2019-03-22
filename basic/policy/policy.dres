@@ -744,6 +744,27 @@ update_accessory_mode:
 					 	      &accessory_name,       \
 						      &accessory_mode)
 
+card_profile_changed_request:
+	if ($feature[name:bluetooth_override]:allowed == 1 && \
+	    (&card_type == 'bthspforcall' || &card_type == 'bthfpforcall')) then
+		if (&card_profile == 'off') then
+			if (($audio_route[type:sink]:device == 'bthfpforcall' || \
+			     $audio_route[type:sink]:device == 'bthspforcall') && \
+			    $feature[name:bluetooth_override]:enabled == 0) then
+
+				$feature[name:bluetooth_override]:enabled = 1
+				resolve(bluetooth_override_feature_update, '', 0)
+				resolve(all, '', 0)
+			end
+		else
+			if $feature[name:bluetooth_override]:enabled == 1 then
+				$feature[name:bluetooth_override]:enabled = 0
+				resolve(bluetooth_override_feature_update, '', 0)
+				resolve(all, '', 0)
+			end
+		end
+	end
+
 telephony_request:
 	$call_action = prolog(call_request, &call_id, &call_state)
 
