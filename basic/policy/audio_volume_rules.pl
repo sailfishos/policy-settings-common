@@ -214,7 +214,7 @@ volume_limit( othermedia,  event      , 100  ).
 volume_limit( othermedia,  systemsound, 100  ).
 volume_limit( othermedia,  feedbacksound, Value) :- feedbacksound_limit(Value, 100).
 volume_limit( othermedia,  inputsound , 100  ).
-volume_limit( othermedia,  othermedia , 0  ).
+volume_limit( othermedia,  othermedia , 100  ).
 volume_limit( othermedia,  background , 100  ).
 volume_limit( othermedia,  alien      , 100  ).
 volume_limit( othermedia,  btnotify   , 100  ).
@@ -324,7 +324,7 @@ volume_limit( idle      ,  event      , 100  ).
 volume_limit( idle      ,  systemsound, 100  ).
 volume_limit( idle      ,  feedbacksound, Value) :- feedbacksound_limit(Value, 100).
 volume_limit( idle      ,  inputsound , 100  ).
-volume_limit( idle      ,  othermedia , 0  ).
+volume_limit( idle      ,  othermedia , 100  ).
 volume_limit( idle      ,  background , 100  ).
 volume_limit( idle      ,  alien      , 100  ).
 volume_limit( idle      ,  btnotify   , 100  ).
