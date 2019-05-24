@@ -224,7 +224,7 @@ cork( othermedia , event      , uncorked).
 cork( othermedia , systemsound, uncorked).
 cork( othermedia , feedbacksound, uncorked).
 cork( othermedia , inputsound , uncorked).
-cork( othermedia , othermedia , corked  ).
+cork( othermedia , othermedia , uncorked).
 cork( othermedia , background , uncorked).
 cork( othermedia , alien      , uncorked).
 cork( othermedia , btnotify   , uncorked).
@@ -362,7 +362,7 @@ cork( idle       , event      , uncorked).
 cork( idle       , systemsound, uncorked).
 cork( idle       , feedbacksound, uncorked).
 cork( idle       , inputsound , uncorked).
-cork( idle       , othermedia , corked  ).
+cork( idle       , othermedia , uncorked).
 cork( idle       , background , uncorked).
 cork( idle       , alien      , uncorked).
 cork( idle       , btnotify   , uncorked).

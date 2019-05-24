@@ -492,9 +492,10 @@ update_feature_allowed: $context $audio_device_selectable
 	end
 
 	# speaker routing is allowed only when fmradio is enabled,
-	# or while phone call is active
+	# aliencall resource class is active, or while phone call is active
 	if $feature[name:fmradioloopback]:enabled == 1      || \
 	   $feature[name:fmradio]:enabled == 1              || \
+	   $audio_resource_owner:current == 'aliencall'     || \
 	   $context[variable:call]:value == 'outgoing'      || \
 	   $context[variable:call]:value == 'active'        then
 		$feature[name:speaker]:allowed = 1
