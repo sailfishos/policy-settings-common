@@ -1,6 +1,6 @@
 Name:       policy-settings-common
 Summary:    Common policy settings
-Version:    0.7.5
+Version:    0.9.0
 Release:    1
 Group:      Configs
 License:    GPLv2+
