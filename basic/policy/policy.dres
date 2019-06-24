@@ -382,7 +382,8 @@ $active_application = { pid: 0 }
 $alien_application = { pid: -1 }
 
 # features
-$feature   = { name: fmradio            , allowed: 0        , enabled: 0 }
+$feature   = { name: emergencycall      , allowed: 1        , enabled: 0 }
+$feature  += { name: fmradio            , allowed: 0        , enabled: 0 }
 $feature  += { name: fmradioloopback    , allowed: 0        , enabled: 0 }
 $feature  += { name: voicecallrecord    , allowed: 0        , enabled: 0 }
 $feature  += { name: speaker            , allowed: 0        , enabled: 0 }
