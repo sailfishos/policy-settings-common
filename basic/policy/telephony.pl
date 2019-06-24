@@ -1,4 +1,4 @@
-:- module(telephony, [call_request/3, call_exists/2, call_domain/2]).
+:- module(telephony, [call_request/3, call_exists/2, call_domain/2, is_emergency_call/0]).
 
 
 % Our predicates for the rule engine.
@@ -264,6 +264,9 @@ has_conference_call :- call_exists([state], [conference]).
 
 has_early_emergency_call :-
     fact_exists('com.nokia.policy.emergency_call', [state], [active]).
+
+is_emergency_call :-
+    fact_exists('com.nokia.policy.feature', [name, enabled], [emergencycall, 1]).
 
 % *****************************************************************************
 % *               *** call domain classification predicates ***               *
