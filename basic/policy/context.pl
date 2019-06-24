@@ -69,6 +69,9 @@ voicecall_record_state(Value) :-
 	voicecall_device_selectable(1) *-> (call_state_all(any) *-> Value=enabled ; Value=disabled) ;
 	                                   Value=disabled.
 
+emergency_call_state(Value) :-
+	is_emergency_call *-> Value=active ; Value=inactive.
+
 % # call context predicate
 context_variable(call, Entry) :-
 	call_state(State),
@@ -89,6 +92,9 @@ context_variable(voicecall_record, Entry) :-
 	voicecall_record_state(State),
 	set_context_variable_and_value(voicecall_record, State, Entry).
 
+context_variable(emergency_call, Entry) :-
+	emergency_call_state(State),
+	set_context_variable_and_value(emergency_call, State, Entry).
 
 % #############################################################################
 % #                        ### helper predicates ###                          #
