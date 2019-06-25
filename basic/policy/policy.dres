@@ -382,7 +382,8 @@ $active_application = { pid: 0 }
 $alien_application = { pid: -1 }
 
 # features
-$feature   = { name: fmradio            , allowed: 0        , enabled: 0 }
+$feature   = { name: emergencycall      , allowed: 1        , enabled: 0 }
+$feature  += { name: fmradio            , allowed: 0        , enabled: 0 }
 $feature  += { name: fmradioloopback    , allowed: 0        , enabled: 0 }
 $feature  += { name: voicecallrecord    , allowed: 0        , enabled: 0 }
 $feature  += { name: speaker            , allowed: 0        , enabled: 0 }
@@ -396,6 +397,7 @@ $context   = { variable: call                   ,  value: inactive }
 $context   = { variable: bluetooth_override     ,  value: disabled }  # disabled - active - inactive
 $context   = { variable: media_state            ,  value: inactive }  # inactive - background - foreground - active
 $context   = { variable: voicecall_record       ,  value: disabled }  # disabled - enabled
+$context   = { variable: emergency_call         ,  value: inactive }  # inactive - active
 #$context   = { variable: call_audio_type,  value: none     }
 #$context   = { variable: camera         ,  value: inactive }
 
@@ -853,7 +855,7 @@ alien_application_request:
 # bluetooth_override    - com.nokia.policy.bluetooth_override ($bluetooth_override) changes
 # media_state           - com.nokia.policy.media_state
 context: $bluetooth_override $active_application \
-         $alien_application $resource_set
+         $alien_application $resource_set $feature
 	$context[variable] |= prolog(update_contexts)
 
 # block resolving if any policy plugin is not ready
