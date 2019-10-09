@@ -28,12 +28,16 @@ call_state(incoming) :-
 call_state(outgoing) :-
 	telephony:has_outgoing_call,!.      % # outgoing created call
 
+call_state(voip) :-
+	audio_resource_has_owner(aliencall),!.
+
 call_state(inactive) :- 
 % #	\+call_state(active),	% # Commented out unnecessary checks. active and 
 % # \+call_state(ringing),	% # ringing have already been checked as false.
 	!.
 
 call_state_all(any) :-
+	call_state(voip) ;
 	call_state(active) ;
 	call_state(incoming) ;
 	call_state(outgoing),!.
@@ -115,6 +119,9 @@ active_application_pid(Pid) :-
 alien_application_pid(Pid) :-
 	fact_exists('com.nokia.policy.alien_application', [pid], [Pid]),
 	not(Pid = 0).
+
+audio_resource_has_owner(Name) :-
+	fact_exists('com.nokia.policy.audio_resource_owner', [previous, current], [_, Name]).
 
 set_context_variable_and_value(Variable, Value, Entry) :-
 	Entry = [context, [variable, Variable], [value, Value]].
