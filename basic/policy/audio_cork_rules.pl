@@ -28,7 +28,7 @@ cork( call       , nonsilent  , uncorked).
 cork( call       , cstone     , uncorked).
 cork( call       , navigator  , uncorked).
 cork( call       , call       , uncorked).
-cork( call       , aliencall  , corked  ).
+cork( call       , aliencall  , uncorked).
 cork( call       , videoeditor, uncorked).
 cork( call       , camera     , uncorked).
 cork( call       , ringtone   , uncorked).
@@ -97,7 +97,7 @@ cork( ringtone   , nonsilent  , uncorked).
 cork( ringtone   , cstone     , uncorked).
 cork( ringtone   , navigator  , uncorked).
 cork( ringtone   , call       , uncorked).
-cork( ringtone   , aliencall  , corked  ).
+cork( ringtone   , aliencall  , uncorked).
 cork( ringtone   , videoeditor, uncorked).
 cork( ringtone   , camera     , uncorked).
 cork( ringtone   , ringtone   , uncorked).
