@@ -5,6 +5,7 @@ volume_limit( navigator ,  nonsilent  , 100  ).
 volume_limit( navigator ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( navigator ,  navigator  , 100  ).
 volume_limit( navigator ,  call       , 100  ).
+volume_limit( navigator ,  aliencall  , 100  ).
 volume_limit( navigator ,  videoeditor, 100  ).
 volume_limit( navigator ,  camera     , 100  ).
 volume_limit( navigator ,  ringtone   , Value) :- ringtone_limit(Value).
@@ -27,6 +28,7 @@ volume_limit( call      ,  nonsilent  , 100  ).
 volume_limit( call      ,  cstone     , 100  ).
 volume_limit( call      ,  navigator  , 100  ).
 volume_limit( call      ,  call       , 100  ).
+volume_limit( call      ,  aliencall  , 0    ).
 volume_limit( call      ,  videoeditor, 0    ).
 volume_limit( call      ,  camera     , 100  ).
 volume_limit( call      ,  ringtone   , 0    ).
@@ -49,6 +51,7 @@ volume_limit( videoeditor,  nonsilent  , 100  ).
 volume_limit( videoeditor,  cstone     , 100  ).
 volume_limit( videoeditor,  navigator  , 100  ).
 volume_limit( videoeditor,  call       , 100  ).
+volume_limit( videoeditor,  aliencall  , 100  ).
 volume_limit( videoeditor,  videoeditor, 100  ).
 volume_limit( videoeditor,  camera     , 100  ).
 volume_limit( videoeditor,  ringtone   , 0    ).
@@ -71,6 +74,7 @@ volume_limit( camera    ,  nonsilent  , 0    ).
 volume_limit( camera    ,  cstone     , 0    ).
 volume_limit( camera    ,  navigator  , 100  ).
 volume_limit( camera    ,  call       , 100  ).
+volume_limit( camera    ,  aliencall  , 100  ).
 volume_limit( camera    ,  videoeditor, 100  ).
 volume_limit( camera    ,  camera     , 100  ).
 volume_limit( camera    ,  ringtone   , 0    ).
@@ -93,6 +97,7 @@ volume_limit( ringtone  ,  nonsilent  , 100  ).
 volume_limit( ringtone  ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( ringtone  ,  navigator  , 100  ).
 volume_limit( ringtone  ,  call       , 100  ).
+volume_limit( ringtone  ,  aliencall  , 100  ).
 volume_limit( ringtone  ,  videoeditor, 100  ).
 volume_limit( ringtone  ,  camera     , 100  ).
 volume_limit( ringtone  ,  ringtone   , Value) :- ringtone_limit(Value).
@@ -115,6 +120,7 @@ volume_limit( alarm     ,  nonsilent  , 100  ).
 volume_limit( alarm     ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( alarm     ,  navigator  , 100  ).
 volume_limit( alarm     ,  call       , 0    ).
+volume_limit( alarm     ,  aliencall  , 0    ).
 volume_limit( alarm     ,  videoeditor, 0    ).
 volume_limit( alarm     ,  camera     , 100  ).
 volume_limit( alarm     ,  ringtone   , 0    ).
@@ -137,6 +143,7 @@ volume_limit( game      ,  nonsilent  , 100  ).
 volume_limit( game      ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( game      ,  navigator  , 100  ).
 volume_limit( game      ,  call       , 100  ).
+volume_limit( game      ,  aliencall  , 100  ).
 volume_limit( game      ,  videoeditor, 100  ).
 volume_limit( game      ,  camera     , 100  ).
 volume_limit( game      ,  ringtone   , Value) :- ringtone_limit(Value).
@@ -159,6 +166,7 @@ volume_limit( player    ,  nonsilent  , 100  ).
 volume_limit( player    ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( player    ,  navigator  , 100  ).
 volume_limit( player    ,  call       , 100  ).
+volume_limit( player    ,  aliencall  , 100  ).
 volume_limit( player    ,  videoeditor, 100  ).
 volume_limit( player    ,  camera     , 100  ).
 volume_limit( player    ,  ringtone   , Value) :- ringtone_limit(Value).
@@ -181,6 +189,7 @@ volume_limit( flash     ,  nonsilent  , 100  ).
 volume_limit( flash     ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( flash     ,  navigator  , 100  ).
 volume_limit( flash     ,  call       , 100  ).
+volume_limit( flash     ,  aliencall  , 100  ).
 volume_limit( flash     ,  videoeditor, 100  ).
 volume_limit( flash     ,  camera     , 100  ).
 volume_limit( flash     ,  ringtone   , Value) :- ringtone_limit(Value).
@@ -203,6 +212,7 @@ volume_limit( othermedia,  nonsilent  , 100  ).
 volume_limit( othermedia,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( othermedia,  navigator  , 100  ).
 volume_limit( othermedia,  call       , 100  ).
+volume_limit( othermedia,  aliencall  , 100  ).
 volume_limit( othermedia,  videoeditor, 100  ).
 volume_limit( othermedia,  camera     , 100  ).
 volume_limit( othermedia,  ringtone   , Value) :- ringtone_limit(Value).
@@ -225,6 +235,7 @@ volume_limit( event     ,  nonsilent  , 100  ).
 volume_limit( event     ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( event     ,  navigator  , 100  ).
 volume_limit( event     ,  call       , 0    ).
+volume_limit( event     ,  aliencall  , 100  ).
 volume_limit( event     ,  videoeditor, 0    ).
 volume_limit( event     ,  camera     , 100  ).
 volume_limit( event     ,  ringtone   , 0    ).
@@ -247,6 +258,7 @@ volume_limit( background,  nonsilent  , 100  ).
 volume_limit( background,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( background,  navigator  , 100  ).
 volume_limit( background,  call       , 100  ).
+volume_limit( background,  aliencall  , 100  ).
 volume_limit( background,  videoeditor, 100  ).
 volume_limit( background,  camera     , 100  ).
 volume_limit( background,  ringtone   , Value) :- ringtone_limit(Value).
@@ -269,6 +281,7 @@ volume_limit( alien    ,  nonsilent  , 100  ).
 volume_limit( alien    ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( alien    ,  navigator  , 100  ).
 volume_limit( alien    ,  call       , 100  ).
+volume_limit( alien    ,  aliencall  , 100  ).
 volume_limit( alien    ,  videoeditor, 100  ).
 volume_limit( alien    ,  camera     , 100  ).
 volume_limit( alien    ,  ringtone   , Value) :- ringtone_limit(Value).
@@ -286,11 +299,35 @@ volume_limit( alien    ,  alien      , 100  ).
 volume_limit( alien    ,  btnotify   , 100  ).
 volume_limit( alien    ,  idle       , 100  ).
 
+volume_limit( aliencall,  alwayson   , 100  ).
+volume_limit( aliencall,  nonsilent  , 100  ).
+volume_limit( aliencall,  cstone     , Value) :- cstone_limit(Value).
+volume_limit( aliencall,  navigator  , 100  ).
+volume_limit( aliencall,  call       , 100  ).
+volume_limit( aliencall,  aliencall  , 100  ).
+volume_limit( aliencall,  videoeditor, 100  ).
+volume_limit( aliencall,  camera     , 100  ).
+volume_limit( aliencall,  ringtone   , Value) :- ringtone_limit(Value).
+volume_limit( aliencall,  alarm      , 100  ).
+volume_limit( aliencall,  game       , 100  ).
+volume_limit( aliencall,  player     , 100  ).
+volume_limit( aliencall,  flash      , 0    ).
+volume_limit( aliencall,  event      , 100  ).
+volume_limit( aliencall,  systemsound, 100  ).
+volume_limit( aliencall,  feedbacksound, Value) :- feedbacksound_limit(Value, 100).
+volume_limit( aliencall,  inputsound , 0    ).
+volume_limit( aliencall,  othermedia , 0    ).
+volume_limit( aliencall,  background , 100  ).
+volume_limit( aliencall,  alien      , 100  ).
+volume_limit( aliencall,  btnotify   , 100  ).
+volume_limit( aliencall,  idle       , 100  ).
+
 volume_limit( btnotify ,  alwayson   , 100  ).
 volume_limit( btnotify ,  nonsilent  , 100  ).
 volume_limit( btnotify ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( btnotify ,  navigator  , 100  ).
 volume_limit( btnotify ,  call       , 100  ).
+volume_limit( btnotify ,  aliencall  , 100  ).
 volume_limit( btnotify ,  videoeditor, 100  ).
 volume_limit( btnotify ,  camera     , 100  ).
 volume_limit( btnotify ,  ringtone   , Value) :- ringtone_limit(Value).
@@ -313,6 +350,7 @@ volume_limit( idle      ,  nonsilent  , 100  ).
 volume_limit( idle      ,  cstone     , Value) :- cstone_limit(Value).
 volume_limit( idle      ,  navigator  , 100  ).
 volume_limit( idle      ,  call       , 100  ).
+volume_limit( idle      ,  aliencall  , 100  ).
 volume_limit( idle      ,  videoeditor, 100  ).
 volume_limit( idle      ,  camera     , 100  ).
 volume_limit( idle      ,  ringtone   , Value) :- ringtone_limit(Value).
