@@ -66,10 +66,10 @@ resource_class(nobody).      % Lowest priority class
 resource_class_priority( proclaimer ,  0 ).
 resource_class_priority( navigator  ,  1 ).
 resource_class_priority( call       ,  2 ).
-resource_class_priority( videoeditor,  3 ).
-resource_class_priority( camera     ,  4 ).
+resource_class_priority( aliencall  ,  3 ).
+resource_class_priority( videoeditor,  4 ).
 resource_class_priority( ringtone   ,  5 ).
-resource_class_priority( aliencall  ,  6 ).
+resource_class_priority( camera     ,  6 ).
 resource_class_priority( alarm      ,  7 ).
 resource_class_priority( game       ,  8 ).
 resource_class_priority( player     ,  9 ).
