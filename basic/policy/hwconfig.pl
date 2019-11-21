@@ -144,8 +144,10 @@ audio_device_privacy(private, usbaudio).
 audio_device_privacy(private, usbmic).
 audio_device_privacy(private, fmradioloopback).
 audio_device_privacy(private, fmradio).
+audio_device_privacy(private, lineoutasfmradiolp).
 audio_device_privacy(private, headphoneasfmradiolp).
 audio_device_privacy(private, headsetasfmradiolp).
+audio_device_privacy(private, lineoutasfmradio).
 audio_device_privacy(private, headphoneasfmradio).
 audio_device_privacy(private, headsetasfmradio).
 audio_device_privacy(private, voicecall).
