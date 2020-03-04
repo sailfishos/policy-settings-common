@@ -837,6 +837,7 @@ accessory_request:
 
 prefer_request:
 	$ignore_privacy_change:value = 1
+	$audio_device_preferred[name] = prolog(clear_preferred_audio_entry)
 	$audio_device_preferred[name] = prolog(set_preferred_audio_entry,\
 	                                       &accessory_name,\
 	                                       &accessory_preferred)
