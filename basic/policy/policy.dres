@@ -241,7 +241,7 @@ $audio_output_configuration += { device: earpiece       , mode: hp           ,\
                                  commonname: earpiece }
 $audio_output_configuration += { device: earpieceandtvout,mode: hp           ,\
                                  hwid: na               , type: builtin      ,\
-                                 commonname: earpiecendtvout }
+                                 commonname: earpiecandtvout }
 $audio_output_configuration += { device: tvout          , mode: wired        ,\
                                  hwid: na               , type: builtin      ,\
                                  commonname: tvout }
