@@ -13,6 +13,10 @@ BuildRequires:  swi-prolog-library >= 7.0
 BuildRequires:  libprolog >= 1.2.0
 BuildRequires:  prolog-resourcepolicy-extensions
 
+# There are no debug symbols in this package. Disable
+# automatic debug package creation (needed for Fedora)
+%global debug_package %{nil}
+
 %description
 %{summary}.
 
