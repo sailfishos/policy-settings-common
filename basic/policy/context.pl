@@ -58,13 +58,13 @@ bluetooth_override_state(Value) :-
 % if resources are not granted AND the app is topmost -> foreground
 % else inactive
 media_playing_state(Value) :-
-	alien_application_pid(AlienPid),
-	active_application_pid(Pid),
+	policy_active_appsupport(AppsupportId),
+	policy_active_application(AppId),
 	(call_state_all(any) *-> Value=inactive ;
-		((AlienPid>0, AlienPid=:=Pid) -> Value=active ;
+		((AppsupportId == AppId) -> Value=active ;
 			(granted_resource(_, audio_playback) *->
-				(resource_set_pid_granted(Pid, audio_playback) -> Value=active ; Value=background) ;
-				(resource_set_pid_registered(Pid, audio_playback) *-> Value=foreground ; Value=inactive)))).
+				(resource_set_app_id_granted(AppId, audio_playback) -> Value=active ; Value=background) ;
+				(resource_set_app_id_registered(AppId, audio_playback) *-> Value=foreground ; Value=inactive)))).
 
 % if voicecall source is selectable, and
 % if call is ongoing -> enabled
@@ -112,13 +112,13 @@ voicecall_device_selectable(A) :-
 	fact_exists('com.nokia.policy.audio_device_selectable', [name, selectable], [voicecall, A]),
 	not(A = 0).
 
-active_application_pid(Pid) :-
-	fact_exists('com.nokia.policy.active_application', [pid], [Pid]),
-	not(Pid = 0).
+policy_active_appsupport(AppId) :-
+	fact_exists('com.nokia.policy.policy_active_appsupport', [id], [AppId]),
+	not(AppId = "none").
 
-alien_application_pid(Pid) :-
-	fact_exists('com.nokia.policy.alien_application', [pid], [Pid]),
-	not(Pid = 0).
+policy_active_application(AppId) :-
+	fact_exists('com.nokia.policy.policy_active_application', [id], [AppId]),
+	not(AppId = "none").
 
 audio_resource_has_owner(Name) :-
 	fact_exists('com.nokia.policy.audio_resource_owner', [previous, current], [_, Name]).
