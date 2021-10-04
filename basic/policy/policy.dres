@@ -408,9 +408,9 @@ $vibra_mute += { group: event, mute: unmuted }
 $backlight   = { state: off }
 
 # currently active (topmost) application id
-$policy_active_application = { id: "none" }
+$policy_active_application = { id: 'no-application' }
 # app support application id
-$policy_active_appsupport = { id: "none" }
+$policy_active_appsupport = { id: 'no-appsupport' }
 
 # features
 $feature   = { name: emergencycall      , allowed: 1        , enabled: 0 }
@@ -881,10 +881,18 @@ telephony_sending_dialstring:
 telephony_stopped_dialstring:
 
 policy_active_application_request:
-	$policy_active_application:id = &id
+	if &id == 'none' || &id == '' then
+		$policy_active_application:id = 'no-application'
+	else
+		$policy_active_application:id = &id
+	end
 
 policy_active_appsupport_request:
-	$policy_active_appsupport:id = &id
+	if &id == 'none' || &id == '' then
+		$policy_active_appsupport:id = 'no-appsupport'
+	else
+		$policy_active_appsupport:id = &id
+	end
 
 # context variables:
 # call                  - com.nokia.policy.call ($call) changes

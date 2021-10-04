@@ -114,11 +114,11 @@ voicecall_device_selectable(A) :-
 
 policy_active_appsupport(AppId) :-
 	fact_exists('com.nokia.policy.policy_active_appsupport', [id], [AppId]),
-	not(AppId = "none").
+	not(AppId = "no-appsupport").
 
 policy_active_application(AppId) :-
 	fact_exists('com.nokia.policy.policy_active_application', [id], [AppId]),
-	not(AppId = "none").
+	not(AppId = "no-application").
 
 audio_resource_has_owner(Name) :-
 	fact_exists('com.nokia.policy.audio_resource_owner', [previous, current], [_, Name]).
