@@ -36,9 +36,9 @@ $active_audio_manager_id = { id: 0 }
 $active_audio_manager = { previous: 0, current: 0 }
 $call_start_privacy = { value: none }
 
-$resource_set = {manager_id:0,  client_name:dres, client_id:0, class:fake,    \
+$resource_set = {manager_id:0, client_pid:0, client_name:dres, client_id:0, app_id:internal, class:fake,    \
                  mode:0, mandatory:0, optional:0, shared:0, mask:0, granted:0,\
-                 advice:0, request:release, block:0, reqno:0, audiogr:fake}
+                 advice:0, request:release, block:0, reqno:0, audiogr:fake, videopid:0}
 
 
 # video devices
@@ -407,10 +407,10 @@ $vibra_mute += { group: event, mute: unmuted }
 # backlight control
 $backlight   = { state: off }
 
-# currently active (topmost) application pid
-$active_application = { pid: 0 }
-# alien UI process id
-$alien_application = { pid: -1 }
+# currently active (topmost) application id
+$policy_active_application = { id: "none" }
+# app support application id
+$policy_active_appsupport = { id: "none" }
 
 # features
 $feature   = { name: emergencycall      , allowed: 1        , enabled: 0 }
@@ -880,18 +880,21 @@ telephony_sending_dialstring:
 # dialstring sending stopped
 telephony_stopped_dialstring:
 
-active_application_request:
-	$active_application:pid = &pid
+policy_active_application_request:
+	$policy_active_application:id = &id
 
-alien_application_request:
-	$alien_application:pid = &pid
+policy_active_appsupport_request:
+	$policy_active_appsupport:id = &id
 
 # context variables:
 # call                  - com.nokia.policy.call ($call) changes
 # bluetooth_override    - com.nokia.policy.bluetooth_override ($bluetooth_override) changes
 # media_state           - com.nokia.policy.media_state
-context: $bluetooth_override $active_application \
-         $alien_application $resource_set $feature
+context: $bluetooth_override        \
+         $resource_set              \
+         $feature                   \
+         $policy_active_application \
+         $policy_active_appsupport
 	$context[variable] |= prolog(update_contexts)
 
 # block resolving if any policy plugin is not ready
