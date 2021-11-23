@@ -2,7 +2,6 @@ Name:       policy-settings-common
 Summary:    Common policy settings
 Version:    0.12.1
 Release:    1
-Group:      Configs
 License:    GPLv2+
 Source0:    %{name}-%{version}.tar.bz2
 BuildRequires:  automake
@@ -43,6 +42,7 @@ make DESTDIR=%{buildroot} INSTALL_SYMLINKS=1 install
 
 %files
 %defattr(-,root,root,-)
+%license COPYING
 %{_datadir}/policy/rules/current
 %{_datadir}/policy/rules/basic/policy.plc
 %{_datadir}/policy/rules/basic/policy.dres
