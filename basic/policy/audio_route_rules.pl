@@ -156,6 +156,19 @@ invalid_audio_device_choice(Class, _, bthspforalien) :-
 invalid_audio_device_choice(Class, _, bta2dpforalien) :-
     not(Class = aliencall).
 
+% do not route *foralien to accessory source if sink is not routed to it
+invalid_audio_device_choice(_, source, headsetforalien) :-
+    not(audio_route:get_route(sink, headsetforalien)).
+
+invalid_audio_device_choice(_, source, bthfpforalien) :-
+    not(audio_route:get_route(sink, bthfpforalien)).
+
+invalid_audio_device_choice(_, source, bthspforalien) :-
+    not(audio_route:get_route(sink, bthspforalien)).
+
+invalid_audio_device_choice(_, source, bta2dpforalien) :-
+    not(audio_route:get_route(sink, bta2dpforalien)).
+
 % do not route to any a2dp devices if aliencall is active.
 % that means use only hsp bt devices, or ihf, headphones, etc.
 %
