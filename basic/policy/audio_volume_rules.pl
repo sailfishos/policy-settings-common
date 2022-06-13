@@ -385,7 +385,8 @@ ringtone_limit(Value) :-
 cstone_limit(Value) :-
     % cstone volume is 0 if feedback tones are disabled and call is not active
     (is_silent_feedback,
-     not(context:call_state(active))) *-> Value=0;
+     not(context:call_state(active)),
+     not(context:call_state(voip))) *-> Value=0;
     % Default volume
     Value=100.
 
