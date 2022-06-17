@@ -1,13 +1,17 @@
 :- module(accessory,
-	  [update_accessible_video_entry/3, update_selectable_video_entry/3,
-	   update_accessible_audio_entry/4, update_selectable_audio_entry/4,
-	   selectable_video/1, selectable_audio/1, update_accessory_mode/3,
-	   accessible_audio/1]).
+    [update_accessible_video_entry/3, update_selectable_video_entry/3,
+     update_accessible_audio_entry/4, update_selectable_audio_entry/4,
+     selectable_video/1, selectable_audio/1, update_accessory_mode/3,
+     accessible_audio/1, preferred_audio/1,
+     set_preferred_audio_entry/3, update_preferred_audio_entry/1,
+     clear_preferred_audio_entry/1]).
 
 
 rules([update_accessible_video_entry/3, update_selectable_video_entry/3,
        update_accessible_audio_entry/4, update_selectable_audio_entry/4,
-       update_accessory_mode/3]).
+       update_accessory_mode/3,
+       set_preferred_audio_entry/3, update_preferred_audio_entry/1,
+       clear_preferred_audio_entry/1]).
 
 
 
@@ -78,6 +82,63 @@ update_selectable_video_entry(Accessory, ConnState, List) :-
     ;
         List = [].
 
+
+/*
+ * set_preferred_audio_entry
+ *
+ * Set preferred audio entry to 1 if accessory with the same name is
+ * selectable.
+ */
+preferred_audio_entry_list_elem(Accessory, Value, Elem) :-
+    Elem = [preferred_audio, [name, Accessory], [preferred, Value]].
+
+commonname_to_accessory_name(Common, Name) :-
+    fact_exists('com.nokia.policy.audio_output_configuration',
+        [device, mode, hwid, type, commonname],
+        [Name, _, _, _, Common]).
+
+preferred_audio_entry(CommonName, ReqState, Elem) :-
+    commonname_to_accessory_name(CommonName, Accessory),
+    audio_device_selectable(Accessory, Selectable),
+    NewValue is ReqState /\ Selectable,
+    preferred_audio_entry_list_elem(Accessory, NewValue, Elem).
+
+set_preferred_audio_entry(CommonName, ReqState, List) :-
+    commonname_to_accessory_name(CommonName, _) *->
+        findall(E, preferred_audio_entry(CommonName, ReqState, E), List)
+    ;
+        List = [].
+
+/*
+ * update_preferred_audio_entry
+ *
+ * Reset all preferred entries to 0 if accessory is not selectable.
+ */
+preferred_allowed_entry(Elem) :-
+    audio_device_preferred(Accessory, 1),
+    audio_device_selectable(Accessory, 0),
+    preferred_audio_entry_list_elem(Accessory, 0, Elem).
+
+update_preferred_audio_entry(List) :-
+    audio_device_preferred(_, 1) *->
+        findall(E, preferred_allowed_entry(E), List)
+    ;
+        List = [].
+
+/*
+ * clear_preferred_audio_entry/1
+ *
+ * Set all preferred audio entries with value 1 to 0.
+ */
+clear_preferred_all(Elem) :-
+    audio_device_preferred(Accessory, 1),
+    preferred_audio_entry_list_elem(Accessory, 0, Elem).
+
+clear_preferred_audio_entry(List) :-
+    audio_device_preferred(_, 1) *->
+        findall(E, clear_preferred_all(E), List)
+    ;
+        List = [].
 
 /*
  * update_accessible_audio_entry
@@ -298,11 +359,23 @@ accessible_audio(X) :-
 		[X, 1, 1]).
 
 
+audio_device_selectable(D, S) :-
+    fact_exists('com.nokia.policy.audio_device_selectable',
+                [name, selectable],
+                [D, S]).
+
 selectable_audio(D) :-
     fact_exists('com.nokia.policy.audio_device_selectable',
                 [name, selectable],
                 [D, 1]).
 
+audio_device_preferred(D, V) :-
+    fact_exists('com.nokia.policy.audio_device_preferred',
+                [name, preferred],
+                [D, V]).
+
+preferred_audio(D) :-
+    audio_device_preferred(D, 1).
 
 accessory_mode_for_type(D, T, M) :-
     fact_exists('com.nokia.policy.audio_mode',

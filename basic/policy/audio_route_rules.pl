@@ -17,41 +17,19 @@ resource_class_privacy(alien      , public).
 resource_class_privacy(aliencall  , public).
 resource_class_privacy(nobody     , public).
 
-/*
- * implicated privacies
- */
-%
-% active video calls implicate 'public' privacy
-%
 implicated_privacy(public) :-
-    resource:resource_owner(audio_playback, call),
-    resource:resource_owner(video_playback, call).
+    fail.
 
+% never route to fmradio during active call.
+fmradio_invalid(Class, any) :-
+    Class = camera ;
+    context:call_state(active) ;
+    context:call_state(incoming) ;
+    context:call_state(outgoing),!.
 
 /*
  * Here is a bunch of exception for audio routing
  */
-%
-% never route voice call output to public devices
-% explicitly demands it via privacy override, UNLESS
-% device doesn't have earpiece accessory.
-invalid_audio_device_choice_in_class(Device) :-
-    ((audio_route:privacy_override(public) ; implicated_privacy(public)) *-> Privacy=private ; Privacy=public),
-    % if earpiece exists in device, use audio_device_privacy/2 always,
-    % but if the earpiece doesn't exist, only when policy_override is public
-    % do the audio_device_privacy/2 call. This way with earpiece-less device
-    % we treat ihfforcall as private, and route to ihfforcall by default, and
-    % route to other accessories if they are present. Then when
-    % privacy_override is enabled we route only to ihfforcall.
-    (accessible_audio(earpiece) -> audio_device_privacy(Privacy, Device)
-                                 ; (audio_route:privacy_override(public),
-                                     audio_device_privacy(Privacy, Device))).
-
-invalid_audio_device_choice(call, sink, Device) :-
-    (invalid_audio_device_choice_in_class(Device) -> true ; fail).
-
-invalid_audio_device_choice(aliencall, sink, Device) :-
-    (invalid_audio_device_choice_in_class(Device) -> true ; fail).
 
 % allow voicecall source only if call is active
 invalid_audio_device_choice(Class, source, voicecall) :-
@@ -60,13 +38,6 @@ invalid_audio_device_choice(Class, source, voicecall) :-
 % slave audio device is never valid choice for routing
 invalid_audio_device_choice(_, _, Device) :-
     slave_audio_device(Device).
-
-% never route to fmradio during active call.
-fmradio_invalid(Class, any) :-
-    Class = camera ;
-    context:call_state(active) ;
-    context:call_state(incoming) ;
-    context:call_state(outgoing),!.
 
 invalid_audio_device_choice(Class, source, headphoneasfmradiolp) :-
     fmradio_invalid(Class, any).
@@ -85,13 +56,6 @@ invalid_audio_device_choice(Class, source, headsetasfmradio) :-
 
 invalid_audio_device_choice(Class, source, lineoutasfmradio) :-
     fmradio_invalid(Class, any).
-
-% do not route to accessories if speaker override is on.
-% this allows routing to speaker even when not in call, like
-% during listening to fmradio.
-invalid_audio_device_choice(_, sink, Device) :-
-    audio_accessory(Device),
-    speaker_override.
 
 % do not route *forcall if call is not active
 %
@@ -156,6 +120,19 @@ invalid_audio_device_choice(Class, _, bthspforalien) :-
 invalid_audio_device_choice(Class, _, bta2dpforalien) :-
     not(Class = aliencall).
 
+% do not route *foralien to accessory source if sink is not routed to it
+invalid_audio_device_choice(_, source, headsetforalien) :-
+    not(audio_route:get_route(sink, headsetforalien)).
+
+invalid_audio_device_choice(_, source, bthfpforalien) :-
+    not(audio_route:get_route(sink, bthfpforalien)).
+
+invalid_audio_device_choice(_, source, bthspforalien) :-
+    not(audio_route:get_route(sink, bthspforalien)).
+
+invalid_audio_device_choice(_, source, bta2dpforalien) :-
+    not(audio_route:get_route(sink, bta2dpforalien)).
+
 % do not route to any a2dp devices if aliencall is active.
 % that means use only hsp bt devices, or ihf, headphones, etc.
 %
@@ -215,13 +192,15 @@ invalid_audio_device_choice(ringtone, sink, Device) :-
 %
 % do not route anything to earpiece if we had no active call 
 %
-invalid_audio_device_choice(_, sink, earpiece) :-
-    not(resource:granted_resource(call, audio_playback)).
-
 invalid_audio_device_choice(_, sink, earpieceforcall) :-
     not(resource:granted_resource(call, audio_playback)).
 
 invalid_audio_device_choice(_, sink, earpieceandtvout) :-
+    not(resource:granted_resource(call, audio_playback)).
+
+% do not route to earpiece unless there is a call or the route is preferred
+invalid_audio_device_choice(_, sink, earpiece) :-
+    not(preferred_audio(earpiece)),
     not(resource:granted_resource(call, audio_playback)).
 
 
@@ -297,6 +276,13 @@ invalid_audio_device_choice(_, source, nullsource) :-
 
 invalid_audio_device_choice(_, _, incompatible).
 
+
+%
+% If any device is preferred don't route to other devices.
+%
+invalid_audio_device_choice(_, sink, Device) :-
+    preferred_audio(_),
+    not(preferred_audio(Device)).
 
 /*
  * Supporting predicates
