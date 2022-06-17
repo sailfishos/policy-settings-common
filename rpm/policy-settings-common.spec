@@ -1,6 +1,6 @@
 Name:       policy-settings-common
 Summary:    Common policy settings
-Version:    0.12.1
+Version:    0.13.0
 Release:    1
 License:    GPLv2+
 Source0:    %{name}-%{version}.tar.bz2
