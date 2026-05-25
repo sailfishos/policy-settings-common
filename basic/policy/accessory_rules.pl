@@ -39,6 +39,8 @@ accessory_exclude( headset, headphone ).
 accessory_exclude( headset, lineout   ).
 accessory_exclude( headset, tvout     ).
 accessory_exclude( headset, headmike  ).
+accessory_exclude( headset, usbheadset ).
+accessory_exclude( headset, usbdevice ).
 
 %
 % *** headphone ***
@@ -51,6 +53,8 @@ accessory_exclude( headphone, headset  ).
 accessory_exclude( headphone, lineout  ).
 accessory_exclude( headphone, tvout    ).
 accessory_exclude( headphone, headmike ).
+accessory_exclude( headphone, usbheadset ).
+accessory_exclude( headphone, usbdevice ).
 
 %
 % *** lineout ***

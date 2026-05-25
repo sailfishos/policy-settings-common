@@ -68,12 +68,15 @@ $audio_device_accessible += { name: headset                 , driver: 1, connect
 $audio_device_accessible += { name: bthfp                   , driver: 0, connected: 0 }
 $audio_device_accessible += { name: bthsp                   , driver: 0, connected: 0 }
 $audio_device_accessible += { name: bta2dp                  , driver: 0, connected: 0 }
-# We consider the usb audio devices to be always connected, as the driver and
-# selectable are updated when the interface appears.
-# We will never route to usb audio unless the device is selectable, so this
-# shouldn't cause any problems.
+# We consider the usbaudio and usbmic devices to be always connected, as the driver
+# is only updated to 1 when the device connects. Device is selectable when both driver
+# and connected are 1.
 $audio_device_accessible += { name: usbaudio                , driver: 0, connected: 1 }
 $audio_device_accessible += { name: usbmic                  , driver: 0, connected: 1 }
+# Other usb devices get both driver and connected values normally.
+$audio_device_accessible += { name: usbdevice               , driver: 0, connected: 0 }
+$audio_device_accessible += { name: usbheadset              , driver: 0, connected: 0 }
+$audio_device_accessible += { name: usbmicrophone           , driver: 0, connected: 0 }
 $audio_device_accessible += { name: fmradioloopback         , driver: 0, connected: 0 }
 $audio_device_accessible += { name: fmradio                 , driver: 0, connected: 0 }
 # voicecall is always connected, we rely on xpolicy.conf info on whether the route exists
@@ -116,6 +119,13 @@ $audio_device_selectable += { name: ihfandheadset           , selectable: 0 }
 $audio_device_selectable += { name: ihfandheadphone         , selectable: 0 }
 $audio_device_selectable += { name: ihfandlineout           , selectable: 0 }
 $audio_device_selectable += { name: tvoutandbta2dp          , selectable: 0 }
+$audio_device_selectable += { name: usbdevice               , selectable: 0 }
+$audio_device_selectable += { name: usbdeviceforcall        , selectable: 0 }
+$audio_device_selectable += { name: usbdeviceforalien       , selectable: 0 }
+$audio_device_selectable += { name: usbheadset              , selectable: 0 }
+$audio_device_selectable += { name: usbheadsetforcall       , selectable: 0 }
+$audio_device_selectable += { name: usbheadsetforalien      , selectable: 0 }
+$audio_device_selectable += { name: usbmicrophone           , selectable: 0 }
 $audio_device_selectable += { name: usbaudio                , selectable: 0 }
 $audio_device_selectable += { name: usbmic                  , selectable: 0 }
 $audio_device_selectable += { name: fmradioloopback         , selectable: 0 }
@@ -163,6 +173,13 @@ $audio_device_preferred += { name: bta2dpforalien           , preferred: 0 }
 $audio_device_preferred += { name: ihfandheadset            , preferred: 0 }
 $audio_device_preferred += { name: ihfandheadphone          , preferred: 0 }
 $audio_device_preferred += { name: tvoutandbta2dp           , preferred: 0 }
+$audio_device_preferred += { name: usbdevice                , preferred: 0 }
+$audio_device_preferred += { name: usbdeviceforcall         , preferred: 0 }
+$audio_device_preferred += { name: usbdeviceforalien        , preferred: 0 }
+$audio_device_preferred += { name: usbheadset               , preferred: 0 }
+$audio_device_preferred += { name: usbheadsetforcall        , preferred: 0 }
+$audio_device_preferred += { name: usbheadsetforalien       , preferred: 0 }
+$audio_device_preferred += { name: usbmicrophone            , preferred: 0 }
 $audio_device_preferred += { name: usbaudio                 , preferred: 0 }
 $audio_device_preferred += { name: usbmic                   , preferred: 0 }
 $audio_device_preferred += { name: fmradioloopback          , preferred: 0 }
@@ -207,6 +224,12 @@ $audio_mode += { device: tvoutandbta2dp                     , default: bta2dp   
 $audio_mode += { device: ihfandheadset                      , default: lineout          }
 $audio_mode += { device: ihfandheadphone                    , default: lineout          }
 $audio_mode += { device: ihfandlineout                      , default: lineout          }
+$audio_mode += { device: usbdevice                          , default: usbaudio         }
+$audio_mode += { device: usbdeviceforcall                   , default: usbaudio         }
+$audio_mode += { device: usbdeviceforalien                  , default: usbaudio         }
+$audio_mode += { device: usbheadset                         , default: usbaudio         }
+$audio_mode += { device: usbheadsetforcall                  , default: usbaudio         }
+$audio_mode += { device: usbheadsetforalien                 , default: usbaudio         }
 $audio_mode += { device: usbaudio                           , default: usbaudio         }
 $audio_mode += { device: headphoneasfmradiolp               , default: lineout          }
 $audio_mode += { device: headsetasfmradiolp                 , default: lineout          }
@@ -311,11 +334,29 @@ $audio_output_configuration += { device: ihfandlineout  , mode:ihfandlineout    
 $audio_output_configuration += { device: tvoutandbta2dp , mode: bta2dp              ,\
                                  hwid: na               , type: builtinandwireless  ,\
                                  commonname: tvoutandbluetootha2dp }
-$audio_output_configuration += { device: usbaudio       , mode: usbaudio            ,\
-                                 hwid: na               , type: wired               ,\
+$audio_output_configuration += { device: usbdevice              , mode: usbaudio    ,\
+                                 hwid: na                       , type: wired       ,\
+                                 commonname: usbdevice }
+$audio_output_configuration += { device: usbdeviceforcall       , mode: usbaudio    ,\
+                                 hwid: na                       , type: wired       ,\
+                                 commonname: usbdevice }
+$audio_output_configuration += { device: usbdeviceforalien      , mode: usbaudio    ,\
+                                 hwid: na                       , type: wired       ,\
+                                 commonname: usbdevice }
+$audio_output_configuration += { device: usbheadset             , mode: usbaudio    ,\
+                                 hwid: na                       , type: wired       ,\
+                                 commonname: usbheadset }
+$audio_output_configuration += { device: usbheadsetforcall      , mode: usbaudio    ,\
+                                 hwid: na                       , type: wired       ,\
+                                 commonname: usbheadset }
+$audio_output_configuration += { device: usbheadsetforalien     , mode: usbaudio    ,\
+                                 hwid: na                       , type: wired       ,\
+                                 commonname: usbheadset }
+$audio_output_configuration += { device: usbaudio               , mode: usbaudio    ,\
+                                 hwid: na                       , type: wired       ,\
                                  commonname: usbaudio }
-$audio_output_configuration += { device: incompatible   , mode: lineout             ,\
-                                 hwid: na               , type: builtin             ,\
+$audio_output_configuration += { device: incompatible           , mode: lineout     ,\
+                                 hwid: na                       , type: builtin     ,\
                                  commonname: incompatible }
 
 # audio input configuration - this list needs to include all input devices from
@@ -346,8 +387,16 @@ $audio_input_configuration  += { device: bthspforcall         , type: wireless  
                                  commonname: bluetoothsco }
 $audio_input_configuration  += { device: bthspforalien        , type: wireless      ,\
                                  commonname: bluetoothsco }
+$audio_input_configuration  += { device: usbmicrophone        , type: wired         ,\
+                                 commonname: usbmicrophone }
+$audio_input_configuration  += { device: usbheadset           , type: wired         ,\
+                                 commonname: usbheadset }
+$audio_input_configuration  += { device: usbheadsetforcall    , type: wired         ,\
+                                 commonname: usbheadset }
+$audio_input_configuration  += { device: usbheadsetforalien   , type: wired         ,\
+                                 commonname: usbheadset }
 $audio_input_configuration  += { device: usbmic               , type: wired         ,\
-                                 commonname: usbaudio }
+                                 commonname: usbmic }
 $audio_input_configuration  += { device: headphoneasfmradiolp , type: wired         ,\
                                  commonname: fmradioloopback }
 $audio_input_configuration  += { device: headsetasfmradiolp   , type: wired         ,\
@@ -433,6 +482,14 @@ $audio_mute   += { device: bthfp                , mute: unmuted }
 $audio_mute   += { device: bthspforcall         , mute: unmuted }
 $audio_mute   += { device: bthspforalien        , mute: unmuted }
 $audio_mute   += { device: bthsp                , mute: unmuted }
+$audio_mute   += { device: usbdevice            , mute: unmuted }
+$audio_mute   += { device: usbdeviceforcall     , mute: unmuted }
+$audio_mute   += { device: usbdeviceforalien    , mute: unmuted }
+$audio_mute   += { device: usbheadset           , mute: unmuted }
+$audio_mute   += { device: usbheadsetforcall    , mute: unmuted }
+$audio_mute   += { device: usbheadsetforalien   , mute: unmuted }
+$audio_mute   += { device: usbmicrophone        , mute: unmuted }
+$audio_mute   += { device: usbaudio             , mute: unmuted }
 $audio_mute   += { device: usbmic               , mute: unmuted }
 $audio_mute   += { device: voicecall            , mute: unmuted }
 $audio_mute   += { device: fmradio              , mute: unmuted }

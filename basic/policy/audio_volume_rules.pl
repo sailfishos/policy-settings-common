@@ -378,7 +378,10 @@ ringtone_limit(Value) :-
     (audio_route:get_route(sink, ihfandheadphone);
      audio_route:get_route(sink, ihfandheadset);
      audio_route:get_route(sink, headphone);
-     audio_route:get_route(sink, headset)) *-> Value=77,!; 
+     audio_route:get_route(sink, headset);
+     audio_route:get_route(sink, usbaudio);
+     audio_route:get_route(sink, usbdevice);
+     audio_route:get_route(sink, usbheadset)) *-> Value=77,!; 
     % # Default volume
     Value=100,!.
 

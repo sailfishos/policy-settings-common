@@ -29,6 +29,13 @@ audio_device(headset).
 audio_device(headphoneforcall).
 audio_device(headphoneforalien).
 audio_device(headphone).
+audio_device(usbdeviceforcall).
+audio_device(usbdeviceforalien).
+audio_device(usbdevice).
+audio_device(usbheadsetforcall).
+audio_device(usbheadsetforalien).
+audio_device(usbheadset).
+audio_device(usbaudio).
 audio_device(lineoutforcall).
 audio_device(lineoutforalien).
 audio_device(lineout).
@@ -39,12 +46,12 @@ audio_device(earpieceforcall).
 audio_device(earpieceandtvout).
 audio_device(earpiece).
 audio_device(earpieceforalien).
+audio_device(usbmicrophone).
 audio_device(usbmic).
 audio_device(microphone).
 audio_device(backmicrophone).
 audio_device(ihfforcall).
 audio_device(ihfforalien).
-audio_device(usbaudio).
 audio_device(ihf).
 audio_device(fmradioloopback).
 audio_device(fmradio).
@@ -59,6 +66,12 @@ audio_device_type(sink  , bthfpforalien).
 audio_device_type(sink  , bthspforalien).
 audio_device_type(sink  , bta2dpforalien).
 audio_device_type(sink  , bta2dp).
+audio_device_type(sink  , usbdeviceforcall).
+audio_device_type(sink  , usbdeviceforalien).
+audio_device_type(sink  , usbdevice).
+audio_device_type(sink  , usbheadsetforcall).
+audio_device_type(sink  , usbheadsetforalien).
+audio_device_type(sink  , usbheadset).
 audio_device_type(sink  , usbaudio).
 audio_device_type(sink  , bthfpforcall).
 audio_device_type(sink  , bthspforcall).
@@ -99,6 +112,10 @@ audio_device_type(source, headset).
 audio_device_type(source, headsetforcall).
 audio_device_type(source, headsetforalien).
 audio_device_type(source, headmike).
+audio_device_type(source, usbheadsetforcall).
+audio_device_type(source, usbheadsetforalien).
+audio_device_type(source, usbheadset).
+audio_device_type(source, usbmicrophone).
 audio_device_type(source, usbmic).
 audio_device_type(source, microphone).
 audio_device_type(source, backmicrophone).
@@ -140,7 +157,14 @@ audio_device_privacy(public , microphone).
 audio_device_privacy(private, backmicrophone).
 audio_device_privacy(public , backmicrophone).
 audio_device_privacy(private, headmike).
+audio_device_privacy(private, usbdeviceforcall).
+audio_device_privacy(private, usbdeviceforalien).
+audio_device_privacy(private, usbdevice).
+audio_device_privacy(private, usbheadsetforcall).
+audio_device_privacy(private, usbheadsetforalien).
+audio_device_privacy(private, usbheadset).
 audio_device_privacy(private, usbaudio).
+audio_device_privacy(private, usbmicrophone).
 audio_device_privacy(private, usbmic).
 audio_device_privacy(private, fmradioloopback).
 audio_device_privacy(private, fmradio).
@@ -177,6 +201,13 @@ accessory(lineoutforalien).
 accessory(lineout).
 accessory(tvout).
 accessory(headmike).
+accessory(usbdeviceforcall).
+accessory(usbdeviceforalien).
+accessory(usbdevice).
+accessory(usbheadsetforcall).
+accessory(usbheadsetforalien).
+accessory(usbheadset).
+accessory(usbmicrophone).
 accessory(usbaudio).
 accessory(usbmic).
 
@@ -193,6 +224,9 @@ audio_accessory(headphone).
 audio_accessory(lineout).
 audio_accessory(tvout).
 audio_accessory(headmike).
+audio_accessory(usbdevice).
+audio_accessory(usbheadset).
+audio_accessory(usbmicrophone).
 audio_accessory(usbaudio).
 audio_accessory(usbmic).
 audio_accessory(fmradioloopback).
@@ -202,6 +236,11 @@ audio_accessory(voicecall).
 wired_audio_accessory(headset).
 wired_audio_accessory(headphone).
 wired_audio_accessory(lineout).
+wired_audio_accessory(usbdevice).
+wired_audio_accessory(usbheadset).
+wired_audio_accessory(usbmicrophone).
+wired_audio_accessory(usbaudio).
+wired_audio_accessory(usbmic).
 
 bt_audio_accessory(bta2dp).
 bt_audio_accessory(bta2dpforalien).
@@ -216,6 +255,8 @@ call_audio_device(ihf,          ihfforcall).
 call_audio_device(headset,      headsetforcall).
 call_audio_device(headphone,    headphoneforcall).
 call_audio_device(lineout,      lineoutforcall).
+call_audio_device(usbdevice,    usbdeviceforcall).
+call_audio_device(usbheadset,   usbheadsetforcall).
 call_audio_device(bthfp,        bthfpforcall).
 call_audio_device(bthsp,        bthspforcall).
 call_audio_device(earpiece,     earpieceforcall).
@@ -223,6 +264,8 @@ call_audio_device(ihf,          ihfforalien).
 call_audio_device(earpiece,     earpieceforalien).
 call_audio_device(headset,      headsetforalien).
 call_audio_device(headphone,    headphoneforalien).
+call_audio_device(usbdevice,    usbdeviceforalien).
+call_audio_device(usbheadset,   usbheadsetforalien).
 call_audio_device(bthfp,        bthfpforalien).
 call_audio_device(bthsp,        bthspforalien).
 call_audio_device(bta2dp,       bta2dpforalien).
