@@ -889,8 +889,6 @@ accessory_request:
 		$feature[name:voicecallrecord]:allowed = 1
 	end
 
-	resolve(all, '', 0)
-
 
 prefer_request:
 	$ignore_privacy_change:value = 1
