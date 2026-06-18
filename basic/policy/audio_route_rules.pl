@@ -74,6 +74,12 @@ invalid_audio_device_choice(Class, sink, headphoneforcall) :-
 invalid_audio_device_choice(Class, sink, lineoutforcall) :-
     not(Class = call).
 
+invalid_audio_device_choice(Class, sink, usbdeviceforcall) :-
+    not(Class = call).
+
+invalid_audio_device_choice(Class, _, usbheadsetforcall) :-
+    not(Class = call).
+
 invalid_audio_device_choice(Class, sink, bthfpforcall) :-
     not(Class = call).
 
@@ -111,6 +117,12 @@ invalid_audio_device_choice(Class, sink, lineoutforalien) :-
 invalid_audio_device_choice(Class, sink, earpieceforalien) :-
     not(Class = aliencall).
 
+invalid_audio_device_choice(Class, sink, usbdeviceforalien) :-
+    not(Class = aliencall).
+
+invalid_audio_device_choice(Class, _, usbheadsetforalien) :-
+    not(Class = aliencall).
+
 invalid_audio_device_choice(Class, _, bthfpforalien) :-
     not(Class = aliencall).
 
@@ -123,6 +135,12 @@ invalid_audio_device_choice(Class, _, bta2dpforalien) :-
 % do not route *foralien to accessory source if sink is not routed to it
 invalid_audio_device_choice(_, source, headsetforalien) :-
     not(audio_route:get_route(sink, headsetforalien)).
+
+invalid_audio_device_choice(_, source, usbdeviceforalien) :-
+    not(audio_route:get_route(sink, headsetforalien)).
+
+invalid_audio_device_choice(_, source, usbheadsetforalien) :-
+    not(audio_route:get_route(sink, usbheadsetforalien)).
 
 invalid_audio_device_choice(_, source, bthfpforalien) :-
     not(audio_route:get_route(sink, bthfpforalien)).
@@ -183,7 +201,7 @@ invalid_audio_device_choice(aliencall, sink, earpieceforalien) :-
 % headphone or headset
 %
 invalid_audio_device_choice(ringtone, sink, Device) :-
-    is_silent_profile *->(not(Device = headphone), not(Device = headset), not(Device = lineout));
+    is_silent_profile *->(not(Device = headphone), not(Device = headset), not(Device = lineout), not(Device = usbheadset));
     audio_accessory(Device),
     audio_device_privacy(private, Device),
     audio_device_type(sink, Device).
@@ -217,7 +235,7 @@ invalid_audio_device_choice(ringtone, sink, Device) :-
     twin_audio_device(Device).
 
 %
-% do not route cscall or ipcall to bta2dp or usbaudio
+% do not route cscall or ipcall to bta2dp
 %
 invalid_audio_device_choice(_, _, bta2dp) :-
     context:call_state(active) ;
@@ -234,7 +252,15 @@ invalid_audio_device_choice(_, _, bta2dpforalien) :-
     context:call_state(incoming) ;
     context:call_state(outgoing),!.
 
-invalid_audio_device_choice(_, _, usbaudio) :-
+%
+% do not route cscall to usbaudio
+%
+invalid_audio_device_choice(call, sink, usbaudio) :-
+    context:call_state(active) ;
+    context:call_state(incoming) ;
+    context:call_state(outgoing),!.
+
+invalid_audio_device_choice(call, source, usbmic) :-
     context:call_state(active) ;
     context:call_state(incoming) ;
     context:call_state(outgoing),!.
@@ -255,9 +281,13 @@ invalid_audio_device_choice(_, source, headset) :-
     not(audio_route:get_route(sink, headset)).
 
 %
-% Do not route from usbmic if fmradio is enabled
+% Do not route from usb microphones if fmradio is enabled
 %
 invalid_audio_device_choice(_, source, usbmic) :-
+    is_fmradio_enabled,
+    is_fmradioloopback_enabled.
+
+invalid_audio_device_choice(_, source, usbmicrophone) :-
     is_fmradio_enabled,
     is_fmradioloopback_enabled.
 
