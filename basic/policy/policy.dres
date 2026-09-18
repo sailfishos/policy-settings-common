@@ -571,14 +571,8 @@ update_feature_allowed: $context $audio_device_selectable
 		# enabled state is not reset during incoming call
 		if $feature[name:fmradio_no_antenna]:enabled == 1                       || \
 		   $audio_device_selectable[name:headset]:selectable == 1               || \
-		   $audio_device_selectable[name:headsetforcall]:selectable == 1        || \
-		   $audio_device_selectable[name:headsetforalien]:selectable == 1       || \
 		   $audio_device_selectable[name:headphone]:selectable == 1             || \
-		   $audio_device_selectable[name:headphoneforcall]:selectable == 1      || \
-		   $audio_device_selectable[name:headphoneforalien]:selectable == 1     || \
 		   $audio_device_selectable[name:lineout]:selectable == 1               || \
-		   $audio_device_selectable[name:lineoutforcall]:selectable == 1        || \
-		   $audio_device_selectable[name:lineoutforalien]:selectable == 1       || \
 		   $audio_device_selectable[name:ihfandlineout]:selectable == 1         || \
 		   $audio_device_selectable[name:ihfandheadphone]:selectable == 1       || \
 		   $audio_device_selectable[name:ihfandheadset]:selectable == 1         then
