@@ -130,12 +130,6 @@ $audio_device_selectable += { name: usbaudio                , selectable: 0 }
 $audio_device_selectable += { name: usbmic                  , selectable: 0 }
 $audio_device_selectable += { name: fmradioloopback         , selectable: 0 }
 $audio_device_selectable += { name: fmradio                 , selectable: 0 }
-$audio_device_selectable += { name: headphoneasfmradiolp    , selectable: 0 }
-$audio_device_selectable += { name: headsetasfmradiolp      , selectable: 0 }
-$audio_device_selectable += { name: lineoutasfmradiolp      , selectable: 0 }
-$audio_device_selectable += { name: headphoneasfmradio      , selectable: 0 }
-$audio_device_selectable += { name: headsetasfmradio        , selectable: 0 }
-$audio_device_selectable += { name: lineoutasfmradio        , selectable: 0 }
 $audio_device_selectable += { name: voicecall               , selectable: 0 }
 $audio_device_selectable += { name: incompatible            , selectable: 0 }
 
@@ -184,10 +178,6 @@ $audio_device_preferred += { name: usbaudio                 , preferred: 0 }
 $audio_device_preferred += { name: usbmic                   , preferred: 0 }
 $audio_device_preferred += { name: fmradioloopback          , preferred: 0 }
 $audio_device_preferred += { name: fmradio                  , preferred: 0 }
-$audio_device_preferred += { name: headphoneasfmradiolp     , preferred: 0 }
-$audio_device_preferred += { name: headsetasfmradiolp       , preferred: 0 }
-$audio_device_preferred += { name: headphoneasfmradio       , preferred: 0 }
-$audio_device_preferred += { name: headsetasfmradio         , preferred: 0 }
 $audio_device_preferred += { name: voicecall                , preferred: 0 }
 $audio_device_preferred += { name: incompatible             , preferred: 0 }
 
@@ -231,12 +221,6 @@ $audio_mode += { device: usbheadset                         , default: usbaudio 
 $audio_mode += { device: usbheadsetforcall                  , default: usbaudio         }
 $audio_mode += { device: usbheadsetforalien                 , default: usbaudio         }
 $audio_mode += { device: usbaudio                           , default: usbaudio         }
-$audio_mode += { device: headphoneasfmradiolp               , default: lineout          }
-$audio_mode += { device: headsetasfmradiolp                 , default: lineout          }
-$audio_mode += { device: lineoutasfmradiolp                 , default: lineout          }
-$audio_mode += { device: headphoneasfmradio                 , default: lineout          }
-$audio_mode += { device: headsetasfmradio                   , default: lineout          }
-$audio_mode += { device: lineoutasfmradio                   , default: lineout          }
 
 
 # audio output configuration - this list needs to include all output devices from
@@ -397,20 +381,12 @@ $audio_input_configuration  += { device: usbheadsetforalien   , type: wired     
                                  commonname: usbheadset }
 $audio_input_configuration  += { device: usbmic               , type: wired         ,\
                                  commonname: usbmic }
-$audio_input_configuration  += { device: headphoneasfmradiolp , type: wired         ,\
-                                 commonname: fmradioloopback }
-$audio_input_configuration  += { device: headsetasfmradiolp   , type: wired         ,\
-                                 commonname: fmradioloopback }
-$audio_input_configuration  += { device: lineoutasfmradiolp   , type: wired         ,\
-                                 commonname: fmradioloopback }
-$audio_input_configuration  += { device: headphoneasfmradio   , type: wired         ,\
-                                 commonname: fmradio }
-$audio_input_configuration  += { device: headsetasfmradio     , type: wired         ,\
-                                 commonname: fmradio }
-$audio_input_configuration  += { device: lineoutasfmradio     , type: wired         ,\
-                                 commonname: fmradio }
 $audio_input_configuration  += { device: voicecall            , type: builtin       ,\
                                  commonname: voicecallrecord }
+$audio_input_configuration  += { device: fmradioloopback      , type: builtin       ,\
+                                 commonname: fmradioloopback }
+$audio_input_configuration  += { device: fmradio              , type: builtin       ,\
+                                 commonname: fmradio }
 $audio_input_configuration  += { device: incompatible         , type: builtin       ,\
                                  commonname: incompatible }
 
@@ -494,12 +470,6 @@ $audio_mute   += { device: usbmic               , mute: unmuted }
 $audio_mute   += { device: voicecall            , mute: unmuted }
 $audio_mute   += { device: fmradio              , mute: unmuted }
 $audio_mute   += { device: fmradioloopback      , mute: unmuted }
-$audio_mute   += { device: headphoneasfmradiolp , mute: unmuted }
-$audio_mute   += { device: headsetasfmradiolp   , mute: unmuted }
-$audio_mute   += { device: lineoutasfmradiolp   , mute: unmuted }
-$audio_mute   += { device: headphoneasfmradio   , mute: unmuted }
-$audio_mute   += { device: headsetasfmradio     , mute: unmuted }
-$audio_mute   += { device: lineoutasfmradio     , mute: unmuted }
 $audio_mute   += { device: nullsource           , mute: unmuted }
 
 # vibra control
@@ -523,6 +493,8 @@ $feature  += { name: fmradioloopback    , allowed: 0        , enabled: 0 }
 $feature  += { name: voicecallrecord    , allowed: 0        , enabled: 0 }
 $feature  += { name: speaker            , allowed: 0        , enabled: 0 }
 $feature  += { name: bluetooth_override , allowed: 0        , enabled: 0 }
+$feature  += { name: fmradio_no_antenna , allowed: 1        , enabled: 0 }  # enabled -> fmradio feature can be
+                                                                            # enabled without wired accessory
 
 # mobile device management
 $mdm       = { name: microphone         , value: enabled }
@@ -597,7 +569,8 @@ update_feature_allowed: $context $audio_device_selectable
 		# fmradio is allowed only when call is not active
 		# however, keep allow on during ringtone as well so that
 		# enabled state is not reset during incoming call
-		if $audio_device_selectable[name:headset]:selectable == 1               || \
+		if $feature[name:fmradio_no_antenna]:enabled == 1                       || \
+		   $audio_device_selectable[name:headset]:selectable == 1               || \
 		   $audio_device_selectable[name:headsetforcall]:selectable == 1        || \
 		   $audio_device_selectable[name:headsetforalien]:selectable == 1       || \
 		   $audio_device_selectable[name:headphone]:selectable == 1             || \

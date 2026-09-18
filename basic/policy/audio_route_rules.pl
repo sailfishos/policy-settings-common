@@ -35,28 +35,6 @@ fmradio_invalid(Class, any) :-
 invalid_audio_device_choice(Class, source, voicecall) :-
     not(Class = call).
 
-% slave audio device is never valid choice for routing
-invalid_audio_device_choice(_, _, Device) :-
-    slave_audio_device(Device).
-
-invalid_audio_device_choice(Class, source, headphoneasfmradiolp) :-
-    fmradio_invalid(Class, any).
-
-invalid_audio_device_choice(Class, source, headsetasfmradiolp) :-
-    fmradio_invalid(Class, any).
-
-invalid_audio_device_choice(Class, source, lineoutasfmradiolp) :-
-    fmradio_invalid(Class, any).
-
-invalid_audio_device_choice(Class, source, headphoneasfmradio) :-
-    fmradio_invalid(Class, any).
-
-invalid_audio_device_choice(Class, source, headsetasfmradio) :-
-    fmradio_invalid(Class, any).
-
-invalid_audio_device_choice(Class, source, lineoutasfmradio) :-
-    fmradio_invalid(Class, any).
-
 % do not route *forcall if call is not active
 %
 invalid_audio_device_choice(Class, sink, earpieceforcall) :-
