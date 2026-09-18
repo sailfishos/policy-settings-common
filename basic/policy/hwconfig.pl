@@ -6,10 +6,8 @@ audio_device_type(sink).
 audio_device_type(source).
 
 audio_device(incompatible).
-audio_device(headphoneasfmradiolp).
-audio_device(headsetasfmradiolp).
-audio_device(headphoneasfmradio).
-audio_device(headsetasfmradio).
+audio_device(fmradioloopback).
+audio_device(fmradio).
 audio_device(nullsource).
 audio_device(voicecall).
 audio_device(tvoutandbta2dp).
@@ -53,8 +51,6 @@ audio_device(backmicrophone).
 audio_device(ihfforcall).
 audio_device(ihfforalien).
 audio_device(ihf).
-audio_device(fmradioloopback).
-audio_device(fmradio).
 audio_device(null).
 
 
@@ -98,10 +94,6 @@ audio_device_type(sink  , bthfp).
 audio_device_type(sink  , bthsp).
 audio_device_type(source, fmradioloopback).
 audio_device_type(source, fmradio).
-audio_device_type(source, headphoneasfmradiolp).
-audio_device_type(source, headsetasfmradiolp).
-audio_device_type(source, headphoneasfmradio).
-audio_device_type(source, headsetasfmradio).
 audio_device_type(source, nullsource).
 audio_device_type(source, voicecall).
 audio_device_type(source, bthfpforcall).
@@ -168,12 +160,6 @@ audio_device_privacy(private, usbmicrophone).
 audio_device_privacy(private, usbmic).
 audio_device_privacy(private, fmradioloopback).
 audio_device_privacy(private, fmradio).
-audio_device_privacy(private, lineoutasfmradiolp).
-audio_device_privacy(private, headphoneasfmradiolp).
-audio_device_privacy(private, headsetasfmradiolp).
-audio_device_privacy(private, lineoutasfmradio).
-audio_device_privacy(private, headphoneasfmradio).
-audio_device_privacy(private, headsetasfmradio).
 audio_device_privacy(private, voicecall).
 audio_device_privacy(private, nullsource).
 
@@ -302,20 +288,3 @@ twin_audio_device(headphone , ihf     , ihfandheadphone).
 twin_audio_device(lineout   , ihf     , ihfandlineout).
 twin_audio_device(tvout     , ihf     , ihfandtvout).
 twin_audio_device(tvout     , earpiece, earpieceandtvout). % not really a twin
-
-slave_audio_device(fmradioloopback).
-slave_audio_device(fmradio).
-
-slave_audio_device(headphone        , fmradioloopback   , headphoneasfmradiolp).
-slave_audio_device(fmradioloopback  , headphone         , headphoneasfmradiolp).
-slave_audio_device(headset          , fmradioloopback   , headsetasfmradiolp).
-slave_audio_device(fmradioloopback  , headset           , headsetasfmradiolp).
-slave_audio_device(lineout          , fmradioloopback   , lineoutasfmradiolp).
-slave_audio_device(fmradioloopback  , lineout           , lineoutasfmradiolp).
-
-slave_audio_device(headphone        , fmradio           , headphoneasfmradio).
-slave_audio_device(fmradio          , headphone         , headphoneasfmradio).
-slave_audio_device(headset          , fmradio           , headsetasfmradio).
-slave_audio_device(fmradio          , headset           , headsetasfmradio).
-slave_audio_device(lineout          , fmradio           , lineoutasfmradio).
-slave_audio_device(fmradio          , lineout           , lineoutasfmradio).
