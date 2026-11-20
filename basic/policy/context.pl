@@ -73,6 +73,10 @@ voicecall_record_state(Value) :-
 	voicecall_device_selectable(1) *-> (call_state_all(any) *-> Value=enabled ; Value=disabled) ;
 	                                   Value=disabled.
 
+hearing_aid_state(Value) :-
+	fact_exists('com.nokia.policy.feature', [name, enabled], [hearing_aid, 1]) *->
+		Value=enabled ; Value=disabled.
+
 emergency_call_state(Value) :-
 	is_emergency_call *-> Value=active ; Value=inactive.
 
@@ -95,6 +99,11 @@ context_variable(media_state, Entry) :-
 context_variable(voicecall_record, Entry) :-
 	voicecall_record_state(State),
 	set_context_variable_and_value(voicecall_record, State, Entry).
+
+% hearing_aid context value
+context_variable(hearing_aid, Entry) :-
+	hearing_aid_state(State),
+	set_context_variable_and_value(hearing_aid, State, Entry).
 
 context_variable(emergency_call, Entry) :-
 	emergency_call_state(State),

@@ -496,6 +496,8 @@ $feature  += { name: bluetooth_override , allowed: 0        , enabled: 0 }
 $feature  += { name: fmradio_no_antenna , allowed: 1        , enabled: 0 }  # enabled -> fmradio feature can be
                                                                             # enabled without wired accessory
 
+$feature  += { name: hearing_aid        , allowed: 1        , enabled: 0 }
+
 # mobile device management
 $mdm       = { name: microphone         , value: enabled }
 
@@ -505,6 +507,7 @@ $context   = { variable: bluetooth_override     ,  value: disabled }  # disabled
 $context   = { variable: media_state            ,  value: inactive }  # inactive - background - foreground - active
 $context   = { variable: voicecall_record       ,  value: disabled }  # disabled - enabled
 $context   = { variable: emergency_call         ,  value: inactive }  # inactive - active
+$context   = { variable: hearing_aid            ,  value: disabled }  # disabled - enabled
 #$context   = { variable: call_audio_type,  value: none     }
 #$context   = { variable: camera         ,  value: inactive }
 
