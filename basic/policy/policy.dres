@@ -65,9 +65,10 @@ $audio_device_accessible += { name: headmike                , driver: 1, connect
 $audio_device_accessible += { name: headphone               , driver: 1, connected: 0 }
 $audio_device_accessible += { name: lineout                 , driver: 1, connected: 0 }
 $audio_device_accessible += { name: headset                 , driver: 1, connected: 0 }
-$audio_device_accessible += { name: bthfp                   , driver: 0, connected: 0 }
-$audio_device_accessible += { name: bthsp                   , driver: 0, connected: 0 }
-$audio_device_accessible += { name: bta2dp                  , driver: 0, connected: 0 }
+# PulseAudio reports Bluetooth profile availability through the driver field.
+$audio_device_accessible += { name: bthfp                   , driver: 0, connected: 1 }
+$audio_device_accessible += { name: bthsp                   , driver: 0, connected: 1 }
+$audio_device_accessible += { name: bta2dp                  , driver: 0, connected: 1 }
 # We consider the usbaudio and usbmic devices to be always connected, as the driver
 # is only updated to 1 when the device connects. Device is selectable when both driver
 # and connected are 1.
